@@ -95,7 +95,7 @@ export default function Footer() {
             <div className="inline-flex items-center gap-2.5 px-3 py-1.5 bg-charcoal border border-charcoal-border text-xs font-mono text-steel-light">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
               <Clock className="w-3.5 h-3.5 text-copper" />
-              <span>MUMBAI (IST): {istTime || "12:00:00 PM"}</span>
+              <span suppressHydrationWarning>MUMBAI (IST): {istTime || "12:00:00 PM"}</span>
             </div>
           </div>
 

@@ -112,4 +112,107 @@
   .animate-ember {
     animation: emberPulse 6s ease-in-out infinite;
   }
+
+  /* Liquid Metal Surface & Medallion Global Styles (Zero SSR Hydration Mismatch) */
+  .liquid-surface > canvas,
+  .liquid-surface > .ls-fallback {
+    visibility: hidden;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .liquid-surface .ls-edge {
+    inset: 0.7px;
+    padding: var(--ls-width, 3.4px);
+    background: radial-gradient(ellipse at var(--ls-x, 32%) 0%, var(--ls-light, #eef6ff), transparent 40%),
+                conic-gradient(from var(--ls-phase, -45deg), var(--ls-shade, #111a28), var(--ls-light, #eef6ff) 21%, var(--ls-shade, #111a28) 37%, var(--ls-accent, #c47a48) 51%, var(--ls-light, #eef6ff) 68%, var(--ls-shade, #111a28) 85%, var(--ls-light, #eef6ff));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: brightness(1.05);
+  }
+
+  .liquid-surface .ls-light {
+    background: radial-gradient(ellipse 120px 80% at var(--ls-x, 32%) var(--ls-y, 20%), var(--ls-light, #eef6ff), transparent 80%);
+    opacity: calc(var(--ls-energy, 0) * 0.25);
+  }
+
+  .liquid-surface[data-renderer=webgl] > .ls-gpu,
+  .liquid-surface[data-renderer=fallback] > .ls-fallback {
+    visibility: visible;
+  }
+
+  .lm-medallion {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    flex-shrink: 0;
+    isolation: isolate;
+    user-select: none;
+  }
+
+  .lm-medallion[data-renderer=pending] {
+    visibility: hidden;
+  }
+
+  .lm-medallion .lmm-layer {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    border-radius: 50%;
+  }
+
+  .lm-medallion .lmm-torus {
+    background: radial-gradient(ellipse at 24% 10%, #fff, transparent 40%),
+                conic-gradient(from var(--lmm-phase, -44deg), #deedff, #273a58 8%, #fff 20%, #d6e9ff 26%, #182136 34%, #6b81a1 42%, #f8fdff 49%, #bddcff 55%, #263246 66%, #f5d8ae 72%, #fff 79%, #192336 89%, #deedff);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: saturate(var(--lmm-saturation, 1.2)) drop-shadow(0 1px 1px #060b1488);
+  }
+
+  .lm-medallion[data-renderer=webgl] .lmm-torus {
+    visibility: hidden;
+  }
+
+  .lm-medallion .lmm-center {
+    transition: transform 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .lm-medallion[data-pressed=true]:not([data-still=true]) .lmm-center {
+    transform: scale(0.98);
+  }
+
+  .lm-medallion[data-still=true] .lmm-center {
+    transition: none;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lm-medallion .lmm-center {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .lm-medallion .lmm-torus,
+    .lm-medallion canvas {
+      display: none !important;
+    }
+    .lm-medallion .lmm-glass {
+      background: Canvas !important;
+      box-shadow: none !important;
+      border: 1px solid CanvasText;
+    }
+    .lm-medallion .lmm-center {
+      color: CanvasText !important;
+      filter: none !important;
+    }
+  }
 }

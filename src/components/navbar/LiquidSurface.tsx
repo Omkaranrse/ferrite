@@ -655,36 +655,6 @@ export default function LiquidSurface(props: LiquidSurfaceProps) {
         overflow: "visible",
       }}
     >
-      <style>{`
-        .liquid-surface > canvas, .liquid-surface > .ls-fallback {
-          visibility: hidden;
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: inherit;
-          pointer-events: none;
-        }
-        .liquid-surface .ls-edge {
-          inset: .7px;
-          padding: var(--ls-width, 3.4px);
-          background: radial-gradient(ellipse at var(--ls-x, 32%) 0%, var(--ls-light, #eef6ff), transparent 40%),
-                      conic-gradient(from var(--ls-phase, -45deg), var(--ls-shade, #111a28), var(--ls-light, #eef6ff) 21%, var(--ls-shade, #111a28) 37%, var(--ls-accent, #c47a48) 51%, var(--ls-light, #eef6ff) 68%, var(--ls-shade, #111a28) 85%, var(--ls-light, #eef6ff));
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          filter: brightness(1.05);
-        }
-        .liquid-surface .ls-light {
-          background: radial-gradient(ellipse 120px 80% at var(--ls-x, 32%) var(--ls-y, 20%), var(--ls-light, #eef6ff), transparent 80%);
-          opacity: calc(var(--ls-energy, 0) * .25);
-        }
-        .liquid-surface[data-renderer=webgl] > .ls-gpu,
-        .liquid-surface[data-renderer=fallback] > .ls-fallback {
-          visibility: visible;
-        }
-      `}</style>
       <span className="ls-fallback ls-light" style={layerStyle} />
       <span className="ls-fallback ls-edge" style={{ ...layerStyle, inset: 0.7 }} />
       <canvas ref={canvasRef} className="ls-gpu" width={1} height={1} style={layerStyle} />

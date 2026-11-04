@@ -56,19 +56,6 @@ void main(){
     gl_FragColor=vec4(col,alpha);
 }`;
 
-const MEDALLION_CSS = `
-.lm-medallion{position:relative;display:inline-grid;place-items:center;flex-shrink:0;isolation:isolate;user-select:none}
-.lm-medallion[data-renderer=pending]{visibility:hidden}
-.lm-medallion .lmm-layer{position:absolute;pointer-events:none;user-select:none;border-radius:50%}
-.lm-medallion .lmm-torus{background:radial-gradient(ellipse at 24% 10%,#fff,transparent 40%),conic-gradient(from var(--lmm-phase,-44deg),#deedff,#273a58 8%,#fff 20%,#d6e9ff 26%,#182136 34%,#6b81a1 42%,#f8fdff 49%,#bddcff 55%,#263246 66%,#f5d8ae 72%,#fff 79%,#192336 89%,#deedff);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;filter:saturate(var(--lmm-saturation,1.2)) drop-shadow(0 1px 1px #060b1488)}
-.lm-medallion[data-renderer=webgl] .lmm-torus{visibility:hidden}
-.lm-medallion .lmm-center{transition:transform 150ms cubic-bezier(.2,.8,.2,1)}
-.lm-medallion[data-pressed=true]:not([data-still=true]) .lmm-center{transform:scale(.98)}
-.lm-medallion[data-still=true] .lmm-center{transition:none;transform:none}
-@media(prefers-reduced-motion:reduce){.lm-medallion .lmm-center{transition:none!important;transform:none!important}}
-@media(forced-colors:active){.lm-medallion .lmm-torus,.lm-medallion canvas{display:none!important}.lm-medallion .lmm-glass{background:Canvas!important;box-shadow:none!important;border:1px solid CanvasText}.lm-medallion .lmm-center{color:CanvasText!important;filter:none!important}}
-`;
-
 const useLayout = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 interface LiquidMedallionProps {
@@ -364,7 +351,6 @@ function LiquidMedallion(props: LiquidMedallionProps) {
         visibility: "hidden",
       }}
     >
-      <style>{MEDALLION_CSS}</style>
       <span
         className="lmm-layer lmm-glass"
         aria-hidden="true"
