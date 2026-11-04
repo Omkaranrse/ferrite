@@ -3,143 +3,103 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Building2, HardHat, Factory, Wrench, Layers, ArrowUpRight } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Building2, HardHat, Factory, Wrench, Layers, ArrowRight } from "lucide-react";
 
 const INDUSTRIES = [
   {
     id: "construction-real-estate",
-    number: "01",
     name: "Construction & Real Estate",
-    tagline: "Commercial towers, residential high-rises & PEB warehouses",
-    description: "Certified beams, columns, and ductile rebars engineered for high seismic integrity and strict erection schedules.",
+    description: "Commercial towers, residential high-rises and pre-engineered warehouses.",
     icon: Building2,
-    materials: "Universal Beams, Heavy Columns, Fe 500D Rebars",
   },
   {
     id: "infrastructure-engineering",
-    number: "02",
     name: "Infrastructure & Engineering",
-    tagline: "Highway flyovers, railway bridges & metro viaducts",
-    description: "Heavy structural plates with ultrasonic testing (UT) and Charpy impact compliance for national transport corridors.",
+    description: "Highway flyovers, rail over-bridges (ROB) and elevated metro viaducts.",
     icon: HardHat,
-    materials: "IS 2062 E350 Plates, Parallel Flange Beams",
   },
   {
     id: "industrial-projects",
-    number: "03",
     name: "Industrial Projects",
-    tagline: "Refineries, power complexes & chemical processing plants",
-    description: "Tough structural channels, heavy plates, and seamless conduit pipes built for corrosive operating environments.",
+    description: "Refineries, power complexes, chemical plants and industrial processing skids.",
     icon: Factory,
-    materials: "Boiler Quality Plates, ISMC Channels, SHS/RHS",
   },
   {
     id: "fabrication-manufacturing",
-    number: "04",
     name: "Fabrication & Manufacturing",
-    tagline: "Steel fabricators, PEB plants & industrial machinery OEMs",
-    description: "Custom cut-to-length beams, compound miter-sawed sections, and CNC plasma-cut base plates ready for assembly.",
+    description: "Structural steel fabricators, PEB manufacturers and machinery OEMs.",
     icon: Wrench,
-    materials: "Cut Bandsaw Sections, Profiled Gussets, Flats",
   },
   {
     id: "heavy-industries",
-    number: "05",
     name: "Heavy Industries",
-    tagline: "Material handling gantries, mining conveyors & ports",
-    description: "High-tonnage load-bearing profiles and wear-resistant steel members for continuous 24/7 industrial duty.",
+    description: "Material handling gantries, mining conveyors, ports and marine structures.",
     icon: Layers,
-    materials: "Heavy Column Joists, Chequered Deck Plates",
   },
 ];
 
 export default function IndustriesGrid() {
   return (
-    <section id="industries" className="bg-offwhite text-graphite py-20 sm:py-28 relative overflow-hidden border-t border-offwhite-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="industries" className="bg-[#F5F3EF] text-[#17191B] py-16 sm:py-20 relative overflow-hidden border-y border-[#DDD9CE]">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16 pb-8 border-b border-offwhite-border">
-          <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-offwhite-border text-[11px] font-mono text-copper uppercase tracking-wider font-semibold shadow-xs">
-              <span>INDUSTRIES WE SERVE</span>
-            </div>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-graphite leading-[1.1]">
-              Trusted by Key Infrastructure & <br className="hidden sm:inline" />
-              <span className="text-copper">Industrial Sectors</span>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-[#DDD9CE]">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-widest text-copper block font-semibold mb-1">
+              INDUSTRIES WE SERVE
+            </span>
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-[#17191B]">
+              Trusted by Key Infrastructure & Industrial Sectors
             </h2>
-            <p className="text-sm sm:text-base text-steel-dark max-w-xl font-body leading-relaxed">
-              We align rolling stock, cutting schedules, and quality documentation around the
-              specialized engineering requirements of each sector.
-            </p>
           </div>
 
-          <div>
-            <Button
-              href="/industries"
-              variant="outline"
-              withArrow
-              className="border-graphite text-graphite hover:bg-graphite hover:text-white"
-            >
-              Explore All Sectors
-            </Button>
-          </div>
+          <Link
+            href="/industries"
+            className="text-xs font-heading font-semibold uppercase tracking-wider text-copper hover:text-[#17191B] transition-colors inline-flex items-center gap-1.5 shrink-0 group self-start sm:self-auto"
+          >
+            <span>EXPLORE ALL SECTORS</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
-        {/* 5 Industry Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        {/* 5 Categories Displayed Horizontally on Desktop in One Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-8">
           {INDUSTRIES.map((ind, idx) => {
             const Icon = ind.icon;
             return (
               <motion.div
                 key={ind.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.45, delay: idx * 0.07 }}
                 whileHover={{ y: -4 }}
-                className="group bg-white border border-offwhite-border hover:border-copper p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md"
+                className="group bg-white border border-[#DDD9CE] hover:border-copper rounded-xl p-5 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="space-y-4">
-                  {/* Top Bar: Icon + Number */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 bg-offwhite border border-offwhite-border flex items-center justify-center text-copper group-hover:bg-copper group-hover:text-white group-hover:border-copper transition-all duration-300">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[11px] font-mono font-bold text-steel-dark group-hover:text-copper transition-colors">
-                      {ind.number}
-                    </span>
+                <div>
+                  {/* Black Outline Icon */}
+                  <div className="w-10 h-10 rounded-lg bg-[#F5F3EF] border border-[#DDD9CE] flex items-center justify-center text-[#17191B] group-hover:border-copper group-hover:text-copper transition-colors mb-3.5">
+                    <Icon className="w-5 h-5 stroke-[1.75]" />
                   </div>
 
                   {/* Title */}
-                  <div className="space-y-1">
-                    <h3 className="font-heading text-lg font-bold text-graphite group-hover:text-copper transition-colors leading-snug">
-                      {ind.name}
-                    </h3>
-                    <p className="text-[11px] font-mono uppercase tracking-wider text-copper font-medium">
-                      {ind.tagline}
-                    </p>
-                  </div>
+                  <h3 className="font-heading text-sm font-bold text-[#17191B] group-hover:text-copper transition-colors leading-snug">
+                    {ind.name}
+                  </h3>
 
                   {/* Description */}
-                  <p className="text-xs text-steel-dark leading-relaxed font-body">
+                  <p className="text-xs text-[#555C61] mt-1.5 leading-relaxed font-body">
                     {ind.description}
                   </p>
                 </div>
 
-                {/* Footer: Key Materials & Link */}
-                <div className="pt-4 mt-4 border-t border-offwhite-border space-y-2">
-                  <div className="text-[10px] font-mono uppercase text-steel-dark">
-                    <span className="font-semibold text-graphite">Supplied: </span>
-                    <span>{ind.materials}</span>
-                  </div>
-
+                <div className="pt-3 mt-4 border-t border-[#EAE6DD]">
                   <Link
                     href={`/industries#${ind.id}`}
-                    className="inline-flex items-center gap-1 text-[11px] font-heading font-semibold uppercase tracking-wider text-copper group-hover:text-graphite transition-colors pt-1"
+                    className="text-[11px] font-heading font-semibold uppercase tracking-wider text-copper group-hover:text-[#17191B] transition-colors inline-flex items-center gap-1"
                   >
                     <span>Sector Details</span>
-                    <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </div>
               </motion.div>
