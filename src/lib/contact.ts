@@ -71,3 +71,4 @@ export const FERRITE_CONTACT = {
     return `mailto:${this.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(bod)}`;
   },
 };
+

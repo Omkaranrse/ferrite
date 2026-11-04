@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import BrandLogo from "@/components/shared/BrandLogo";
-import Button from "@/components/ui/Button";
+import LiquidSurface from "@/components/navbar/LiquidSurface";
+import LiquidMark from "@/components/navbar/LiquidMark";
 import { useRFQ } from "@/context/RFQContext";
 import { FERRITE_CONTACT } from "@/lib/contact";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -28,11 +29,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 24);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -40,172 +37,230 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile drawer on route transition
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
-          isScrolled
-            ? "bg-graphite/90 backdrop-blur-md py-4 border-b border-charcoal-border shadow-xl shadow-graphite-950/20"
-            : "bg-gradient-to-b from-graphite-950/80 to-transparent py-6"
-        )}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Left: Brand Logo */}
-          <div className="flex items-center">
-            <BrandLogo />
+      {/* Floating Liquid Metal Navbar Header */}
+      <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none">
+        <nav
+          aria-label="Ferrite Main Navigation"
+          className={cn(
+            "pointer-events-auto relative w-full max-w-6xl rounded-full transition-all duration-300",
+            "bg-[#151719]/90 backdrop-blur-xl border border-charcoal-border/80 shadow-2xl shadow-graphite-950/80",
+            isScrolled ? "py-2 px-3 sm:px-5" : "py-2.5 px-4 sm:px-6"
+          )}
+        >
+          {/* Framer Liquid Metal Surface Layer */}
+          <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+            <LiquidSurface
+              material="navigation"
+              edgeWidth={3.4}
+              brightness={1.08}
+              prism={0.65}
+              radius={100}
+              hoverLight={0.7}
+              liquid={0.9}
+              colors={{
+                highlight: "#EEF6FF",
+                shade: "#111A28",
+                accent: "#C47A48", // Ferrite signature copper
+              }}
+              motion={{
+                playback: "ambient",
+                speed: 1,
+                flow: 0.9,
+                attraction: 0.85,
+              }}
+            />
           </div>
 
-          {/* Center: Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-            {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={cn(
-                    "relative px-3.5 py-2 text-xs xl:text-sm font-heading font-medium tracking-[0.08em] uppercase transition-colors duration-200 group select-none",
-                    isActive ? "text-white" : "text-steel hover:text-offwhite"
-                  )}
-                >
-                  <span className="relative z-10">{link.name}</span>
-                  {isActive && (
-                    <motion.span
-                      layoutId="navIndicator"
-                      className="absolute inset-x-2 bottom-0 h-0.5 bg-copper"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="absolute inset-x-2 bottom-0 h-0.5 bg-copper/40 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Navigation Interior Flex Grid */}
+          <div className="relative z-10 flex items-center justify-between gap-2 sm:gap-4">
+            {/* Left: Brand Monogram with LiquidMark Medallion + Icon Image */}
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 group select-none focus:outline-none"
+              aria-label="Ferrite Structural Steels Home"
+            >
+              {/* LiquidMark Medallion Torus featuring ferrite-icon.png */}
+              <div className="shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <LiquidMark size={44} imageSrc="/ferrite-icon.png" flow={0.9} brightness={1.1} />
+              </div>
 
-          {/* Right: CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:block">
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => openRFQ()}
-                withArrow
-              >
-                Request a Quote
-              </Button>
+              {/* Brand Typography */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-heading font-bold text-base sm:text-lg tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors">
+                    FERRITE
+                  </span>
+                  <span className="w-1.5 h-1.5 bg-copper rotate-45 inline-block" />
+                </div>
+                <span className="hidden md:block text-[8px] uppercase tracking-[0.2em] font-medium text-steel">
+                  Structural Steels
+                </span>
+              </div>
+            </Link>
+
+            {/* Center: Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={cn(
+                      "relative px-3.5 py-2 text-xs font-heading font-medium tracking-[0.08em] uppercase transition-colors duration-200 group select-none rounded-full",
+                      isActive ? "text-white" : "text-steel hover:text-offwhite"
+                    )}
+                  >
+                    <span className="relative z-10">{link.name}</span>
+
+                    {/* Active Pill Glow */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="navActiveIndicator"
+                        className="absolute inset-0 bg-charcoal border border-charcoal-border rounded-full -z-0"
+                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      />
+                    )}
+
+                    {/* Subtle Hover Sheen */}
+                    <span className="absolute inset-x-3 bottom-1.5 h-0.5 bg-copper/60 scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-200" />
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-10 h-10 border border-charcoal-border bg-charcoal/80 flex items-center justify-center text-offwhite hover:text-white hover:border-copper transition-colors focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Right: Quick Actions (WhatsApp Quote + Phone + Mobile Menu) */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Quick Telephone Dial on Desktop */}
+              <a
+                href={FERRITE_CONTACT.getTelUrl()}
+                onClick={() =>
+                  trackEvent({
+                    name: "phone_click",
+                    params: { phone_number: FERRITE_CONTACT.phone, hub: "ghatkopar" },
+                  })
+                }
+                className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-graphite/60 border border-charcoal-border hover:border-copper text-steel hover:text-white text-xs font-mono transition-colors"
+                title="Call Commercial Desk"
+              >
+                <Phone className="w-3 h-3 text-copper" />
+                <span>+91 88283 35168</span>
+              </a>
+
+              {/* Primary "Request a Quote" Liquid Copper CTA */}
+              <a
+                href={FERRITE_CONTACT.getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent({
+                    name: "whatsapp_click",
+                    params: { location: "navbar_pill", message_type: "quote_request" },
+                  })
+                }
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full bg-copper hover:bg-copper-hover text-white font-heading text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-copper/30 group"
+              >
+                <span>Request a Quote</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+
+              {/* Mobile Hamburger Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden w-9 h-9 rounded-full border border-charcoal-border bg-charcoal/90 flex items-center justify-center text-offwhite hover:text-white hover:border-copper transition-colors focus:outline-none"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
-        </div>
+        </nav>
       </header>
 
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 lg:hidden flex flex-col bg-graphite"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-x-0 top-0 z-40 lg:hidden bg-graphite/95 backdrop-blur-2xl border-b border-charcoal-border pt-24 pb-8 px-6 shadow-2xl"
           >
-            {/* Mobile Header Bar */}
-            <div className="p-5 sm:p-6 border-b border-charcoal-border flex items-center justify-between">
-              <BrandLogo />
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 border border-charcoal-border bg-charcoal flex items-center justify-center text-steel hover:text-white transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Mobile Nav Links */}
-            <div className="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col justify-between">
-              <nav className="space-y-4">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-copper block mb-2">
-                  EXPLORE ARCHITECTURE & SUPPLY
+            <div className="max-w-md mx-auto space-y-6">
+              {/* Navigation Links */}
+              <nav className="space-y-1">
+                <span className="text-[10px] uppercase font-mono tracking-widest text-copper block mb-3">
+                  EXPLORE ARCHITECTURE &amp; SUPPLY
                 </span>
-                {NAV_LINKS.map((link, idx) => {
+                {NAV_LINKS.map((link) => {
                   const isActive = pathname === link.href;
                   return (
-                    <motion.div
+                    <Link
                       key={link.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05 }}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={cn(
+                        "flex items-center justify-between py-3 px-3 text-base font-heading font-medium rounded-lg transition-colors",
+                        isActive
+                          ? "bg-charcoal text-copper border-l-2 border-copper"
+                          : "text-offwhite hover:bg-charcoal/50 hover:text-white"
+                      )}
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={cn(
-                          "flex items-center justify-between py-3 text-xl font-heading font-medium tracking-tight border-b border-charcoal/80 transition-colors",
-                          isActive ? "text-copper pl-2 border-copper/40" : "text-offwhite hover:text-copper"
-                        )}
-                      >
-                        <span>{link.name}</span>
-                        <ArrowUpRight className="w-4 h-4 text-steel" />
-                      </Link>
-                    </motion.div>
+                      <span>{link.name}</span>
+                      <ArrowUpRight className="w-4 h-4 text-steel" />
+                    </Link>
                   );
                 })}
               </nav>
 
-              {/* Mobile Quick Info & Action */}
-              <div className="pt-6 border-t border-charcoal-border space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <a
-                    href={FERRITE_CONTACT.getWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 py-3 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-heading text-xs uppercase tracking-wider font-semibold transition-colors"
-                  >
-                    <span>WhatsApp Quote</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
+              {/* Direct Actions */}
+              <div className="pt-4 border-t border-charcoal-border space-y-3">
+                <a
+                  href={FERRITE_CONTACT.getWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    trackEvent({
+                      name: "whatsapp_click",
+                      params: { location: "mobile_menu", message_type: "quote_request" },
+                    });
+                  }}
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-heading text-xs font-semibold uppercase tracking-wider transition-colors shadow-lg"
+                >
+                  <span>WhatsApp Quote</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+
+                <div className="grid grid-cols-2 gap-2 text-xs">
                   <a
                     href={FERRITE_CONTACT.getTelUrl()}
-                    className="flex items-center justify-center gap-2 py-3 px-4 bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading text-xs uppercase tracking-wider font-semibold transition-colors"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold"
                   >
                     <Phone className="w-3.5 h-3.5 text-copper" />
-                    <span>Call Commercial Desk</span>
+                    <span>Call HQ</span>
+                  </a>
+                  <a
+                    href={FERRITE_CONTACT.getEmailUrl()}
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-copper" />
+                    <span>Email Us</span>
                   </a>
                 </div>
 
-                <div className="space-y-2.5 text-xs text-steel pt-2 border-t border-charcoal-border/50">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-copper shrink-0" />
-                    <span>Commercial Desk:</span>
-                    <a href={FERRITE_CONTACT.getTelUrl()} className="text-white hover:text-copper font-mono">
-                      {FERRITE_CONTACT.phone}
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-copper shrink-0" />
-                    <span>Inquiries:</span>
-                    <a href={FERRITE_CONTACT.getEmailUrl()} className="text-white hover:text-copper font-mono">
-                      {FERRITE_CONTACT.email}
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-copper shrink-0" />
-                    <span>Hubs: Ghatkopar HQ & Kalamboli Facility</span>
-                  </div>
+                <div className="space-y-1.5 text-[11px] text-steel pt-2 font-mono">
+                  <div>HQ: {FERRITE_CONTACT.phone}</div>
+                  <div>Yard: {FERRITE_CONTACT.phoneSecondary}</div>
+                  <div>Email: {FERRITE_CONTACT.email}</div>
                 </div>
               </div>
             </div>
@@ -215,4 +270,3 @@ export default function Navbar() {
     </>
   );
 }
-
