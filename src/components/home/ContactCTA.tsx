@@ -31,16 +31,15 @@ export default function ContactCTA() {
           {/* Left Column: Direct Narrative & Facility Details */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <Badge variant="copper">07 / DIRECT COMMERCIAL ENQUIRIES</Badge>
-              <ScrollTextReveal
-                highlightWords={["mind?"]}
-                className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]"
-              >
-                Have a project in mind?
-              </ScrollTextReveal>
+              <Badge variant="copper">QUOTATION ENQUIRY</Badge>
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] font-heading">
+                Get a Steel <br />
+                <span className="text-copper">Quotation Today</span>
+              </h2>
               <p className="text-base sm:text-lg text-steel-light font-body leading-relaxed font-normal">
-                Tell us what you&apos;re building. As a leading <strong>structural steel supplier</strong> and <strong>stockist</strong> with lineage dating back to 1965,
-                our engineering desks review drawings, grades, and steel cutting schedules to structure competitive project pricing.
+                Share your requirements and our team will help you find the right steel products and availability.
+                Backed by a legacy dating back to 1965, we review drawings, grades, and steel cutting schedules
+                to structure competitive project pricing.
               </p>
             </div>
 

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
-import CompanyIntro from "@/components/home/CompanyIntro";
 import ProductGrid from "@/components/home/ProductGrid";
 import Capabilities from "@/components/home/Capabilities";
-import ApproachTimeline from "@/components/home/ApproachTimeline";
 import IndustriesGrid from "@/components/home/IndustriesGrid";
+import CompanyIntro from "@/components/home/CompanyIntro";
 import Facilities from "@/components/home/Facilities";
 import ContactCTA from "@/components/home/ContactCTA";
 
@@ -26,28 +25,25 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* Section 2: Cinematic Hero */}
+      {/* 1. Cinematic Hero with Genuine Ferrite Stockyard Photograph */}
       <Hero />
 
-      {/* Section 3: Company Introduction (Off-white) */}
-      <CompanyIntro />
-
-      {/* Section 4: Products Grid (Deep charcoal) */}
+      {/* 2. Steel Products Section (Immediately after hero) */}
       <ProductGrid />
 
-      {/* Section 5: Processing & Capabilities (Off-white) */}
+      {/* 3. Capabilities Section (Cutting, Shaping, Sizing, Stockholding) */}
       <Capabilities />
 
-      {/* Section 6: Our Approach Timeline (Graphite) */}
-      <ApproachTimeline />
-
-      {/* Section 7: Industries Served (Dark) */}
+      {/* 4. Industries Section (Contrasting light section breaking up dark visual flow) */}
       <IndustriesGrid />
 
-      {/* Section 8: Facilities & Locations (Light) */}
+      {/* 5. About Ferrite Section & Company Statistics */}
+      <CompanyIntro />
+
+      {/* 6. Facilities & Operational Hubs (Ghatkopar HQ & Kalamboli Yard) */}
       <Facilities />
 
-      {/* Section 9: Contact CTA & Form (Dark) */}
+      {/* 7. Quotation CTA Section */}
       <ContactCTA />
     </>
   );

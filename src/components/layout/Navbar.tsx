@@ -99,11 +99,12 @@ export default function Navbar() {
 
               {/* Brand Typography */}
               <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-heading font-bold text-base sm:text-lg tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors">
-                    FERRITE
-                  </span>
-                </div>
+                <span className="font-heading font-bold text-sm sm:text-base tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors leading-tight">
+                  FERRITE
+                </span>
+                <span className="text-[8.5px] sm:text-[9px] font-mono tracking-[0.18em] uppercase text-steel-light/75 hidden sm:block leading-none mt-0.5">
+                  STRUCTURAL STEELS PVT. LTD.
+                </span>
               </div>
             </Link>
 
