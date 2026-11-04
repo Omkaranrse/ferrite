@@ -172,3 +172,4 @@ export function BreadcrumbSchema({ items }: { items: { name: string; url: string
     />
   );
 }
+

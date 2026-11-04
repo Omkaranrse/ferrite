@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import RFQModal from "@/components/ui/RFQModal";
+import { FERRITE_CONTACT } from "@/lib/contact";
+import { trackEvent } from "@/lib/analytics";
 
 interface RFQContextType {
   openRFQ: (defaultProduct?: string) => void;
@@ -12,23 +13,33 @@ interface RFQContextType {
 const RFQContext = createContext<RFQContextType | undefined>(undefined);
 
 export function RFQProvider({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [defaultProduct, setDefaultProduct] = useState<string | undefined>(undefined);
-
+  // Directly opens WhatsApp with the verified pre-filled enquiry message
   const openRFQ = (product?: string) => {
-    setDefaultProduct(product);
-    setIsOpen(true);
+    trackEvent({
+      name: "whatsapp_click",
+      params: {
+        location: "open_rfq_trigger",
+        message_type: product ? "product_enquiry" : "quote_request",
+        product: product || "general",
+      },
+    });
+
+    const targetUrl = product
+      ? FERRITE_CONTACT.getProductWhatsAppUrl(product)
+      : FERRITE_CONTACT.getWhatsAppUrl();
+
+    if (typeof window !== "undefined") {
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   const closeRFQ = () => {
-    setIsOpen(false);
-    setDefaultProduct(undefined);
+    // No-op for direct communication flow
   };
 
   return (
-    <RFQContext.Provider value={{ openRFQ, closeRFQ, isOpen }}>
+    <RFQContext.Provider value={{ openRFQ, closeRFQ, isOpen: false }}>
       {children}
-      <RFQModal isOpen={isOpen} onClose={closeRFQ} defaultProduct={defaultProduct} />
     </RFQContext.Provider>
   );
 }
@@ -40,4 +51,3 @@ export function useRFQ() {
   }
   return context;
 }
-

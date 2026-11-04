@@ -7,6 +7,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { capabilitiesData } from "@/data/capabilities";
 import { BreadcrumbSchema } from "@/components/shared/JsonLd";
+import { FERRITE_CONTACT } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Steel Processing & Precision Cutting Services | Ferrite Structural Steels",
@@ -215,9 +216,15 @@ export default function CapabilitiesPage() {
               </p>
             </div>
             <div className="shrink-0 flex flex-wrap gap-3">
-              <Button href="/contact" variant="primary" size="lg" withArrow>
-                Request a Quote
-              </Button>
+              <a
+                href={FERRITE_CONTACT.getWhatsAppUrl("Hello Ferrite Team, I would like to enquire about your steel processing, cutting, and shaping capabilities.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-copper hover:bg-copper-hover text-white font-heading text-sm font-semibold uppercase tracking-wider transition-colors shadow-lg group"
+              >
+                <span>Request a Quote</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
               <Button href="/contact" variant="outline" size="lg">
                 Discuss Your Requirements
               </Button>

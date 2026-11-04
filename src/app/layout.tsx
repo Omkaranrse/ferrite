@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import { RFQProvider } from "@/context/RFQContext";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/shared/JsonLd";
@@ -144,6 +145,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <FloatingWhatsApp />
           </RFQProvider>
         </SmoothScroll>
       </body>

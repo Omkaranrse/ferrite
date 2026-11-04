@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import BrandLogo from "@/components/shared/BrandLogo";
 import Button from "@/components/ui/Button";
 import { useRFQ } from "@/context/RFQContext";
+import { FERRITE_CONTACT } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -166,35 +167,39 @@ export default function Navbar() {
               </nav>
 
               {/* Mobile Quick Info & Action */}
-              <div className="pt-8 border-t border-charcoal-border space-y-5">
-                <div>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      openRFQ();
-                    }}
-                    withArrow
+              <div className="pt-6 border-t border-charcoal-border space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a
+                    href={FERRITE_CONTACT.getWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-3 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-heading text-xs uppercase tracking-wider font-semibold transition-colors"
                   >
-                    Request a Quote
-                  </Button>
+                    <span>WhatsApp Quote</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                  <a
+                    href={FERRITE_CONTACT.getTelUrl()}
+                    className="flex items-center justify-center gap-2 py-3 px-4 bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading text-xs uppercase tracking-wider font-semibold transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-copper" />
+                    <span>Call Commercial Desk</span>
+                  </a>
                 </div>
 
-                <div className="space-y-2.5 text-xs text-steel">
+                <div className="space-y-2.5 text-xs text-steel pt-2 border-t border-charcoal-border/50">
                   <div className="flex items-center gap-2">
                     <Phone className="w-3.5 h-3.5 text-copper shrink-0" />
                     <span>Commercial Desk:</span>
-                    <a href="tel:+918828335168" className="text-white hover:text-copper">
-                      +91 88283 35168
+                    <a href={FERRITE_CONTACT.getTelUrl()} className="text-white hover:text-copper font-mono">
+                      {FERRITE_CONTACT.phone}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
                     <Mail className="w-3.5 h-3.5 text-copper shrink-0" />
                     <span>Inquiries:</span>
-                    <a href="mailto:contact@ferrite.in" className="text-white hover:text-copper">
-                      contact@ferrite.in
+                    <a href={FERRITE_CONTACT.getEmailUrl()} className="text-white hover:text-copper font-mono">
+                      {FERRITE_CONTACT.email}
                     </a>
                   </div>
                   <div className="flex items-center gap-2">

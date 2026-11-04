@@ -54,23 +54,24 @@ Ferrite Structural Steels Pvt. Ltd. (formerly Payal Enterprises Pvt. Ltd.) is a 
 
 ---
 
-## 💼 B2B Lead Generation & API Backend
+## 💼 Direct Communication Channels (Phase 3)
 
-* **API Route**: `POST /api/enquiry`
-  * Validates full name, company name, corporate email, phone, material category, and project scope.
-  * Multi-format support (`multipart/form-data` for CAD/PDF attachments and JSON).
-  * Built-in spam protection via honeypot detection.
-  * Generates unique tracking ticket references (e.g. `FSS-2026-XXXXX`).
-  * Optional email dispatch via Resend API and webhook forwarding to internal ERP/CRM.
-* **B2B Conversion Tracking**:
-  * Built-in Google Analytics 4 (GA4) custom event dispatcher (`src/lib/analytics.ts`):
-    * `quote_cta_click`
-    * `discuss_requirements_click`
-    * `product_enquiry_click`
-    * `contact_form_submit`
-    * `phone_click`
-    * `email_click`
-    * `drawing_upload`
+The website is an informational corporate platform with zero backend/database dependencies, directing buyers directly to verified channels:
+
+* **WhatsApp Integration (`wa.me`)**:
+  * Verified WhatsApp Number: `+91 88283 35168`
+  * Floating WhatsApp button with instant chat tooltip across desktop & mobile.
+  * Pre-filled message prompts for general quotes, custom sizing, and individual product specifications.
+* **Direct Email (`mailto:`)**:
+  * Verified Official Email: `contact@ferrite.in`
+  * Pre-filled technical transmittal subjects for CAD drawings (.dwg, .dxf) and Bill of Quantities (BOQ).
+* **Click-to-Call Phone (`tel:`)**:
+  * Commercial Desk (Ghatkopar HQ): `+91 88283 35168`
+  * Material Yard & Logistics (Kalamboli): `+91 99207 77336`
+* **Verified Social Media**:
+  * Official LinkedIn corporate profile.
+* **B2B Event Tracking (GA4)**:
+  * Dispatches custom events: `whatsapp_click`, `quote_cta_click`, `product_enquiry_click`, `phone_click`, `email_click`, `social_click`.
 
 ---
 
@@ -82,18 +83,11 @@ Copy `.env.example` to `.env.local` to configure optional integrations:
 # Canonical Site URL
 NEXT_PUBLIC_SITE_URL=https://ferrite.in
 
-# Google Analytics 4 Measurement ID
+# Google Analytics 4 Measurement ID (Optional)
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
-# Google Search Console Verification
+# Google Search Console Verification (Optional)
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
-
-# Email Dispatch via Resend (Optional)
-RESEND_API_KEY=
-ENQUIRY_NOTIFICATION_EMAIL=contact@ferrite.in
-
-# CRM / ERP Webhook (Optional)
-ENQUIRY_WEBHOOK_URL=
 ```
 
 ---

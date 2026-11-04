@@ -7,6 +7,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { industriesData } from "@/data/industries";
 import { BreadcrumbSchema } from "@/components/shared/JsonLd";
+import { FERRITE_CONTACT } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Industries Served | Structural Steel for Infrastructure, PEB & High-Rise",
@@ -143,15 +144,16 @@ export default function IndustriesPage() {
 
                     {/* Action */}
                     <div className="pt-4 border-t border-charcoal-border flex flex-wrap items-center justify-between gap-4">
-                      <div className="flex gap-3">
-                        <Button
-                          href="/contact"
-                          variant="primary"
-                          size="sm"
-                          withArrow
+                      <div className="flex flex-wrap gap-3">
+                        <a
+                          href={FERRITE_CONTACT.getWhatsAppUrl(`Hello Ferrite Team, I would like to enquire about structural steel supply and processing for the ${ind.name} sector.`)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2 bg-copper hover:bg-copper-hover text-white text-xs font-heading font-semibold uppercase tracking-wider transition-colors shadow-sm group"
                         >
-                          Request a Quote
-                        </Button>
+                          <span>Request a Quote</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </a>
                         <Button
                           href="/contact"
                           variant="outline"

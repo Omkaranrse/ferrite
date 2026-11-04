@@ -15,12 +15,13 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 type ConversionEvent =
   | { name: "quote_cta_click"; params: { location: string; product?: string } }
   | { name: "discuss_requirements_click"; params: { location: string; section?: string } }
-  | { name: "product_enquiry_click"; params: { product_name: string; category: string } }
-  | { name: "contact_form_submit"; params: { form_id: string; product_category: string; tonnage?: string } }
+  | { name: "product_enquiry_click"; params: { product_name: string; category?: string } }
+  | { name: "whatsapp_click"; params: { location: string; message_type: string; product?: string } }
   | { name: "phone_click"; params: { phone_number: string; hub: "ghatkopar" | "kalamboli" | "general" } }
   | { name: "email_click"; params: { email_address: string; hub: "ghatkopar" | "kalamboli" | "general" } }
+  | { name: "social_click"; params: { platform: string; url: string } }
   | { name: "specification_download"; params: { document_name: string } }
-  | { name: "drawing_upload"; params: { file_name: string; file_size_kb: number } };
+  | { name: "contact_form_submit"; params: { form_id: string; product_category: string; tonnage?: string } };
 
 /**
  * Dispatches a B2B conversion event to Google Analytics 4 (if configured)
@@ -35,3 +36,4 @@ export function trackEvent({ name, params }: ConversionEvent) {
     console.debug(`[Analytics Event: ${name}]`, params);
   }
 }
+

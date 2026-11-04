@@ -8,6 +8,7 @@ import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { productsData, Product } from "@/data/products";
 import { useRFQ } from "@/context/RFQContext";
+import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ProductsCatalogClient() {
@@ -236,17 +237,29 @@ export default function ProductsCatalogClient() {
                           <span>MTC Supplied with Every Order</span>
                         </div>
                         <div className="flex items-center gap-3">
-                          <Button
+                          <a
+                            href={FERRITE_CONTACT.getProductWhatsAppUrl(prod.name)}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             onClick={() => {
-                              trackEvent({ name: "product_enquiry_click", params: { product_name: prod.name, category: prod.category } });
-                              openRFQ(prod.name);
+                              trackEvent({
+                                name: "product_enquiry_click",
+                                params: { product_name: prod.name, category: prod.category },
+                              });
+                              trackEvent({
+                                name: "whatsapp_click",
+                                params: {
+                                  location: "product_catalog",
+                                  message_type: "product_enquiry",
+                                  product: prod.name,
+                                },
+                              });
                             }}
-                            variant="primary"
-                            size="md"
-                            withArrow
+                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-semibold uppercase tracking-wider transition-colors shadow-md group"
                           >
-                            Request a Quote
-                          </Button>
+                            <span>WhatsApp Quote</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
                           <Button
                             href="/contact"
                             variant="outline"
@@ -331,3 +344,4 @@ export default function ProductsCatalogClient() {
     </>
   );
 }
+
