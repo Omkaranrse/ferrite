@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   MapPin,
   Phone,
@@ -39,7 +40,14 @@ export default function ContactPageClient() {
           {/* Dual Location Showcase Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Ghatkopar Hub */}
-            <div className="bg-charcoal border border-charcoal-border p-8 sm:p-10 hover:border-copper transition-colors flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55 }}
+              whileHover={{ y: -4 }}
+              className="bg-charcoal border border-charcoal-border p-8 sm:p-10 hover:border-copper transition-all duration-300 flex flex-col justify-between shadow-xl"
+            >
               <div className="space-y-6">
                 <div className="flex items-center justify-between pb-4 border-b border-charcoal-border">
                   <div className="flex items-center gap-3">
@@ -143,10 +151,17 @@ export default function ContactPageClient() {
                 </a>
                 <span className="text-xs font-mono text-steel">Central Mumbai</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Kalamboli Hub */}
-            <div className="bg-charcoal border border-charcoal-border p-8 sm:p-10 hover:border-copper transition-colors flex flex-col justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: 0.15 }}
+              whileHover={{ y: -4 }}
+              className="bg-charcoal border border-charcoal-border p-8 sm:p-10 hover:border-copper transition-all duration-300 flex flex-col justify-between shadow-xl"
+            >
               <div className="space-y-6">
                 <div className="flex items-center justify-between pb-4 border-b border-charcoal-border">
                   <div className="flex items-center gap-3">
@@ -250,7 +265,7 @@ export default function ContactPageClient() {
                 </a>
                 <span className="text-xs font-mono text-steel">Navi Mumbai / Raigad</span>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Central Direct Communication Hub */}

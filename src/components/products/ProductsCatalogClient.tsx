@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, CheckCircle2, Search, SlidersHorizontal, ShieldCheck, Download, HelpCircle } from "lucide-react";
 import PageHeader from "@/components/shared/PageHeader";
 import Badge from "@/components/ui/Badge";
@@ -118,9 +119,13 @@ export default function ProductsCatalogClient() {
               </div>
             ) : (
               filteredProducts.map((prod, idx) => (
-                <article
+                <motion.article
                   key={prod.id}
                   id={prod.id}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.05 }}
                   className="bg-graphite border border-charcoal-border hover:border-copper/70 transition-colors p-6 sm:p-10 shadow-2xl scroll-mt-28"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -272,7 +277,7 @@ export default function ProductsCatalogClient() {
                       </div>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               ))
             )}
           </div>

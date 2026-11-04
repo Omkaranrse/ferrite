@@ -55,7 +55,7 @@ export default function ProductGrid() {
           </div>
         </div>
 
-        {/* Filter Navigation Bar */}
+        {/* Filter Navigation Bar with Fluid Active Indicator */}
         <div className="pt-8 pb-12 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-charcoal-border/50">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
             {categories.map((cat) => {
@@ -64,20 +64,27 @@ export default function ProductGrid() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2.5 text-xs font-heading font-medium tracking-wider uppercase whitespace-nowrap transition-all border relative ${
+                  className={`px-4 py-2.5 text-xs font-heading font-medium tracking-wider uppercase whitespace-nowrap transition-all border relative select-none ${
                     isSelected
-                      ? "bg-copper text-white border-copper copper-glow-sm"
+                      ? "text-white border-copper"
                       : "bg-graphite text-steel border-charcoal-border hover:text-white hover:border-steel-dark"
                   }`}
                 >
-                  <span>{cat}</span>
+                  <span className="relative z-10">{cat}</span>
+                  {isSelected && (
+                    <motion.span
+                      layoutId="categoryActivePill"
+                      className="absolute inset-0 bg-copper copper-glow-sm z-0"
+                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    />
+                  )}
                 </button>
               );
             })}
           </div>
 
           <div className="text-xs font-mono text-steel flex items-center gap-2">
-            <span className="w-2 h-2 bg-copper rounded-none inline-block" />
+            <span className="w-2 h-2 bg-copper rounded-none inline-block animate-pulse" />
             <span>Showing {filteredProducts.length} Profiles</span>
           </div>
         </div>
@@ -89,11 +96,12 @@ export default function ProductGrid() {
               <motion.div
                 key={product.id}
                 layout
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.45, delay: idx * 0.05 }}
-                className="group bg-graphite border border-charcoal-border hover:border-copper/80 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-xl"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.5, delay: idx * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                className="group bg-graphite border border-charcoal-border hover:border-copper/80 hover:shadow-2xl hover:shadow-copper/5 transition-all duration-500 flex flex-col justify-between overflow-hidden shadow-xl"
               >
                 {/* Product Image Container with 16:10 Ratio & Curtain Zoom */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-graphite-950 border-b border-charcoal-border">
@@ -102,7 +110,7 @@ export default function ProductGrid() {
                     alt={product.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108 brightness-90 group-hover:brightness-100"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108 brightness-90 group-hover:brightness-100 will-change-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-graphite via-transparent to-transparent opacity-80" />
 
@@ -155,7 +163,7 @@ export default function ProductGrid() {
                       className="inline-flex items-center gap-1.5 text-xs uppercase font-heading font-medium tracking-wider text-steel group-hover:text-white transition-colors"
                     >
                       <span>Inspect Specs</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-copper group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight className="w-3.5 h-3.5 text-copper group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </Link>
 
                     <button

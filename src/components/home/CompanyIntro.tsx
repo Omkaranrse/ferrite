@@ -86,42 +86,58 @@ export default function CompanyIntro() {
               </p>
             </motion.div>
 
-            {/* Prominent Animated Statistics */}
+            {/* Prominent Historical Milestone Cards & Verified Metrics */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.35 }}
               className="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-offwhite-border max-w-2xl"
             >
-              {/* Stat 1: 1965 */}
+              {/* Stat 1: 1965 - Elegant masked reveal for historical year */}
               <div className="bg-white p-6 sm:p-7 border border-offwhite-border shadow-sm group hover:border-copper transition-all duration-300">
                 <div className="flex items-center justify-between text-copper mb-3">
                   <History className="w-5 h-5" />
                   <span className="text-[10px] font-mono tracking-widest uppercase text-steel-dark font-medium">
-                    ORIGIN
+                    ESTABLISHED LINEAGE
                   </span>
                 </div>
-                <div className="font-heading text-4xl sm:text-5xl font-bold text-graphite tracking-tight">
-                  <StatCounter value={1965} duration={1800} />
+                <div className="font-heading text-4xl sm:text-5xl font-bold text-graphite tracking-tight overflow-hidden">
+                  <motion.div
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={isInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.75, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex items-baseline gap-2"
+                  >
+                    <span>1965</span>
+                    <span className="text-xs font-mono font-semibold text-copper tracking-wider uppercase">Foundation</span>
+                  </motion.div>
                 </div>
                 <div className="text-xs sm:text-sm font-heading font-medium text-steel-dark mt-2.5 leading-snug">
-                  Business lineage begins as Payal Enterprises. Over 59 years of steel market leadership.
+                  Lineage begins as Payal Enterprises. Over <span className="font-bold text-graphite"><StatCounter value={59} suffix="+" duration={1600} /></span> years of continuous steel market leadership.
                 </div>
               </div>
 
-              {/* Stat 2: 2014 */}
+              {/* Stat 2: 2014 - Elegant masked reveal for strategic restructuring */}
               <div className="bg-white p-6 sm:p-7 border border-offwhite-border shadow-sm group hover:border-copper transition-all duration-300">
                 <div className="flex items-center justify-between text-copper mb-3">
                   <Award className="w-5 h-5" />
                   <span className="text-[10px] font-mono tracking-widest uppercase text-steel-dark font-medium">
-                    EXPANSION
+                    STRATEGIC EXPANSION
                   </span>
                 </div>
-                <div className="font-heading text-4xl sm:text-5xl font-bold text-graphite tracking-tight">
-                  <StatCounter value={2014} duration={1800} />
+                <div className="font-heading text-4xl sm:text-5xl font-bold text-graphite tracking-tight overflow-hidden">
+                  <motion.div
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={isInView ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.75, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex items-baseline gap-2"
+                  >
+                    <span>2014</span>
+                    <span className="text-xs font-mono font-semibold text-copper tracking-wider uppercase">Rebranding</span>
+                  </motion.div>
                 </div>
                 <div className="text-xs sm:text-sm font-heading font-medium text-steel-dark mt-2.5 leading-snug">
-                  Ferrite Structural Steels established under current name to scale modern material processing.
+                  Ferrite Structural Steels established under current name to scale modern material processing and nationwide logistics.
                 </div>
               </div>
             </motion.div>
@@ -144,25 +160,30 @@ export default function CompanyIntro() {
           {/* Right Column: Industrial Photography with Reveal Effects & Parallax */}
           <div ref={imageContainerRef} className="lg:col-span-5 relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl bg-charcoal border border-offwhite-border"
+              initial={{ opacity: 0, clipPath: "inset(12% 0% 0% 0%)" }}
+              animate={isInView ? { opacity: 1, clipPath: "inset(0% 0% 0% 0%)" } : {}}
+              transition={{ duration: 1.1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl bg-charcoal border border-offwhite-border group"
             >
-              <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110">
+              <motion.div style={{ y: imageY }} className="absolute inset-0 scale-110 will-change-transform">
                 <Image
                   src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=1400&q=85"
                   alt="Ferrite Structural Steels warehouse handling and precision material preparation"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover object-center transition-transform duration-700 hover:scale-105"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
               </motion.div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-graphite/95 via-graphite/30 to-transparent pointer-events-none" />
 
               {/* Overlay Badge Card */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 sm:p-6 bg-graphite/95 backdrop-blur-md border border-charcoal-border text-white">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.55 }}
+                className="absolute bottom-6 left-6 right-6 p-5 sm:p-6 bg-graphite/95 backdrop-blur-md border border-charcoal-border text-white"
+              >
                 <div className="flex items-center gap-2 mb-2 text-copper text-xs font-mono">
                   <ShieldCheck className="w-4 h-4" />
                   <span>QUALITY ASSURANCE</span>
@@ -174,14 +195,14 @@ export default function CompanyIntro() {
                   Every structural batch is verified against IS 2062, ASTM, and EN standards with
                   matching heat numbers.
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Secondary Floating Architectural Metric Card */}
             <motion.div
-              initial={{ opacity: 0, x: 25 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              initial={{ opacity: 0, x: 25, y: -10 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ duration: 0.85, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="hidden sm:block absolute -top-6 -right-6 bg-white p-6 border border-offwhite-border shadow-xl max-w-[220px]"
             >
               <div className="font-heading font-bold text-3xl text-copper">

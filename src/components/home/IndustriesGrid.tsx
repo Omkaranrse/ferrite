@@ -53,6 +53,7 @@ export default function IndustriesGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
+                whileHover={{ y: -5 }}
                 onMouseEnter={() => setHoveredId(ind.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className="group relative bg-charcoal border border-charcoal-border hover:border-copper transition-all duration-500 overflow-hidden flex flex-col justify-between shadow-2xl"
@@ -130,7 +131,7 @@ export default function IndustriesGrid() {
                       className="font-heading uppercase tracking-wider text-white hover:text-copper inline-flex items-center gap-1.5 transition-colors font-medium"
                     >
                       <span>Sector Specifications</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-copper group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      <ArrowUpRight className="w-3.5 h-3.5 text-copper group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </Link>
 
                     <button

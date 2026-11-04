@@ -37,29 +37,34 @@ export default function Capabilities() {
 
         {/* Interactive Capability Switcher & Stage */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Capability List Cards */}
+          {/* Left Column: Capability List Cards with Staggered Entrance */}
           <div className="lg:col-span-5 space-y-4">
             {capabilitiesData.map((cap, idx) => {
               const Icon = icons[idx] || Box;
               const isSelected = selectedCapIndex === idx;
 
               return (
-                <button
+                <motion.button
                   key={cap.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ x: 3 }}
                   onClick={() => setSelectedCapIndex(idx)}
                   className={`w-full text-left p-6 sm:p-7 border transition-all duration-300 relative group select-none ${
                     isSelected
-                      ? "bg-white border-copper shadow-lg ring-1 ring-copper/30"
+                      ? "bg-white border-copper shadow-xl ring-1 ring-copper/30"
                       : "bg-offwhite-card border-offwhite-border hover:bg-white hover:border-steel-dark/40"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-3.5">
                       <div
-                        className={`w-11 h-11 border flex items-center justify-center shrink-0 transition-colors ${
+                        className={`w-11 h-11 border flex items-center justify-center shrink-0 transition-all duration-300 ${
                           isSelected
-                            ? "bg-copper text-white border-copper"
-                            : "bg-white text-graphite border-offwhite-border group-hover:border-copper"
+                            ? "bg-copper text-white border-copper shadow-md"
+                            : "bg-white text-graphite border-offwhite-border group-hover:border-copper group-hover:text-copper"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
@@ -94,7 +99,7 @@ export default function Capabilities() {
                       className="absolute left-0 top-0 bottom-0 w-1.5 bg-copper"
                     />
                   )}
-                </button>
+                </motion.button>
               );
             })}
           </div>
@@ -104,23 +109,30 @@ export default function Capabilities() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCap.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="bg-white border border-offwhite-border p-6 sm:p-10 shadow-2xl space-y-8"
               >
                 {/* Visual Banner */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-charcoal border border-offwhite-border">
-                  <Image
-                    src={activeCap.image}
-                    alt={activeCap.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                    className="object-cover object-center brightness-95"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-graphite/85 via-transparent to-transparent" />
-                  <div className="absolute bottom-5 left-5 right-5 text-white">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-charcoal border border-offwhite-border group">
+                  <motion.div
+                    initial={{ scale: 1.06 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.75, ease: "easeOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={activeCap.image}
+                      alt={activeCap.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 55vw"
+                      className="object-cover object-center brightness-95 transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-graphite/85 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-copper block font-semibold">
                       FACILITY SCOPE • KALAMBOLI COMPLEX
                     </span>

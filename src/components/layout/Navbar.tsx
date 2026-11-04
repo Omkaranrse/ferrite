@@ -44,14 +44,20 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Floating Liquid Metal Navbar Header */}
-      <header className="fixed top-0 inset-x-0 z-50 flex justify-center px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none">
+      {/* Floating Liquid Metal Navbar Header with Smooth Entrance */}
+      <motion.header
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 inset-x-0 z-50 flex justify-center px-3 sm:px-6 pt-3 sm:pt-5 pointer-events-none"
+      >
         <nav
           aria-label="Ferrite Main Navigation"
           className={cn(
-            "pointer-events-auto relative w-full max-w-6xl rounded-full transition-all duration-300",
-            "bg-[#151719]/90 backdrop-blur-xl border border-charcoal-border/80 shadow-2xl shadow-graphite-950/80",
-            isScrolled ? "py-2 px-3 sm:px-5" : "py-2.5 px-4 sm:px-6"
+            "pointer-events-auto relative w-full max-w-6xl rounded-full transition-all duration-500",
+            isScrolled
+              ? "py-2 px-3 sm:px-5 bg-[#111315]/95 backdrop-blur-2xl border border-charcoal-border/90 shadow-2xl shadow-graphite-950/90"
+              : "py-2.5 px-4 sm:px-6 bg-[#16181B]/80 backdrop-blur-xl border border-charcoal-border/60 shadow-xl shadow-graphite-950/60"
           )}
         >
           {/* Framer Liquid Metal Surface Layer */}
@@ -88,7 +94,7 @@ export default function Navbar() {
             >
               {/* LiquidMark Medallion Torus featuring ferrite-icon.svg */}
               <div className="shrink-0 transition-transform duration-300 group-hover:scale-105">
-                <LiquidMark size={44} imageSrc="/ferrite-icon.svg" flow={0.9} brightness={1.1} />
+                <LiquidMark size={46} imageSrc="/ferrite-icon.svg" flow={0.9} brightness={1.1} />
               </div>
 
               {/* Brand Typography */}
@@ -97,7 +103,7 @@ export default function Navbar() {
                   <span className="font-heading font-bold text-base sm:text-lg tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors">
                     FERRITE
                   </span>
-                  S                </div>
+                </div>
               </div>
             </Link>
 
@@ -114,7 +120,9 @@ export default function Navbar() {
                       isActive ? "text-white" : "text-steel hover:text-offwhite"
                     )}
                   >
-                    <span className="relative z-10">{link.name}</span>
+                    <span className="relative z-10 transition-transform duration-200 group-hover:-translate-y-0.5 inline-block">
+                      {link.name}
+                    </span>
 
                     {/* Active Pill Glow */}
                     {isActive && (
@@ -125,8 +133,8 @@ export default function Navbar() {
                       />
                     )}
 
-                    {/* Subtle Hover Sheen */}
-                    <span className="absolute inset-x-3 bottom-1.5 h-0.5 bg-copper/60 scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-200" />
+                    {/* Animated Underline on Hover */}
+                    <span className="absolute inset-x-3 bottom-1.5 h-[2px] bg-copper scale-x-0 group-hover:scale-x-100 transition-transform origin-center duration-300 rounded-full pointer-events-none" />
                   </Link>
                 );
               })}
@@ -143,15 +151,15 @@ export default function Navbar() {
                     params: { phone_number: FERRITE_CONTACT.phone, hub: "ghatkopar" },
                   })
                 }
-                className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-graphite/60 border border-charcoal-border hover:border-copper text-steel hover:text-white text-xs font-mono transition-colors"
+                className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-graphite/60 border border-charcoal-border hover:border-copper text-steel hover:text-white text-xs font-mono transition-all hover:scale-105"
                 title="Call Commercial Desk"
               >
-                <Phone className="w-3 h-3 text-copper" />
-                <span>+91 88283 35168</span>
               </a>
 
               {/* Primary "Request a Quote" Liquid Copper CTA */}
-              <a
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
                 href={FERRITE_CONTACT.getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -165,7 +173,7 @@ export default function Navbar() {
               >
                 <span>Request a Quote</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+              </motion.a>
 
               {/* Mobile Hamburger Button */}
               <button
@@ -178,47 +186,58 @@ export default function Navbar() {
             </div>
           </div>
         </nav>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-x-0 top-0 z-40 lg:hidden bg-graphite/95 backdrop-blur-2xl border-b border-charcoal-border pt-24 pb-8 px-6 shadow-2xl"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 top-0 z-40 lg:hidden bg-graphite/98 backdrop-blur-2xl border-b border-charcoal-border pt-24 pb-8 px-6 shadow-2xl"
           >
             <div className="max-w-md mx-auto space-y-6">
-              {/* Navigation Links */}
+              {/* Navigation Links with Staggered Entrance */}
               <nav className="space-y-1">
                 <span className="text-[10px] uppercase font-mono tracking-widest text-copper block mb-3">
                   EXPLORE ARCHITECTURE &amp; SUPPLY
                 </span>
-                {NAV_LINKS.map((link) => {
+                {NAV_LINKS.map((link, idx) => {
                   const isActive = pathname === link.href;
                   return (
-                    <Link
+                    <motion.div
                       key={link.name}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={cn(
-                        "flex items-center justify-between py-3 px-3 text-base font-heading font-medium rounded-lg transition-colors",
-                        isActive
-                          ? "bg-charcoal text-copper border-l-2 border-copper"
-                          : "text-offwhite hover:bg-charcoal/50 hover:text-white"
-                      )}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 * idx, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <span>{link.name}</span>
-                      <ArrowUpRight className="w-4 h-4 text-steel" />
-                    </Link>
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={cn(
+                          "flex items-center justify-between py-3 px-3.5 text-base font-heading font-medium rounded-lg transition-colors group",
+                          isActive
+                            ? "bg-charcoal text-copper border-l-2 border-copper"
+                            : "text-offwhite hover:bg-charcoal/50 hover:text-white"
+                        )}
+                      >
+                        <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
+                        <ArrowUpRight className="w-4 h-4 text-steel group-hover:text-copper group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </Link>
+                    </motion.div>
                   );
                 })}
               </nav>
 
-              {/* Direct Actions */}
-              <div className="pt-4 border-t border-charcoal-border space-y-3">
+              {/* Direct Actions with Slide Up */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.35 }}
+                className="pt-4 border-t border-charcoal-border space-y-3"
+              >
                 <a
                   href={FERRITE_CONTACT.getWhatsAppUrl()}
                   target="_blank"
@@ -230,7 +249,7 @@ export default function Navbar() {
                       params: { location: "mobile_menu", message_type: "quote_request" },
                     });
                   }}
-                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-heading text-xs font-semibold uppercase tracking-wider transition-colors shadow-lg"
+                  className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-heading text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-[#25D366]/20 active:scale-98"
                 >
                   <span>WhatsApp Quote</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -239,14 +258,14 @@ export default function Navbar() {
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <a
                     href={FERRITE_CONTACT.getTelUrl()}
-                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5 text-copper" />
                     <span>Call HQ</span>
                   </a>
                   <a
                     href={FERRITE_CONTACT.getEmailUrl()}
-                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5 text-copper" />
                     <span>Email Us</span>
@@ -258,7 +277,7 @@ export default function Navbar() {
                   <div>Yard: {FERRITE_CONTACT.phoneSecondary}</div>
                   <div>Email: {FERRITE_CONTACT.email}</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}

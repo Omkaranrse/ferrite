@@ -3,9 +3,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, ArrowUpRight, ShieldCheck, CheckCircle2 } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import ScrollTextReveal from "@/components/ui/ScrollTextReveal";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
 
@@ -30,10 +32,12 @@ export default function ContactCTA() {
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <Badge variant="copper">07 / DIRECT COMMERCIAL ENQUIRIES</Badge>
-              <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-                Have a project <br />
-                <span className="text-copper">in mind?</span>
-              </h2>
+              <ScrollTextReveal
+                highlightWords={["mind?"]}
+                className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]"
+              >
+                Have a project in mind?
+              </ScrollTextReveal>
               <p className="text-base sm:text-lg text-steel-light font-body leading-relaxed font-normal">
                 Tell us what you&apos;re building. As a leading <strong>structural steel supplier</strong> and <strong>stockist</strong> with lineage dating back to 1965,
                 our engineering desks review drawings, grades, and steel cutting schedules to structure competitive project pricing.

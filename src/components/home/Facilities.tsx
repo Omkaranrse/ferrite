@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, ArrowUpRight, Building2, Warehouse, Route, Scale, Shield } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import StatCounter from "@/components/ui/StatCounter";
 import { locationsData } from "@/data/locations";
 import { useRFQ } from "@/context/RFQContext";
 
@@ -54,11 +55,15 @@ export default function Facilities() {
 
           <div className="flex items-center gap-6 text-xs text-steel-dark font-mono border-t md:border-t-0 md:border-l border-offwhite-border pt-4 md:pt-0 md:pl-8">
             <div>
-              <span className="text-graphite font-bold block text-sm">20-TON</span>
+              <span className="text-graphite font-bold block text-sm">
+                <StatCounter value={20} suffix="-TON" duration={1400} />
+              </span>
               <span>Crane Capacity</span>
             </div>
             <div>
-              <span className="text-graphite font-bold block text-sm">100-TON</span>
+              <span className="text-graphite font-bold block text-sm">
+                <StatCounter value={100} suffix="-TON" duration={1600} />
+              </span>
               <span>Weighbridge</span>
             </div>
             <div>
@@ -71,7 +76,14 @@ export default function Facilities() {
         {/* Dual Hub Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Hub 1: GHATKOPAR (Commercial Headquarters) */}
-          <div className="bg-white border border-offwhite-border shadow-xl p-8 sm:p-12 flex flex-col justify-between group hover:border-copper transition-all duration-300">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ y: -4 }}
+            className="bg-white border border-offwhite-border shadow-xl p-8 sm:p-12 flex flex-col justify-between group hover:border-copper transition-all duration-300"
+          >
             <div className="space-y-6">
               {/* Badge & Monogram */}
               <div className="flex items-center justify-between pb-5 border-b border-offwhite-border">
@@ -172,16 +184,23 @@ export default function Facilities() {
                 href="https://maps.google.com/?q=Excel+Plaza+Ghatkopar+East+Mumbai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-heading font-medium text-steel-dark hover:text-copper inline-flex items-center gap-1.5"
+                className="text-xs font-heading font-medium text-steel-dark hover:text-copper inline-flex items-center gap-1.5 transition-colors"
               >
                 <span>Google Maps</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-copper" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Hub 2: KALAMBOLI (Warehousing & Processing Complex) */}
-          <div className="bg-white border border-offwhite-border shadow-xl p-8 sm:p-12 flex flex-col justify-between group hover:border-copper transition-all duration-300">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            whileHover={{ y: -4 }}
+            className="bg-white border border-offwhite-border shadow-xl p-8 sm:p-12 flex flex-col justify-between group hover:border-copper transition-all duration-300"
+          >
             <div className="space-y-6">
               {/* Badge & Monogram */}
               <div className="flex items-center justify-between pb-5 border-b border-offwhite-border">
@@ -282,13 +301,13 @@ export default function Facilities() {
                 href="https://maps.google.com/?q=Kalamboli+Warehousing+Complex+Navi+Mumbai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-heading font-medium text-steel-dark hover:text-copper inline-flex items-center gap-1.5"
+                className="text-xs font-heading font-medium text-steel-dark hover:text-copper inline-flex items-center gap-1.5 transition-colors"
               >
                 <span>Google Maps</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-copper" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

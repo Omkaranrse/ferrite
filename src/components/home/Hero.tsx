@@ -17,20 +17,21 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "24%"]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.03, 1.16]);
+  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
-  // Staggered text mask variants
+  // Staggered architectural line reveal variants
   const lineVariants = {
-    hidden: { y: "115%", opacity: 0 },
+    hidden: { y: "120%", opacity: 0 },
     visible: (custom: number) => ({
       y: "0%",
       opacity: 1,
       transition: {
-        duration: 0.85,
-        delay: custom * 0.12,
+        duration: 0.95,
+        delay: 0.12 + custom * 0.14,
         ease: [0.16, 1, 0.3, 1],
       },
     }),
@@ -41,7 +42,7 @@ export default function Hero() {
       ref={containerRef}
       className="relative min-h-[100svh] flex flex-col justify-between overflow-hidden bg-graphite pt-32 pb-10 sm:pb-14 select-none"
     >
-      {/* Background Cinematic Visual with parallax & slow ambient scale */}
+      {/* Background Cinematic Visual with layered parallax & ambient breathing */}
       <motion.div
         style={{ y: backgroundY, scale: backgroundScale }}
         className="absolute inset-0 z-0 pointer-events-none will-change-transform"
@@ -61,9 +62,13 @@ export default function Hero() {
 
         {/* Gradient Vignette */}
         <div className="absolute inset-0 bg-gradient-to-t from-graphite via-graphite/50 to-graphite-950/80" />
-        {/* Subtle Architectural Grid Overlay */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-40" />
       </motion.div>
+
+      {/* Layered Architectural Grid Overlay (Independent Parallax) */}
+      <motion.div
+        style={{ y: gridY }}
+        className="absolute inset-0 z-[1] pointer-events-none bg-grid-pattern opacity-40 will-change-transform"
+      />
 
       {/* Main Hero Content Area */}
       <motion.div
@@ -126,30 +131,34 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* CTAs */}
+          {/* CTAs with Staggered Entrance and Micro-Interactions */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
+            transition={{ duration: 0.75, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-wrap items-center gap-4 pt-3"
           >
-            <Button
-              href="/capabilities"
-              variant="outline"
-              size="lg"
-              withArrow
-              className="border-steel-muted/80 text-white hover:border-white hover:bg-white/5"
-            >
-              Explore Our Capabilities
-            </Button>
-            <Button
-              onClick={() => openRFQ()}
-              variant="primary"
-              size="lg"
-              withExternalArrow
-            >
-              Request a Quote
-            </Button>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                href="/capabilities"
+                variant="outline"
+                size="lg"
+                withArrow
+                className="border-steel-muted/80 text-white hover:border-white hover:bg-white/5"
+              >
+                Explore Our Capabilities
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                onClick={() => openRFQ()}
+                variant="primary"
+                size="lg"
+                withExternalArrow
+              >
+                Request a Quote
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>
@@ -190,20 +199,21 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: Engineered Scroll Indicator */}
-        <a
+        {/* Right: Engineered Precision Scroll Indicator */}
+        <motion.a
+          whileHover={{ y: 2 }}
           href="#introduction"
-          className="inline-flex items-center gap-3 text-xs uppercase font-mono tracking-widest text-steel hover:text-white transition-colors group select-none self-start md:self-auto"
+          className="inline-flex items-center gap-3 text-xs uppercase font-mono tracking-widest text-steel hover:text-white transition-colors group select-none self-start md:self-auto cursor-pointer"
         >
-          <span className="text-[11px]">SCROLL TO EXPLORE</span>
-          <div className="w-5 h-9 border border-charcoal-border group-hover:border-copper rounded-full flex items-start justify-center p-1 transition-colors">
+          <span className="text-[11px] tracking-[0.16em]">SCROLL TO EXPLORE</span>
+          <div className="w-5 h-9 border border-charcoal-border group-hover:border-copper group-hover:shadow-[0_0_12px_rgba(196,122,72,0.35)] rounded-full flex items-start justify-center p-1 transition-all duration-300">
             <motion.div
-              animate={{ y: [0, 14, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="w-1 h-2 bg-copper rounded-full"
+              animate={{ y: [0, 14, 0], opacity: [1, 0.4, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="w-1 h-2 bg-copper rounded-full shadow-[0_0_6px_#C47A48]"
             />
           </div>
-        </a>
+        </motion.a>
       </motion.div>
     </section>
   );

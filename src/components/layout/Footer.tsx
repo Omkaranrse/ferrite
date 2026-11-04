@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Phone, Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 import BrandLogo from "@/components/shared/BrandLogo";
 import { useRFQ } from "@/context/RFQContext";
@@ -34,8 +35,14 @@ export default function Footer() {
   return (
     <footer className="bg-graphite-950 border-t border-charcoal-border text-steel pt-16 sm:pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Architectural Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-charcoal-border">
+        {/* Top Architectural Grid with Staggered Entrance */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-charcoal-border"
+        >
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-6">
             <BrandLogo />
@@ -54,7 +61,9 @@ export default function Footer() {
 
             {/* Direct WhatsApp CTA in Footer */}
             <div className="pt-2">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02, x: 2 }}
+                whileTap={{ scale: 0.98 }}
                 href={FERRITE_CONTACT.getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -64,7 +73,7 @@ export default function Footer() {
                     params: { location: "footer", message_type: "general_inquiry" },
                   })
                 }
-                className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-semibold uppercase tracking-wider transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-heading font-semibold uppercase tracking-wider transition-all duration-200 group shadow-lg"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -79,11 +88,12 @@ export default function Footer() {
                 </svg>
                 <span>Chat on WhatsApp</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+              </motion.a>
             </div>
 
-            {/* Live IST clock */}
+            {/* Live IST clock with pulsating status dot */}
             <div className="inline-flex items-center gap-2.5 px-3 py-1.5 bg-charcoal border border-charcoal-border text-xs font-mono text-steel-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
               <Clock className="w-3.5 h-3.5 text-copper" />
               <span>MUMBAI (IST): {istTime || "12:00:00 PM"}</span>
             </div>
@@ -212,7 +222,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Quality, Standards & BIS Affirmation */}
         <div className="py-8 border-b border-charcoal-border/60 flex flex-wrap items-center justify-between gap-4 text-xs">
@@ -242,7 +252,8 @@ export default function Footer() {
             <span className="text-[11px] font-mono">CIN: {FERRITE_CONTACT.cin}</span>
 
             {/* Verified LinkedIn Corporate Profile */}
-            <a
+            <motion.a
+              whileHover={{ scale: 1.05, y: -1 }}
               href={FERRITE_CONTACT.linkedin}
               target="_blank"
               rel="noopener noreferrer"
@@ -266,7 +277,7 @@ export default function Footer() {
               </svg>
               <span>LinkedIn</span>
               <ArrowUpRight className="w-3 h-3 text-steel-muted" />
-            </a>
+            </motion.a>
 
             <Link href="/contact" className="hover:text-copper transition-colors">
               Commercial Enquiries
