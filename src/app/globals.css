@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-graphite: #17191b;
+    --color-charcoal: #202326;
+    --color-steel: #858b90;
+    --color-offwhite: #f4f3ef;
+    --color-copper: #c47a48;
+  }
+
+  html {
+    scroll-behavior: initial;
+    background-color: #17191b;
+    color: #f4f3ef;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    background-color: #17191b;
+    color: #f4f3ef;
+    overflow-x: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #c47a48;
+    color: #ffffff;
+  }
+
+  /* Custom Engineered Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111315;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2e33;
+    border-radius: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c47a48;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Architectural Hairline Grids */
+  .bg-grid-pattern {
+    background-size: 48px 48px;
+    background-image: 
+      linear-gradient(to right, rgba(133, 139, 144, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(133, 139, 144, 0.08) 1px, transparent 1px);
+  }
+
+  .bg-grid-pattern-light {
+    background-size: 48px 48px;
+    background-image: 
+      linear-gradient(to right, rgba(32, 35, 38, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(32, 35, 38, 0.06) 1px, transparent 1px);
+  }
+
+  /* Industrial Luxury Glows */
+  .copper-glow {
+    box-shadow: 0 0 35px rgba(196, 122, 72, 0.28);
+  }
+
+  .copper-glow-sm {
+    box-shadow: 0 0 15px rgba(196, 122, 72, 0.22);
+  }
+
+  .subtle-shadow {
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Editorial Line Mask Reveal */
+  .mask-reveal {
+    overflow: hidden;
+    display: block;
+  }
+
+  /* Steel Shimmer Effect */
+  @keyframes steelShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+
+  .animate-shimmer {
+    animation: steelShimmer 2.5s infinite;
+  }
+
+  /* Ambient Molten Ember Glow */
+  @keyframes emberPulse {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(1.08); }
+  }
+
+  .animate-ember {
+    animation: emberPulse 6s ease-in-out infinite;
+  }
+}
