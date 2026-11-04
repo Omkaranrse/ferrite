@@ -6,11 +6,21 @@ import PageHeader from "@/components/shared/PageHeader";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import StatCounter from "@/components/ui/StatCounter";
+import { BreadcrumbSchema } from "@/components/shared/JsonLd";
 
 export const metadata: Metadata = {
-  title: "About Us | Ferrite Structural Steels Pvt. Ltd. (Est. 1965)",
+  title: "About Us | Lineage Dating Back to 1965 | Ferrite Structural Steels",
   description:
-    "Discover the history of Ferrite Structural Steels. From Payal Enterprises in 1965 to modern structural steel stockholding and material processing across India.",
+    "Discover the history of Ferrite Structural Steels Pvt. Ltd. From Payal Enterprises in 1965 to an integrated structural steel supplier and material processing partner across India.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Us | Five Decades of Structural Steel Excellence | Ferrite",
+    description:
+      "Business lineage dating back to 1965. Stockholding at Kalamboli Warehousing Complex, commercial coordination at Ghatkopar, Mumbai.",
+    url: "https://ferrite.in/about",
+  },
 };
 
 const timelineMilestones = [
@@ -19,7 +29,7 @@ const timelineMilestones = [
     title: "Foundation of Lineage",
     subtitle: "Trading begins in Mumbai's historic iron & steel hubs",
     description:
-      "Our business roots began over 59 years ago under Payal Enterprises. The firm established a reputation for integrity, timely delivery, and dependable sourcing of primary iron and steel products.",
+      "Our business roots began over 59 years ago under Payal Enterprises. The firm established an enduring reputation for integrity, timely delivery, and dependable sourcing of primary iron and steel products.",
   },
   {
     year: "1988",
@@ -54,6 +64,13 @@ const timelineMilestones = [
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://ferrite.in" },
+          { name: "About Us", url: "https://ferrite.in/about" },
+        ]}
+      />
+
       <PageHeader
         eyebrow="OUR HERITAGE & VISION"
         title="Five decades of structural steel"
@@ -83,7 +100,7 @@ export default function AboutPage() {
                 <p>
                   In 2014, the company was officially rechristened as <strong>Ferrite Structural Steels Pvt. Ltd.</strong>
                   This rebranding was not merely cosmetic; it signified our strategic evolution from
-                  a traditional steel trader into an integrated structural steel supply and
+                  a traditional steel trader into an integrated structural steel supplier and
                   material-processing partner.
                 </p>
                 <p>
@@ -130,7 +147,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl bg-charcoal border border-offwhite-border">
                 <Image
                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=85"
-                  alt="Ferrite Structural Steels industrial processing"
+                  alt="Ferrite Structural Steels industrial processing yard in Kalamboli"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover object-center"
@@ -262,7 +279,7 @@ export default function AboutPage() {
 
           <div className="mt-16 p-8 bg-graphite text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-charcoal-border">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-copper block">
+              <span className="text-xs font-mono uppercase tracking-widest text-copper block font-semibold">
                 PARTNER WITH FERRITE
               </span>
               <h4 className="font-heading text-xl sm:text-2xl font-bold mt-1">
@@ -274,7 +291,7 @@ export default function AboutPage() {
                 Explore Products
               </Button>
               <Button href="/contact" variant="primary">
-                Contact Our Team
+                Discuss Your Requirements
               </Button>
             </div>
           </div>
@@ -283,4 +300,3 @@ export default function AboutPage() {
     </>
   );
 }
-

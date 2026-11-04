@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle2, Send, ShieldCheck, PhoneCall, Building2, HardHat } from "lucide-react";
+import { X, CheckCircle2, AlertCircle, ShieldCheck, PhoneCall, Building2, HardHat, RefreshCw } from "lucide-react";
 import confetti from "canvas-confetti";
 import Button from "./Button";
 import Badge from "./Badge";
+import { trackEvent } from "@/lib/analytics";
 
 interface RFQModalProps {
   isOpen: boolean;
@@ -19,15 +20,17 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
     company: "",
     email: "",
     phone: "",
-    productCategory: defaultProduct || "Structural Beams",
+    productCategory: defaultProduct || "Structural Beams (ISMB / Universal Beams)",
     tonnage: "10 – 50 MT",
     destination: "Pan-India Site Dispatch",
     processingNeeds: [] as string[],
     specifications: "",
+    botcheck: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [ticketId, setTicketId] = useState("");
 
   const productsList = [
@@ -61,17 +64,47 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      const generatedId = `FSS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-      setTicketId(generatedId);
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        const errorText =
+          data.errors && Array.isArray(data.errors)
+            ? data.errors.join(" ")
+            : data.error || "Failed to submit quotation request. Please check inputs.";
+        setErrorMessage(errorText);
+        setIsSubmitting(false);
+        return;
+      }
+
+      setTicketId(data.ticketId);
       setIsSubmitting(false);
       setIsSubmitted(true);
 
-      // Trigger industrial celebration
+      // Track B2B Conversion Event
+      trackEvent({
+        name: "contact_form_submit",
+        params: {
+          form_id: "global_rfq_modal",
+          product_category: formData.productCategory,
+          tonnage: formData.tonnage,
+        },
+      });
+
+      // Celebration
       try {
         confetti({
           particleCount: 50,
@@ -80,13 +113,18 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
           colors: ["#C47A48", "#858B90", "#F4F3EF"],
         });
       } catch {
-        // Safe fallback
+        // Fallback
       }
-    }, 900);
+    } catch (err) {
+      console.error("[Submission Network Error]", err);
+      setErrorMessage("Network connection error. Please verify your connection or call our desk at +91 88283 35168.");
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
     setIsSubmitted(false);
+    setErrorMessage(null);
     setTicketId("");
     onClose();
   };
@@ -125,14 +163,14 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                 <h3 className="font-heading text-xl sm:text-2xl text-white font-bold tracking-tight">
                   Request Material & Processing Quote
                 </h3>
-                <p className="text-xs text-steel mt-0.5">
+                <p className="text-xs text-steel mt-0.5 font-normal">
                   Direct commercial review by our Ghatkopar and Kalamboli engineering desks.
                 </p>
               </div>
 
               <button
                 onClick={resetForm}
-                className="w-10 h-10 rounded-none border border-charcoal-border bg-charcoal flex items-center justify-center text-steel hover:text-white hover:border-copper transition-colors"
+                className="w-10 h-10 border border-charcoal-border bg-charcoal flex items-center justify-center text-steel hover:text-white hover:border-copper transition-colors focus:outline-none"
                 aria-label="Close quote modal"
               >
                 <X className="w-5 h-5" />
@@ -147,34 +185,34 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <Badge variant="copper" className="mb-3">
-                    RFQ SUBMITTED SUCCESSFULLY
+                    RFQ TRANSMITTED SUCCESSFULLY
                   </Badge>
                   <h4 className="font-heading text-2xl text-white font-bold mb-2">
-                    Quotation Reference: <span className="text-copper">{ticketId}</span>
+                    Quotation Reference: <span className="text-copper font-mono">{ticketId}</span>
                   </h4>
-                  <p className="text-steel text-sm max-w-md mx-auto mb-8 leading-relaxed">
+                  <p className="text-steel text-sm max-w-md mx-auto mb-8 leading-relaxed font-body">
                     Thank you, <strong className="text-white">{formData.name}</strong>. Our
-                    commercial coordination team at Ghatkopar and facility team at Kalamboli will
-                    review your material grades and requirements. A detailed estimation with Mill
-                    Test Certificate (MTC) details will be dispatched within 4 business hours.
+                    commercial coordination team at Ghatkopar and facility team at Kalamboli have
+                    received your requirements. A structured estimate with Mill Test Certificate (MTC)
+                    verification will be sent within 4 business hours.
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-8 text-left bg-charcoal p-4 border border-charcoal-border text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-8 text-left bg-charcoal p-5 border border-charcoal-border text-xs">
                     <div>
-                      <span className="text-steel block">Assigned Commercial Hub</span>
-                      <strong className="text-white">Ghatkopar HQ (Mumbai)</strong>
+                      <span className="text-steel block font-medium">Assigned Commercial Desk</span>
+                      <strong className="text-white font-heading">Ghatkopar HQ (Mumbai)</strong>
                     </div>
                     <div>
-                      <span className="text-steel block">Staging & Dispatch Yard</span>
-                      <strong className="text-white">Kalamboli Complex (Raigad)</strong>
+                      <span className="text-steel block font-medium">Staging & Dispatch Yard</span>
+                      <strong className="text-white font-heading">Kalamboli Complex (Raigad)</strong>
                     </div>
                     <div>
-                      <span className="text-steel block">Direct Phone</span>
-                      <strong className="text-white">+91 88283 35168</strong>
+                      <span className="text-steel block font-medium">Direct Telephone</span>
+                      <strong className="text-white font-mono">+91 88283 35168</strong>
                     </div>
                     <div>
-                      <span className="text-steel block">Direct Inquiries</span>
-                      <strong className="text-white">contact@ferrite.in</strong>
+                      <span className="text-steel block font-medium">Commercial Email</span>
+                      <strong className="text-white font-mono">contact@ferrite.in</strong>
                     </div>
                   </div>
 
@@ -184,10 +222,33 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Spam Honeypot - Hidden from humans */}
+                  <div className="hidden" aria-hidden="true">
+                    <input
+                      type="text"
+                      name="botcheck"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.botcheck}
+                      onChange={(e) => setFormData({ ...formData, botcheck: e.target.value })}
+                    />
+                  </div>
+
+                  {/* Error Notification */}
+                  {errorMessage && (
+                    <div className="p-4 bg-red-950/40 border border-red-500/50 text-red-200 text-xs flex items-start gap-3">
+                      <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="block text-white mb-0.5">Submission Error</strong>
+                        <span>{errorMessage}</span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Row 1: Contact info */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Full Name *
                       </label>
                       <input
@@ -200,7 +261,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                       />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Company / Contractor *
                       </label>
                       <input
@@ -217,7 +278,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                   {/* Row 2: Email & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Corporate Email *
                       </label>
                       <input
@@ -230,7 +291,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                       />
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Phone / WhatsApp *
                       </label>
                       <input
@@ -246,7 +307,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
 
                   {/* Row 3: Product Category */}
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                       Primary Material Requirement *
                     </label>
                     <select
@@ -265,7 +326,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                   {/* Row 4: Tonnage & Destination */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Estimated Tonnage
                       </label>
                       <select
@@ -282,7 +343,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                      <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                         Delivery Hub / Scope
                       </label>
                       <select
@@ -306,7 +367,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
 
                   {/* Row 5: Value Added Processing */}
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-2">
+                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-2 font-medium">
                       Required Material Processing (Select all that apply)
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -339,7 +400,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
 
                   {/* Row 6: Specifications / Drawings note */}
                   <div>
-                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider font-heading text-steel-light mb-1.5 font-medium">
                       Material Specifications / Mark Numbers / Grades
                     </label>
                     <textarea
@@ -376,7 +437,14 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
                       disabled={isSubmitting}
                       withArrow
                     >
-                      {isSubmitting ? "Transmitting RFQ..." : "Submit Material Quotation Request"}
+                      {isSubmitting ? (
+                        <span className="flex items-center gap-2">
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>Transmitting to Commercial Desk...</span>
+                        </span>
+                      ) : (
+                        "Request a Quote"
+                      )}
                     </Button>
                   </div>
                 </form>
@@ -387,7 +455,7 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
             <div className="p-4 sm:p-6 bg-charcoal-light/40 border-t border-charcoal-border flex items-center justify-between text-xs text-steel">
               <div className="flex items-center gap-2">
                 <PhoneCall className="w-4 h-4 text-copper" />
-                <span>Urgent requirement? Call our desk:</span>
+                <span>Prefer direct phone consultation? Call:</span>
                 <a
                   href="tel:+918828335168"
                   className="text-white hover:text-copper font-medium transition-colors"
@@ -405,4 +473,3 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }: RFQModalPr
     </AnimatePresence>
   );
 }
-

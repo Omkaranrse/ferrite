@@ -6,11 +6,21 @@ import PageHeader from "@/components/shared/PageHeader";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { industriesData } from "@/data/industries";
+import { BreadcrumbSchema } from "@/components/shared/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Industries Served | Ferrite Structural Steels Pvt. Ltd.",
+  title: "Industries Served | Structural Steel for Infrastructure, PEB & High-Rise",
   description:
-    "Supplying structural steel for commercial high-rises, civil bridges, metro transit, PEB industrial fabrication, and manufacturing facilities across India.",
+    "Supplying certified structural steel and material processing for commercial high-rises, civil bridges, highway flyovers, PEB fabrication, and heavy manufacturing across India.",
+  alternates: {
+    canonical: "/industries",
+  },
+  openGraph: {
+    title: "Industries Served | Construction, Infrastructure & Fabrication | Ferrite",
+    description:
+      "Engineered supply chains and certified structural steel profiles aligned with BIS and ASTM building codes across Indian industry.",
+    url: "https://ferrite.in/industries",
+  },
 };
 
 export default function IndustriesPage() {
@@ -18,6 +28,13 @@ export default function IndustriesPage() {
 
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://ferrite.in" },
+          { name: "Industries Served", url: "https://ferrite.in/industries" },
+        ]}
+      />
+
       <PageHeader
         eyebrow="SECTORS & STRUCTURAL APPLICATIONS"
         title="Supporting the industries that"
@@ -53,11 +70,11 @@ export default function IndustriesPage() {
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover object-center brightness-90"
                     />
-                    <div className="absolute top-4 left-4 z-10 w-10 h-10 bg-graphite/90 backdrop-blur-sm border border-charcoal-border flex items-center justify-center text-copper">
+                    <div className="absolute top-4 left-4 z-10 w-11 h-11 bg-graphite/90 backdrop-blur-sm border border-charcoal-border flex items-center justify-center text-copper">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <div className="absolute bottom-4 left-4 right-4 z-10 text-white p-3 bg-graphite/90 backdrop-blur-sm border border-charcoal-border">
-                      <span className="text-[10px] font-mono text-copper uppercase block">
+                    <div className="absolute bottom-4 left-4 right-4 z-10 text-white p-3.5 bg-graphite/90 backdrop-blur-sm border border-charcoal-border">
+                      <span className="text-[10px] font-mono text-copper uppercase block font-semibold">
                         SECTOR CODE 0{idx + 1}
                       </span>
                       <span className="font-heading font-bold text-sm text-white">
@@ -73,7 +90,7 @@ export default function IndustriesPage() {
                     }`}
                   >
                     <div>
-                      <span className="font-mono text-xs text-copper tracking-widest uppercase">
+                      <span className="font-mono text-xs text-copper tracking-widest uppercase font-semibold">
                         {ind.tagline}
                       </span>
                       <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mt-1">
@@ -86,7 +103,7 @@ export default function IndustriesPage() {
 
                     {/* Challenges Solved */}
                     <div className="space-y-2 pt-2 border-t border-charcoal-border">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-copper block">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-copper block font-semibold">
                         PROJECT CHALLENGES RESOLVED
                       </span>
                       <ul className="space-y-1.5 text-xs text-steel-light font-body">
@@ -102,7 +119,7 @@ export default function IndustriesPage() {
                     {/* Materials & Applications Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs">
                       <div className="bg-graphite p-4 border border-charcoal-border space-y-2">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-steel block">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-steel block font-semibold">
                           COMMONLY SUPPLIED MATERIALS
                         </span>
                         <ul className="space-y-1 text-steel-light font-mono text-[11px]">
@@ -113,7 +130,7 @@ export default function IndustriesPage() {
                       </div>
 
                       <div className="bg-graphite p-4 border border-charcoal-border space-y-2">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-steel block">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-steel block font-semibold">
                           TYPICAL STRUCTURE TYPES
                         </span>
                         <ul className="space-y-1 text-steel-light font-body text-[11px]">
@@ -125,15 +142,24 @@ export default function IndustriesPage() {
                     </div>
 
                     {/* Action */}
-                    <div className="pt-4 border-t border-charcoal-border flex items-center justify-between">
-                      <Button
-                        href="/contact"
-                        variant="primary"
-                        size="sm"
-                        withArrow
-                      >
-                        Request RFQ for {ind.name.split("&")[0]}
-                      </Button>
+                    <div className="pt-4 border-t border-charcoal-border flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex gap-3">
+                        <Button
+                          href="/contact"
+                          variant="primary"
+                          size="sm"
+                          withArrow
+                        >
+                          Request a Quote
+                        </Button>
+                        <Button
+                          href="/contact"
+                          variant="outline"
+                          size="sm"
+                        >
+                          Discuss Your Requirements
+                        </Button>
+                      </div>
                       <span className="text-xs font-mono text-steel">
                         Pan-India Staged Supply
                       </span>
@@ -148,4 +174,3 @@ export default function IndustriesPage() {
     </>
   );
 }
-

@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { CheckCircle2, Send, PhoneCall, Mail, Building, MapPin, ShieldCheck, UploadCloud, FileCode } from "lucide-react";
+import { CheckCircle2, PhoneCall, Mail, ShieldCheck, UploadCloud, AlertCircle, RefreshCw } from "lucide-react";
 import confetti from "canvas-confetti";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
+import { trackEvent } from "@/lib/analytics";
 
 export default function ContactCTA() {
   const [formData, setFormData] = useState({
@@ -16,28 +17,79 @@ export default function ContactCTA() {
     phone: "",
     requirement: "Structural Beams (ISMB / Universal Beams)",
     message: "",
+    botcheck: "",
   });
 
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [referenceId, setReferenceId] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFileName(e.target.files[0].name);
+      const file = e.target.files[0];
+      if (file.size > 10 * 1024 * 1024) {
+        setErrorMessage("File exceeds 10MB limit. Please compress or provide drawing link in notes.");
+        return;
+      }
+      setSelectedFile(file);
+      setErrorMessage(null);
+      trackEvent({
+        name: "drawing_upload",
+        params: { file_name: file.name, file_size_kb: Math.round(file.size / 1024) },
+      });
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      const generated = `FSS-ENQ-${Math.floor(10000 + Math.random() * 90000)}`;
-      setReferenceId(generated);
+    try {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("company", formData.company);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("productCategory", formData.requirement);
+      data.append("message", formData.message);
+      data.append("botcheck", formData.botcheck);
+
+      if (selectedFile) {
+        data.append("attachment", selectedFile);
+      }
+
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        body: data,
+      });
+
+      const resJson = await response.json();
+
+      if (!response.ok || !resJson.success) {
+        const errorText =
+          resJson.errors && Array.isArray(resJson.errors)
+            ? resJson.errors.join(" ")
+            : resJson.error || "Failed to submit quotation. Please check required fields.";
+        setErrorMessage(errorText);
+        setIsSubmitting(false);
+        return;
+      }
+
+      setReferenceId(resJson.ticketId);
       setIsSubmitting(false);
       setIsSubmitted(true);
+
+      // Track B2B Conversion Event
+      trackEvent({
+        name: "contact_form_submit",
+        params: {
+          form_id: "homepage_contact_cta",
+          product_category: formData.requirement,
+        },
+      });
 
       try {
         confetti({
@@ -47,9 +99,13 @@ export default function ContactCTA() {
           colors: ["#C47A48", "#858B90", "#FFFFFF"],
         });
       } catch {
-        // Fallback
+        // Safe fallback
       }
-    }, 850);
+    } catch (err) {
+      console.error("[Submission Network Exception]", err);
+      setErrorMessage("Network error connecting to the server. Please call our Ghatkopar desk directly at +91 88283 35168.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -58,7 +114,7 @@ export default function ContactCTA() {
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
         <Image
           src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=2200&q=80"
-          alt="Heavy industrial steel cutting and processing"
+          alt="Heavy structural steel cutting and material preparation operations at Ferrite Kalamboli facility"
           fill
           sizes="100vw"
           className="object-cover object-center grayscale"
@@ -71,14 +127,14 @@ export default function ContactCTA() {
           {/* Left Column: Direct Narrative & Contacts */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <Badge variant="copper">07 / DIRECT ENQUIRIES</Badge>
+              <Badge variant="copper">07 / DIRECT COMMERCIAL ENQUIRIES</Badge>
               <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
                 Have a project <br />
                 <span className="text-copper">in mind?</span>
               </h2>
               <p className="text-base sm:text-lg text-steel-light font-body leading-relaxed font-normal">
-                Tell us what you&apos;re building. Let&apos;s discuss the material and processing requirements.
-                Our Ghatkopar and Kalamboli engineering desks review drawings, grades, and schedules.
+                Tell us what you&apos;re building. As a leading <strong>structural steel supplier</strong> and <strong>stockist</strong>,
+                our engineering desks review drawings, grades, and steel cutting schedules to structure competitive project pricing.
               </p>
             </div>
 
@@ -91,14 +147,22 @@ export default function ContactCTA() {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-steel block font-medium">
-                    COMMERCIAL HOTLINE
+                    COMMERCIAL HOTLINE (GHATKOPAR HQ)
                   </span>
                   <div className="flex flex-wrap gap-x-3 text-sm font-heading font-bold text-white mt-0.5">
-                    <a href="tel:+918828335168" className="hover:text-copper transition-colors">
+                    <a
+                      href="tel:+918828335168"
+                      onClick={() => trackEvent({ name: "phone_click", params: { phone_number: "+91 88283 35168", hub: "ghatkopar" } })}
+                      className="hover:text-copper transition-colors"
+                    >
                       +91 88283 35168
                     </a>
                     <span className="text-steel">/</span>
-                    <a href="tel:+919920777336" className="hover:text-copper transition-colors">
+                    <a
+                      href="tel:+919920777336"
+                      onClick={() => trackEvent({ name: "phone_click", params: { phone_number: "+91 99207 77336", hub: "kalamboli" } })}
+                      className="hover:text-copper transition-colors"
+                    >
                       +91 99207 77336
                     </a>
                   </div>
@@ -115,11 +179,19 @@ export default function ContactCTA() {
                     DRAWINGS & BOQ SUBMISSIONS
                   </span>
                   <div className="flex flex-wrap gap-x-3 text-sm font-heading font-bold text-white mt-0.5">
-                    <a href="mailto:contact@ferrite.in" className="hover:text-copper transition-colors">
+                    <a
+                      href="mailto:contact@ferrite.in"
+                      onClick={() => trackEvent({ name: "email_click", params: { email_address: "contact@ferrite.in", hub: "general" } })}
+                      className="hover:text-copper transition-colors"
+                    >
                       contact@ferrite.in
                     </a>
                     <span className="text-steel">/</span>
-                    <a href="mailto:accounts@ferrite.in" className="hover:text-copper transition-colors">
+                    <a
+                      href="mailto:accounts@ferrite.in"
+                      onClick={() => trackEvent({ name: "email_click", params: { email_address: "accounts@ferrite.in", hub: "ghatkopar" } })}
+                      className="hover:text-copper transition-colors"
+                    >
                       accounts@ferrite.in
                     </a>
                   </div>
@@ -144,7 +216,7 @@ export default function ContactCTA() {
                 <div className="w-16 h-16 bg-copper/15 border border-copper flex items-center justify-center text-copper mb-2">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <Badge variant="copper">ENQUIRY DISPATCHED</Badge>
+                <Badge variant="copper">ENQUIRY TRANSMITTED</Badge>
                 <h3 className="font-heading text-2xl sm:text-3xl font-bold text-white">
                   Thank You, {formData.name}
                 </h3>
@@ -159,7 +231,7 @@ export default function ContactCTA() {
                     variant="outline"
                     onClick={() => {
                       setIsSubmitted(false);
-                      setFileName(null);
+                      setSelectedFile(null);
                       setFormData({
                         name: "",
                         company: "",
@@ -167,6 +239,7 @@ export default function ContactCTA() {
                         phone: "",
                         requirement: "Structural Beams (ISMB / Universal Beams)",
                         message: "",
+                        botcheck: "",
                       });
                     }}
                   >
@@ -176,6 +249,18 @@ export default function ContactCTA() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot Spam Protection */}
+                <div className="hidden" aria-hidden="true">
+                  <input
+                    type="text"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.botcheck}
+                    onChange={(e) => setFormData({ ...formData, botcheck: e.target.value })}
+                  />
+                </div>
+
                 <div className="border-b border-charcoal-border pb-4 mb-2 flex items-center justify-between">
                   <h3 className="font-heading text-xl sm:text-2xl font-bold text-white">
                     Submit Project Requirements
@@ -183,9 +268,19 @@ export default function ContactCTA() {
                   <span className="text-xs font-mono text-copper font-medium">EST. RESPONSE: &lt;4 HRS</span>
                 </div>
 
+                {errorMessage && (
+                  <div className="p-4 bg-red-950/40 border border-red-500/50 text-red-200 text-xs flex items-start gap-3">
+                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block text-white mb-0.5">Submission Error</strong>
+                      <span>{errorMessage}</span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
+                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
                       Your Name *
                     </label>
                     <input
@@ -198,7 +293,7 @@ export default function ContactCTA() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
+                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
                       Company / Organization *
                     </label>
                     <input
@@ -214,8 +309,8 @@ export default function ContactCTA() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
-                      Email Address *
+                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
+                      Business Email Address *
                     </label>
                     <input
                       type="email"
@@ -227,7 +322,7 @@ export default function ContactCTA() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
+                    <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
                       Phone Number *
                     </label>
                     <input
@@ -242,8 +337,8 @@ export default function ContactCTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
-                    Primary Product / Material Category *
+                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
+                    Primary Material Requirement *
                   </label>
                   <select
                     value={formData.requirement}
@@ -261,7 +356,7 @@ export default function ContactCTA() {
                 </div>
 
                 <div>
-                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
+                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
                     Project Message / Dimensions / Drawing Details
                   </label>
                   <textarea
@@ -273,18 +368,18 @@ export default function ContactCTA() {
                   />
                 </div>
 
-                {/* Optional Drawing / Schedule Attachment Mockup */}
+                {/* Optional Drawing / Schedule Attachment */}
                 <div>
-                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5">
-                    Attach Drawing / Schedule / BOQ (Optional)
+                  <label className="block text-xs uppercase font-heading tracking-wider text-steel-light mb-1.5 font-medium">
+                    Attach Drawing / Schedule / BOQ (Optional, Max 10MB)
                   </label>
                   <label className="border border-dashed border-charcoal-border hover:border-copper/80 p-3.5 flex items-center justify-between cursor-pointer bg-graphite/60 transition-colors">
                     <div className="flex items-center gap-2.5 text-xs text-steel">
                       <UploadCloud className="w-4 h-4 text-copper" />
-                      <span>{fileName ? fileName : "Upload CAD drawing (.dwg, .dxf) or PDF schedule"}</span>
+                      <span>{selectedFile ? selectedFile.name : "Upload CAD drawing (.dwg, .dxf) or PDF schedule"}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-copper bg-charcoal px-2 py-0.5 border border-charcoal-border">
-                      Browse File
+                    <span className="text-[10px] font-mono text-copper bg-charcoal px-2.5 py-1 border border-charcoal-border font-medium">
+                      {selectedFile ? "Replace File" : "Browse File"}
                     </span>
                     <input
                       type="file"
@@ -295,16 +390,32 @@ export default function ContactCTA() {
                   </label>
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <Button
                     type="submit"
                     variant="primary"
                     size="lg"
-                    className="w-full"
+                    className="w-full sm:flex-1"
                     disabled={isSubmitting}
                     withArrow
                   >
-                    {isSubmitting ? "Dispatching To Commercial Desk..." : "Request a Quote"}
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Transmitting to Commercial Desk...</span>
+                      </span>
+                    ) : (
+                      "Request a Quote"
+                    )}
+                  </Button>
+                  <Button
+                    href="/contact"
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                    onClick={() => trackEvent({ name: "discuss_requirements_click", params: { location: "contact_cta_form" } })}
+                  >
+                    Discuss Your Requirements
                   </Button>
                 </div>
               </form>

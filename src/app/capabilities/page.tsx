@@ -6,16 +6,33 @@ import PageHeader from "@/components/shared/PageHeader";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import { capabilitiesData } from "@/data/capabilities";
+import { BreadcrumbSchema } from "@/components/shared/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Processing & Capabilities | Ferrite Structural Steels Pvt. Ltd.",
+  title: "Steel Processing & Precision Cutting Services | Ferrite Structural Steels",
   description:
-    "Explore Ferrite's structural processing capabilities: precision bandsaw cutting, CNC flame and plasma plate profiling, beveling, leveling, and stockholding at Kalamboli.",
+    "Explore Ferrite's structural steel processing capabilities: precision bandsaw cutting, CNC flame and plasma plate profiling, beveling, leveling, and stockholding at Kalamboli, Navi Mumbai.",
+  alternates: {
+    canonical: "/capabilities",
+  },
+  openGraph: {
+    title: "Structural Steel Processing, Cutting & CNC Profiling | Ferrite",
+    description:
+      "Eliminating site bottlenecks with semi-automatic bandsaws, multi-torch flame cutting, and custom plate profiling at Kalamboli yard.",
+    url: "https://ferrite.in/capabilities",
+  },
 };
 
 export default function CapabilitiesPage() {
   return (
     <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://ferrite.in" },
+          { name: "Capabilities", url: "https://ferrite.in/capabilities" },
+        ]}
+      />
+
       <PageHeader
         eyebrow="VALUE-ADDED PROCESSING"
         title="More than structural material"
@@ -73,14 +90,14 @@ export default function CapabilitiesPage() {
               <div className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl bg-charcoal border border-offwhite-border">
                 <Image
                   src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=85"
-                  alt="Industrial steel flame cutting and processing"
+                  alt="Industrial steel flame cutting and processing operations at Ferrite"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-graphite/90 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 p-5 bg-graphite/95 backdrop-blur-md border border-charcoal-border text-white">
-                  <span className="text-xs font-mono text-copper uppercase block">
+                  <span className="text-xs font-mono text-copper uppercase block font-semibold">
                     LOCATION SPOTLIGHT
                   </span>
                   <div className="font-heading font-bold text-lg text-white mt-1">
@@ -132,7 +149,7 @@ export default function CapabilitiesPage() {
                         sizes="(max-width: 1024px) 100vw, 40vw"
                         className="object-cover object-center brightness-95"
                       />
-                      <div className="absolute top-4 left-4 z-10 font-mono text-xs text-copper bg-graphite/90 px-2.5 py-1 border border-charcoal-border">
+                      <div className="absolute top-4 left-4 z-10 font-mono text-xs text-copper bg-graphite/90 px-2.5 py-1 border border-charcoal-border font-medium">
                         PILLAR {cap.number}
                       </div>
                     </div>
@@ -140,7 +157,7 @@ export default function CapabilitiesPage() {
                     {/* Details */}
                     <div className="lg:col-span-7 space-y-5">
                       <div>
-                        <span className="font-mono text-xs text-copper tracking-widest uppercase">
+                        <span className="font-mono text-xs text-copper tracking-widest uppercase font-semibold">
                           {cap.subtitle}
                         </span>
                         <h3 className="font-heading text-2xl sm:text-3xl font-bold text-white mt-1">
@@ -165,7 +182,7 @@ export default function CapabilitiesPage() {
 
                       {/* Highlights */}
                       <div className="space-y-2">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-copper block">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-copper block font-semibold">
                           CONTROL BENCHMARKS
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-steel-light">
@@ -197,9 +214,12 @@ export default function CapabilitiesPage() {
                 costs.
               </p>
             </div>
-            <div className="shrink-0">
+            <div className="shrink-0 flex flex-wrap gap-3">
               <Button href="/contact" variant="primary" size="lg" withArrow>
-                Submit Project Drawing
+                Request a Quote
+              </Button>
+              <Button href="/contact" variant="outline" size="lg">
+                Discuss Your Requirements
               </Button>
             </div>
           </div>
@@ -208,4 +228,3 @@ export default function CapabilitiesPage() {
     </>
   );
 }
-
