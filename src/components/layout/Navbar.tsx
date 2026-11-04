@@ -140,22 +140,8 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right: Quick Actions (WhatsApp Quote + Phone + Mobile Menu) */}
+            {/* Right: Quick Actions (WhatsApp Quote + Mobile Menu) */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Quick Telephone Dial on Desktop */}
-              <a
-                href={FERRITE_CONTACT.getTelUrl()}
-                onClick={() =>
-                  trackEvent({
-                    name: "phone_click",
-                    params: { phone_number: FERRITE_CONTACT.phone, hub: "ghatkopar" },
-                  })
-                }
-                className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-graphite/60 border border-charcoal-border hover:border-copper text-steel hover:text-white text-xs font-mono transition-all hover:scale-105"
-                title="Call Commercial Desk"
-              >
-              </a>
-
               {/* Primary "Request a Quote" Liquid Copper CTA */}
               <motion.a
                 whileHover={{ scale: 1.03 }}

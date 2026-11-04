@@ -30,7 +30,7 @@ void main(){
     float attraction=pool(a,aim,2.8)*hover;
     float wave=sin(3.*a-release*11.)*sin(PI*release)*exp(-release*2.7);
     float rip=flow*(.010*sin(3.*a-phase*1.3)+.006*sin(5.*a+phase*.8));
-    float radius=.81+rip+attraction*.018*response-press*.012*response+wave*.035*response;
+    float radius=.84+rip+attraction*.018*response-press*.012*response+wave*.035*response;
     float width=tube*(1.+flow*.16*sin(2.*a-phase)+attraction*.19*response+press*.24*response);
     float q=(r-radius)/max(width,.018);
     float aa=2.64/max(pixels,1.);
@@ -49,7 +49,7 @@ void main(){
     chrome*=mix(vec3(1.),vec3(1.14,.96,.72),max(0.,warmth));
     chrome*=mix(vec3(1.),vec3(.78,.93,1.13),max(0.,-warmth));
     chrome=mix(chrome,vec3(.94,.98,1.),pow(abs(clamp(q,-1.,1.)),14.)*.38);
-    float halo=exp(-pow((r-radius)/(width*2.8),2.))*hot*glow*.21*(1.-smoothstep(1.08,1.2,r));
+    float halo=exp(-pow((r-radius)/(width*2.5),2.))*hot*glow*.18*(1.-smoothstep(1.08,1.2,r));
     vec3 haloColor=mix(vec3(.65,.79,1.),vec3(1.,.88,.65),.5+.5*sin(a+phase));
     float alpha=coverage+(1.-coverage)*halo;
     vec3 col=clamp(chrome,0.,1.)*coverage+haloColor*(1.-coverage)*halo;
@@ -98,7 +98,7 @@ function LiquidMedallion(props: LiquidMedallionProps) {
 
   const bound = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, Number.isFinite(n) ? n : lo));
   const displaySize = bound(props.size, 24, 160);
-  const thickness = Math.min(5.2, displaySize * 0.14);
+  const thickness = Math.min(2.4, displaySize * 0.055);
 
   useLayout(() => {
     const root = rootRef.current;
@@ -228,7 +228,8 @@ function LiquidMedallion(props: LiquidMedallionProps) {
 
       scalar("pixels", canvas.width);
       scalar("time", phaseRef.current);
-      scalar("tube", Math.min(0.14, Math.max(0.022, 5.2 / size)));
+      // Slender, high-precision architectural chrome ring width
+      scalar("tube", Math.min(0.065, Math.max(0.015, 2.2 / size)));
       scalar("flow", bound(c.flow, 0, 1.5));
       scalar("dispersion", bound(c.prism, 0, 1));
       scalar("glow", bound(c.glow ?? 0.5, 0, 1));
@@ -372,7 +373,7 @@ function LiquidMedallion(props: LiquidMedallionProps) {
           pointerEvents: "none",
           userSelect: "none",
           borderRadius: "50%",
-          inset: "9.5%",
+          inset: "6%",
           background: "linear-gradient(140deg, rgba(255,255,255,0.16), transparent 48%, rgba(0,0,0,0.4)), #20242A",
           boxShadow: "inset 0 1px 3px rgba(255,255,255,0.25), inset 0 -1px 3px rgba(0,0,0,0.6), 0 5px 8px -3px rgba(0,0,0,0.38)",
         }}
@@ -386,7 +387,7 @@ function LiquidMedallion(props: LiquidMedallionProps) {
           userSelect: "none",
           borderRadius: "50%",
           visibility: "hidden",
-          inset: Math.max(1, displaySize * 0.095 - thickness / 2),
+          inset: Math.max(1, displaySize * 0.055 - thickness / 2),
           padding: thickness,
         }}
       />
@@ -461,8 +462,8 @@ export default function LiquidMark({
     };
   }, []);
 
-  // Compute inner icon dimension dynamically to fit comfortably within the liquid metal aperture
-  const innerSize = Math.max(20, Math.round(size * 0.62));
+  // Compute inner icon dimension dynamically to fit comfortably within the slender liquid metal aperture
+  const innerSize = Math.max(22, Math.round(size * 0.66));
 
   return (
     <div

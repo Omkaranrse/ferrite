@@ -75,3 +75,4 @@ function Word({
     </motion.span>
   );
 }
+
