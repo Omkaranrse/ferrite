@@ -86,9 +86,9 @@ export default function Navbar() {
               className="flex items-center gap-2.5 group select-none focus:outline-none"
               aria-label="Ferrite Structural Steels Home"
             >
-              {/* LiquidMark Medallion Torus featuring ferrite-icon.png */}
+              {/* LiquidMark Medallion Torus featuring ferrite-icon.svg */}
               <div className="shrink-0 transition-transform duration-300 group-hover:scale-105">
-                <LiquidMark size={44} imageSrc="/ferrite-icon.png" flow={0.9} brightness={1.1} />
+                <LiquidMark size={44} imageSrc="/ferrite-icon.svg" flow={0.9} brightness={1.1} />
               </div>
 
               {/* Brand Typography */}
@@ -97,11 +97,7 @@ export default function Navbar() {
                   <span className="font-heading font-bold text-base sm:text-lg tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors">
                     FERRITE
                   </span>
-                  <span className="w-1.5 h-1.5 bg-copper rotate-45 inline-block" />
-                </div>
-                <span className="hidden md:block text-[8px] uppercase tracking-[0.2em] font-medium text-steel">
-                  Structural Steels
-                </span>
+                  S                </div>
               </div>
             </Link>
 

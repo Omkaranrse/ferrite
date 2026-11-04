@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
-import Image from "next/image";
 
 const MEDALLION_VERTEX = `attribute vec2 position; varying vec2 uv; void main(){uv=position*.5+.5;gl_Position=vec4(position,0.,1.);}`;
 
@@ -437,8 +436,8 @@ export interface LiquidMarkProps {
 }
 
 export default function LiquidMark({
-  size = 50,
-  imageSrc = "/ferrite-icon.png",
+  size = 46,
+  imageSrc = "/ferrite-icon.svg",
   flow = 0.9,
   brightness = 1.05,
   style,
@@ -461,6 +460,9 @@ export default function LiquidMark({
       window.removeEventListener("pointercancel", up);
     };
   }, []);
+
+  // Compute inner icon dimension dynamically to fit comfortably within the liquid metal aperture
+  const innerSize = Math.max(20, Math.round(size * 0.62));
 
   return (
     <div
@@ -493,17 +495,25 @@ export default function LiquidMark({
         brightness={brightness}
         glow={0.25}
       >
-        <div className="relative w-8 h-8 rounded-full overflow-hidden flex items-center justify-center p-0.5">
-          <Image
+        <div
+          style={{
+            width: innerSize,
+            height: innerSize,
+          }}
+          className="relative flex items-center justify-center pointer-events-none select-none"
+        >
+          <img
             src={imageSrc}
             alt="Ferrite Structural Steels"
-            width={34}
-            height={34}
-            priority
-            className="object-contain transform hover:scale-110 transition-transform duration-300"
+            width={innerSize}
+            height={innerSize}
+            className="w-full h-full object-contain filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] transform transition-transform duration-300 group-hover:scale-105"
+            loading="eager"
+            decoding="async"
           />
         </div>
       </LiquidMedallion>
     </div>
   );
 }
+
