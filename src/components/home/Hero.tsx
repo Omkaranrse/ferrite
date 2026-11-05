@@ -52,25 +52,25 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center"
           >
-            <div className="inline-flex items-center text-[11px] sm:text-xs font-mono tracking-[0.2em] text-white/90 uppercase font-medium">
+            <div className="inline-flex items-center text-[11px] sm:text-xs font-mono tracking-[0.2em] text-white uppercase font-medium [text-shadow:_0_0_12px_#000000,_0_2px_6px_rgba(0,0,0,0.95)]">
               <span className="w-1.5 h-3.5 bg-[#FF7A1A] rounded-full inline-block mr-2.5 shadow-[0_0_10px_#FF7A1A]" />
               <span>FERRITE STRUCTURAL STEELS PVT LTD</span>
             </div>
           </motion.div>
 
-          {/* Main Headline — Premium Industrial Typography with Vibrant Orange Accent */}
+          {/* Main Headline — Premium Industrial Typography with Vibrant Orange Accent & Black Glow */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-[2.15rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[3.85rem] font-extrabold text-white tracking-[-0.035em] leading-[1.08] [text-shadow:_0_2px_16px_rgba(0,0,0,0.95),_0_0_40px_rgba(0,0,0,0.6)]"
+            className="font-heading text-[2.15rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[3.85rem] font-extrabold text-white tracking-[-0.035em] leading-[1.08] [text-shadow:_0_0_24px_#000000,_0_0_48px_#000000,_0_2px_8px_#000000,_0_4px_16px_rgba(0,0,0,0.95)]"
           >
             Structural Steels{" "}
             <br className="hidden sm:block" />
             Manufacturer{" "}
             <br />
             &amp; Supplier in{" "}
-            <span className="text-[#FF7A1A] [text-shadow:_0_0_28px_rgba(255,122,26,0.45)]">
+            <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_#000000,_0_0_40px_#000000,_0_2px_8px_#000000]">
               Mumbai, India
             </span>
           </motion.h1>
