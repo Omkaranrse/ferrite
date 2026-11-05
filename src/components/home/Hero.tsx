@@ -8,14 +8,17 @@ import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
 import ArrowFillButton from "@/components/ui/ArrowFillButton";
 import FluidGlassButton from "@/components/ui/FluidGlassButton";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100vh] min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0E11] select-none"
+      className="relative w-full min-h-[100vh] min-h-[100svh] flex flex-col justify-between overflow-hidden transition-colors duration-300 select-none bg-[#0A0E11]" data-hero="true"
     >
       {/* Background Cinematic Visual — Real Ferrite Stockyard Photograph */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -38,10 +41,10 @@ export default function Hero() {
         />
 
         {/* Ambient Top Vignette for Floating Navbar Legibility */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0A0E11]/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
 
         {/* Bottom Fade for Clean Section Transition */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A0E11] via-[#0A0E11]/40 to-transparent pointer-events-none" />
+        <div className={`absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t ${isLight ? "from-[#F8FAFC] via-[#F8FAFC]/50" : "from-[#0A0E11] via-[#0A0E11]/40"} to-transparent pointer-events-none`} />
       </div>
 
       {/* Main Hero Content Area — Anchored at Bottom Left (Portfolio Style) */}
@@ -54,7 +57,7 @@ export default function Hero() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center"
           >
-            <div className="inline-flex items-center text-[11px] sm:text-xs font-mono tracking-[0.2em] text-white uppercase font-medium [text-shadow:_0_0_12px_#000000,_0_2px_6px_rgba(0,0,0,0.95)]">
+            <div className="inline-flex items-center text-[11px] sm:text-xs font-mono tracking-[0.2em] uppercase font-semibold text-white [text-shadow:_0_0_12px_#000000,_0_2px_6px_rgba(0,0,0,0.95)]">
               <span className="w-1.5 h-3.5 bg-[#FF7A1A] rounded-full inline-block mr-2.5 shadow-[0_0_10px_#FF7A1A]" />
               <span>FERRITE STRUCTURAL STEELS PVT LTD</span>
             </div>
@@ -65,7 +68,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-[2.15rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[3.85rem] font-extrabold text-white tracking-[-0.035em] leading-[1.08] [text-shadow:_0_0_24px_#000000,_0_0_48px_#000000,_0_2px_8px_#000000,_0_4px_16px_rgba(0,0,0,0.95)]"
+            className="font-heading text-[2.15rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[3.85rem] font-extrabold tracking-[-0.035em] leading-[1.08] text-white [text-shadow:_0_0_24px_#000000,_0_0_48px_#000000,_0_2px_8px_#000000,_0_4px_16px_rgba(0,0,0,0.95)]"
           >
             Structural Steels{" "}
             <br className="hidden sm:block" />
@@ -82,7 +85,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative overflow-hidden rounded-2xl p-4 sm:p-5 bg-white/[0.05] hover:bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] shadow-[0_12px_36px_0_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.15)] transition-all duration-300 w-full max-w-xl group"
+            className="relative overflow-hidden rounded-2xl p-4 sm:p-5 backdrop-blur-xl transition-all duration-300 w-full max-w-xl group bg-white/[0.07] hover:bg-white/[0.10] border border-white/[0.15] shadow-[0_12px_36px_0_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.15)]"
           >
             {/* Subtle Specular Top Highlight */}
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
@@ -90,15 +93,15 @@ export default function Hero() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 items-center">
               {/* 59+ Experience */}
               <div className="flex items-center gap-3">
-                <Award className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <Award className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
                 <div>
-                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     59+
                   </div>
-                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
                     Years of Experience
                   </div>
-                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
                     Since 1965
                   </div>
                 </div>
@@ -106,15 +109,15 @@ export default function Hero() {
 
               {/* 1000+ Clients */}
               <div className="flex items-center gap-3">
-                <Users className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <Users className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
                 <div>
-                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     1000+
                   </div>
-                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
                     Happy Clients
                   </div>
-                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
                     Across India
                   </div>
                 </div>
@@ -122,15 +125,15 @@ export default function Hero() {
 
               {/* Quality */}
               <div className="flex items-center gap-3">
-                <Shield className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <Shield className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
                 <div>
-                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     Quality
                   </div>
-                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
                     Products as per IS,
                   </div>
-                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
                     ASTM &amp; EN Standards
                   </div>
                 </div>

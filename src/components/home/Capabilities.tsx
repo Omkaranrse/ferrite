@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 // Precision SVG Icons matching the reference design
 const DraftingCompassIcon = () => (
@@ -143,10 +144,12 @@ const SERVICES: ServiceCard[] = [
 ];
 
 export default function Capabilities() {
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
   return (
     <section
       id="capabilities"
-      className="bg-[#0A0E11] py-16 sm:py-24 relative text-offwhite border-t border-white/5 overflow-hidden"
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 border-t ${isLight ? "bg-[#FFFFFF] text-slate-800 border-slate-200" : "bg-[#0A0E11] text-offwhite border-white/5"}`}
     >
       {/* Ambient background glows */}
       <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#FF7A1A]/5 rounded-full blur-[130px] pointer-events-none" />
@@ -159,13 +162,13 @@ export default function Capabilities() {
             {/* Eyebrow */}
             <div className="flex items-center gap-2.5">
               <span className="w-6 h-[3px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-              <span className="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#9CA3AF] uppercase">
+              <span className={`text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] uppercase ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
                 OUR SERVICES
               </span>
             </div>
 
             {/* Main Heading with Orange Accent */}
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl xl:text-[2.65rem] font-extrabold text-white tracking-[-0.03em] leading-[1.15]">
+            <h2 className={`font-heading text-2xl sm:text-3xl lg:text-4xl xl:text-[2.65rem] font-extrabold tracking-[-0.03em] leading-[1.15] ${isLight ? "text-slate-900" : "text-white"}`}>
               End-to-End Steel Solutions for{" "}
               <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.35)]">
                 Every Project
@@ -173,7 +176,7 @@ export default function Capabilities() {
             </h2>
 
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm lg:text-[15px] text-[#9CA3AF] leading-relaxed max-w-2xl font-normal">
+            <p className={`text-xs sm:text-sm lg:text-[15px] leading-relaxed max-w-2xl font-normal ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
               From concept to completion, Ferrite Structural Steels Pvt Ltd offers specialized services,
               engineering expertise, and turnkey solutions tailored to your needs.
             </p>
@@ -182,7 +185,7 @@ export default function Capabilities() {
           {/* Top Right "View Our Services →" Pill CTA */}
           <Link
             href="/capabilities"
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all duration-300 group shadow-lg shrink-0 self-start md:self-auto hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"
+            className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full transition-all duration-300 group shrink-0 self-start md:self-auto text-xs sm:text-sm font-semibold ${isLight ? "bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#FF7A1A]/80 text-slate-800 shadow-sm hover:shadow-md" : "bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-white shadow-lg hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"}`}
           >
             <span>View Our Services</span>
             <span className="text-[#FF7A1A] font-bold text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">
@@ -223,31 +226,31 @@ export default function Capabilities() {
                       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 brightness-95 group-hover:brightness-100"
                     />
                     {/* Bottom gradient fade into card body */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#11171B] via-transparent to-transparent pointer-events-none" />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${isLight ? "from-white via-transparent" : "from-[#11171B] via-transparent"} to-transparent pointer-events-none`} />
                   </div>
 
                   {/* Card Content Body */}
                   <div className="p-5 sm:p-5.5 flex flex-col justify-between flex-1">
                     <div>
                       {/* Orange Icon Container */}
-                      <div className="w-10 h-10 rounded-xl bg-[#1A120B]/90 border border-[#FF7A1A]/40 flex items-center justify-center text-[#FF7A1A] shadow-[0_0_12px_rgba(255,122,26,0.25)] mb-3.5">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-[#FF7A1A] mb-3.5 ${isLight ? "bg-orange-50 border border-orange-200" : "bg-[#1A120B]/90 border border-[#FF7A1A]/40 shadow-[0_0_12px_rgba(255,122,26,0.25)]"}`}>
                         <Icon />
                       </div>
 
                       {/* Card Title */}
-                      <h3 className="font-heading font-extrabold text-base sm:text-lg text-white group-hover:text-[#FF7A1A] transition-colors leading-snug">
+                      <h3 className={`font-heading font-extrabold text-base sm:text-lg group-hover:text-[#FF7A1A] transition-colors leading-snug ${isLight ? "text-slate-900" : "text-white"}`}>
                         {service.title}
                       </h3>
 
                       {/* Card Subtitle */}
-                      <p className="text-xs text-[#9CA3AF] leading-relaxed mt-1.5 min-h-[34px]">
+                      <p className={`text-xs leading-relaxed mt-1.5 min-h-[34px] ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
                         {service.description}
                       </p>
 
                       {/* Bullet Features with Orange Check */}
                       <div className="space-y-2 my-4">
                         {service.bullets.map((bullet, bIdx) => (
-                          <div key={bIdx} className="flex items-center gap-2.5 text-xs font-medium text-white/90">
+                          <div key={bIdx} className={`flex items-center gap-2.5 text-xs font-medium ${isLight ? "text-slate-700" : "text-white/90"}`}>
                             <OrangeCheck />
                             <span>{bullet}</span>
                           </div>
@@ -268,7 +271,7 @@ export default function Capabilities() {
                       ) : (
                         <Link
                           href={service.href}
-                          className="w-full py-2.5 sm:py-3 px-4 rounded-full bg-black/40 hover:bg-[#FF7A1A] border border-white/10 hover:border-[#FF7A1A] text-white hover:text-black font-semibold text-xs sm:text-sm flex items-center justify-between transition-all duration-300 group/btn shadow-sm active:scale-[0.98]"
+                          className={`w-full py-2.5 sm:py-3 px-4 rounded-full font-semibold text-xs sm:text-sm flex items-center justify-between transition-all duration-300 group/btn shadow-sm active:scale-[0.98] ${isLight ? "bg-slate-100 hover:bg-[#FF7A1A] border border-slate-200 hover:border-[#FF7A1A] text-slate-800 hover:text-white" : "bg-black/40 hover:bg-[#FF7A1A] border border-white/10 hover:border-[#FF7A1A] text-white hover:text-black"}`}
                         >
                           <span>Read More</span>
                           <span className="text-[#FF7A1A] group-hover/btn:text-black font-bold text-base transition-colors">
@@ -290,7 +293,7 @@ export default function Capabilities() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30px" }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl bg-[#0D1216]/95 border border-white/10 backdrop-blur-xl overflow-hidden shadow-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+          className={`relative mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-colors duration-300 ${isLight ? "bg-white border border-slate-200" : "bg-[#0D1216]/95 border border-white/10 backdrop-blur-xl"}`}
         >
           {/* Background Right Side Steel Beams Accent */}
           <div className="absolute right-0 top-0 bottom-0 w-full sm:w-1/2 md:w-5/12 overflow-hidden pointer-events-none opacity-40 sm:opacity-60">
@@ -301,7 +304,7 @@ export default function Capabilities() {
               className="object-cover object-right"
             />
             {/* Dark gradient overlay blending the beam into the banner */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0D1216] via-[#0D1216]/80 to-transparent" />
+            <div className={`absolute inset-0 bg-gradient-to-r ${isLight ? "from-white via-white/80" : "from-[#0D1216] via-[#0D1216]/80"} to-transparent`} />
           </div>
 
           {/* Diagonal Molten Glow Line */}
@@ -311,10 +314,10 @@ export default function Capabilities() {
           <div className="relative z-10 flex items-start sm:items-center gap-3.5 sm:gap-4 max-w-2xl">
             <span className="w-1.5 h-10 sm:h-12 bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_12px_#FF7A1A] shrink-0 mt-0.5 sm:mt-0" />
             <div>
-              <h3 className="font-heading font-extrabold text-xl sm:text-2xl lg:text-[1.75rem] text-white tracking-tight leading-snug">
+              <h3 className={`font-heading font-extrabold text-xl sm:text-2xl lg:text-[1.75rem] tracking-tight leading-snug ${isLight ? "text-slate-900" : "text-white"}`}>
                 Need a Custom Steel Solution?
               </h3>
-              <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1 font-normal">
+              <p className={`text-xs sm:text-sm mt-1 font-normal ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
                 Talk to our experts today and get the right solution for your project.
               </p>
             </div>

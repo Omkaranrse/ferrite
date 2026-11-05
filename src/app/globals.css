@@ -15,6 +15,10 @@
   }
 
   html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html {
     scroll-behavior: initial;
     background-color: #17191b;
     color: #f4f3ef;
@@ -457,4 +461,230 @@
       transition: none !important;
     }
   }
+}
+
+
+/* ========================================================================== */
+/* FERRITE COMPREHENSIVE LIGHT THEME ENGINE                                  */
+/* Ensures every section, card, typography, and surface changes cleanly     */
+/* ========================================================================== */
+
+html.light {
+  color-scheme: light;
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+html.light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* ── Base Section & Page Backgrounds ── */
+html.light .bg-graphite,
+html.light .bg-graphite-950,
+html.light .bg-graphite-900,
+html.light .bg-\[\#0A0E11\],
+html.light .bg-\[\#070A0D\],
+html.light .bg-\[\#07090B\],
+html.light .bg-\[\#0D0E10\],
+html.light .bg-\[\#0B0F13\]\/95,
+html.light .bg-\[\#17191B\] {
+  background-color: #F8FAFC !important;
+}
+
+/* ── Card & Surface Backgrounds (Crisp Architectural White) ── */
+html.light .bg-charcoal,
+html.light .bg-charcoal\/90,
+html.light .bg-charcoal\/60,
+html.light .bg-charcoal\/50,
+html.light .bg-charcoal\/40,
+html.light .bg-\[\#11161B\],
+html.light .bg-\[\#11171B\]\/90,
+html.light .bg-\[\#11171B\]\/95,
+html.light .bg-\[\#12181D\],
+html.light .bg-\[\#141A1F\]\/80,
+html.light .bg-\[\#1A2228\],
+html.light .bg-\[\#141C22\],
+html.light .bg-\[\#16181B\]\/80,
+html.light .bg-\[\#0D1115\],
+html.light .bg-\[\#0D1216\]\/95,
+html.light .bg-\[\#111315\]\/95,
+html.light .bg-\[\#10151A\],
+html.light .bg-\[\#12171D\],
+html.light .bg-\[\#1A2127\],
+html.light .bg-\[\#1A2129\],
+html.light .bg-\[\#0A0E11\]\/90 {
+  background-color: #FFFFFF !important;
+}
+
+/* ── Secondary Nested Containers & Pill Tags ── */
+html.light .bg-charcoal-light,
+html.light .bg-graphite-800,
+html.light .bg-\[\#1A120B\]\/90 {
+  background-color: #F1F5F9 !important;
+}
+
+/* ── Clean Industrial Slate Borders ── */
+html.light .border-charcoal-border,
+html.light .border-charcoal-border\/60,
+html.light .border-charcoal-border\/80,
+html.light .border-charcoal-border\/90,
+html.light .border-white\/5,
+html.light .border-white\/10,
+html.light .border-white\/20,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.12\] {
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Typography: Headings & High-Contrast Dark Slate Text ── */
+html.light .text-white,
+html.light .text-offwhite,
+html.light .text-industrial-text,
+html.light .text-\[\#F4F3EF\],
+html.light .text-\[\#F2F2F4\],
+html.light .text-\[\#D8DCDE\] {
+  color: #0F172A;
+}
+
+html.light h1:not(.hpx-afb *):not([class*="from-[#FF7A1A]"] *):not([class*="bg-[#FF7A1A]"] *),
+html.light h2:not(.hpx-afb *):not([class*="from-[#FF7A1A]"] *):not([class*="bg-[#FF7A1A]"] *),
+html.light h3:not(.hpx-afb *):not([class*="from-[#FF7A1A]"] *):not([class*="bg-[#FF7A1A]"] *),
+html.light h4:not(.hpx-afb *):not([class*="from-[#FF7A1A]"] *):not([class*="bg-[#FF7A1A]"] *) {
+  color: #0F172A;
+}
+
+/* ── Typography: Secondary / Muted Text ── */
+html.light .text-steel,
+html.light .text-steel-light,
+html.light .text-steel-muted,
+html.light .text-\[\#9CA3AF\],
+html.light .text-\[\#A9AFB2\],
+html.light .text-\[\#C4C9CE\],
+html.light .text-\[\#858B90\],
+html.light .text-\[\#8E959B\] {
+  color: #475569 !important;
+}
+
+/* ── Preserved Vibrant Accents & Text Contrast ── */
+html.light .text-\[\#FF7A1A\],
+html.light .text-copper,
+html.light .text-copper-light {
+  color: #E06714 !important;
+}
+
+/* Orange CTAs, Fill Buttons & WhatsApp Badges keep pure white text */
+html.light .hpx-afb__label,
+html.light [class*="bg-[#FF7A1A]"] .text-white,
+html.light [class*="from-[#FF7A1A]"] span,
+html.light [class*="from-[#FF7A1A]"] svg,
+html.light [class*="bg-[#25D366]"],
+html.light [class*="bg-[#25D366]"] *,
+html.light .bg-\[\#25D366\] {
+  color: #FFFFFF !important;
+}
+
+/* Shadows: Soft, Modern Elevation ── */
+html.light .shadow-2xl,
+html.light .shadow-xl {
+  box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ── Light Mode Scrollbar ── */
+html.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #C87940;
+}
+
+html.light .hero-exempt,
+html.light .hero-exempt * {
+  /* Reset any html.light color overrides inside hero */
+  color: inherit !important;
+  background-color: inherit !important;
+  border-color: inherit !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Hero section exemptions: light mode must NOT override hero.
+   The hero always sits on a cinematic photo — ALL text stays
+   white with black shadow, glass card stays dark-frosted.
+═══════════════════════════════════════════════════════════════ */
+
+/* Force text inside the hero section to white (excluding interactive buttons) */
+html.light [data-hero="true"],
+html.light [data-hero="true"] h1,
+html.light [data-hero="true"] h2,
+html.light [data-hero="true"] h3,
+html.light [data-hero="true"] p,
+html.light [data-hero="true"] span:not(.text-\[\#FF7A1A\]):not(.hpx-afb *):not([data-fluid-glass] *),
+html.light [data-hero="true"] div:not(.hpx-afb *):not([data-fluid-glass] *) {
+  color: #FFFFFF !important;
+}
+
+/* Keep the orange accent exactly as-is */
+html.light [data-hero="true"] .text-\[\#FF7A1A\],
+html.light [data-hero="true"] span.text-\[\#FF7A1A\] {
+  color: #FF7A1A !important;
+}
+
+/* h1 strong shadow on photo */
+html.light [data-hero="true"] h1 {
+  text-shadow: 0 0 24px #000000, 0 0 48px #000000, 0 2px 8px #000000, 0 4px 16px rgba(0,0,0,0.95) !important;
+}
+
+/* Sub-labels in stats card — slightly muted white */
+html.light [data-hero="true"] .text-\[\#C4C9CE\] {
+  color: rgba(255,255,255,0.80) !important;
+}
+html.light [data-hero="true"] .text-\[\#8E959B\] {
+  color: rgba(255,255,255,0.60) !important;
+}
+
+/* Glass card border stays translucent white */
+html.light [data-hero="true"] .border-white\/\[0\.15\],
+html.light [data-hero="true"] .border-white\/\[0\.12\],
+html.light [data-hero="true"] .border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Hero section bg stays dark (cinematic photo shows through) */
+html.light [data-hero="true"] {
+  background-color: #0A0E11 !important;
+}
+
+
+/* ── ArrowFillButton Arrow & Hover States in Light Mode ── */
+html.light .hpx-afb__icon,
+html.light .hpx-afb__icon-svg,
+html.light [data-hero="true"] .hpx-afb__icon,
+html.light [data-hero="true"] .hpx-afb__icon-svg {
+  color: var(--btn-arrow, #FF7A1A) !important;
+}
+
+html.light .hpx-afb:hover .hpx-afb__icon,
+html.light .hpx-afb:hover .hpx-afb__icon-svg,
+html.light .hpx-afb[data-pressed="true"] .hpx-afb__icon,
+html.light .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg,
+html.light [data-hero="true"] .hpx-afb:hover .hpx-afb__icon,
+html.light [data-hero="true"] .hpx-afb:hover .hpx-afb__icon-svg,
+html.light [data-hero="true"] .hpx-afb[data-pressed="true"] .hpx-afb__icon,
+html.light [data-hero="true"] .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg {
+  color: var(--btn-arrow-hover, #FF7A1A) !important;
+}
+
+html.light .hpx-afb:hover .hpx-afb__mask,
+html.light .hpx-afb:hover .hpx-afb__mask-label,
+html.light .hpx-afb[data-pressed="true"] .hpx-afb__mask,
+html.light .hpx-afb[data-pressed="true"] .hpx-afb__mask-label,
+html.light [data-hero="true"] .hpx-afb:hover .hpx-afb__mask,
+html.light [data-hero="true"] .hpx-afb:hover .hpx-afb__mask-label,
+html.light [data-hero="true"] .hpx-afb[data-pressed="true"] .hpx-afb__mask,
+html.light [data-hero="true"] .hpx-afb[data-pressed="true"] .hpx-afb__mask-label {
+  color: var(--btn-fill-text-hover, #FF7A1A) !important;
 }

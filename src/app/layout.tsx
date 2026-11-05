@@ -14,6 +14,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import { RFQProvider } from "@/context/RFQContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/shared/JsonLd";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ferrite.in";
@@ -149,12 +150,14 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.className} bg-graphite text-offwhite min-h-screen flex flex-col antialiased selection:bg-copper selection:text-white`}>
         <SmoothScroll>
+          <ThemeProvider>
           <RFQProvider>
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
             <FloatingWhatsApp />
           </RFQProvider>
+          </ThemeProvider>
         </SmoothScroll>
       </body>
     </html>

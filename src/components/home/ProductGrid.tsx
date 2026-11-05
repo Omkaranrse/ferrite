@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 // Custom SVG Icons matching the reference design exactly
 const AngleIcon = () => (
@@ -185,10 +186,12 @@ const STANDARD_PRODUCTS: StandardProduct[] = [
 ];
 
 export default function ProductGrid() {
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
   return (
     <section
       id="products"
-      className="bg-[#0A0E11] py-16 sm:py-24 relative text-offwhite border-t border-white/5 overflow-hidden"
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 border-t ${isLight ? "bg-[#F8FAFC] text-slate-800 border-slate-200" : "bg-[#0A0E11] text-offwhite border-white/5"}`}
     >
       {/* Ambient background glows */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#FF7A1A]/5 rounded-full blur-[130px] pointer-events-none" />
@@ -201,13 +204,13 @@ export default function ProductGrid() {
             {/* Eyebrow */}
             <div className="flex items-center gap-2.5">
               <span className="w-6 h-[3px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-              <span className="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#9CA3AF] uppercase">
+              <span className={`text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] uppercase ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
                 STEEL PRODUCTS
               </span>
             </div>
 
             {/* Main Heading with Orange Accent */}
-            <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl xl:text-[2.65rem] font-extrabold text-white tracking-[-0.03em] leading-[1.15]">
+            <h2 className={`font-heading text-2xl sm:text-3xl lg:text-4xl xl:text-[2.65rem] font-extrabold tracking-[-0.03em] leading-[1.15] ${isLight ? "text-slate-900" : "text-white"}`}>
               High-Quality Steel for{" "}
               <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.35)]">
                 Every Project
@@ -215,7 +218,7 @@ export default function ProductGrid() {
             </h2>
 
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm lg:text-[15px] text-[#9CA3AF] leading-relaxed max-w-2xl font-normal">
+            <p className={`text-xs sm:text-sm lg:text-[15px] leading-relaxed max-w-2xl font-normal ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
               Ferrite Structural Steels Pvt Ltd offers a wide range of steel products,
               manufactured to the highest industry standards for strength, durability,
               and performance.
@@ -225,7 +228,7 @@ export default function ProductGrid() {
           {/* Top Right "View All Steel Products →" Pill CTA */}
           <Link
             href="/products"
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all duration-300 group shadow-lg shrink-0 self-start md:self-auto hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"
+            className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full transition-all duration-300 group shrink-0 self-start md:self-auto text-xs sm:text-sm font-semibold ${isLight ? "bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#FF7A1A]/80 text-slate-800 shadow-sm hover:shadow-md" : "bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-white shadow-lg hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"}`}
           >
             <span>View All Steel Products</span>
             <span className="text-[#FF7A1A] font-bold text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">
@@ -309,7 +312,7 @@ export default function ProductGrid() {
                 >
                   <Link
                     href={prod.href}
-                    className="group flex flex-col justify-between h-full bg-[#11171B]/90 hover:bg-[#141C22] border border-white/[0.08] hover:border-white/20 rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 shadow-xl hover:shadow-2xl"
+                    className={`group flex flex-col justify-between h-full rounded-2xl overflow-hidden transition-all duration-300 ${isLight ? "bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#FF7A1A]/60 shadow-md hover:shadow-xl" : "bg-[#11171B]/90 hover:bg-[#141C22] border border-white/[0.08] hover:border-white/20 backdrop-blur-md shadow-xl hover:shadow-2xl"}`}
                   >
                     {/* Card Image Area with 16:10 Aspect Ratio */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
@@ -325,21 +328,21 @@ export default function ProductGrid() {
                     </div>
 
                     {/* Card Meta Footer Bar */}
-                    <div className="p-3.5 sm:p-4 flex items-center justify-between gap-3 bg-[#11171B]/95">
+                    <div className={`p-3.5 sm:p-4 flex items-center justify-between gap-3 ${isLight ? "bg-white border-t border-slate-100" : "bg-[#11171B]/95"}`}>
                       <div className="space-y-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <Icon />
-                          <h3 className="font-heading text-sm sm:text-[15px] font-bold text-white group-hover:text-[#FF7A1A] transition-colors truncate">
+                          <h3 className={`font-heading text-sm sm:text-[15px] font-bold group-hover:text-[#FF7A1A] transition-colors truncate ${isLight ? "text-slate-900" : "text-white"}`}>
                             {prod.title}
                           </h3>
                         </div>
-                        <p className="text-[11px] sm:text-xs text-[#9CA3AF] truncate">
+                        <p className={`text-[11px] sm:text-xs truncate ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
                           {prod.subtext}
                         </p>
                       </div>
 
                       {/* Circular CTA Button */}
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#1A2127] border border-white/10 flex items-center justify-center text-[#FF7A1A] group-hover:bg-[#FF7A1A] group-hover:text-black group-hover:border-[#FF7A1A] transition-all duration-300 shrink-0 shadow-sm">
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[#FF7A1A] transition-all duration-300 shrink-0 shadow-sm ${isLight ? "bg-slate-100 border border-slate-200 group-hover:bg-[#FF7A1A] group-hover:text-white group-hover:border-[#FF7A1A]" : "bg-[#1A2127] border border-white/10 group-hover:bg-[#FF7A1A] group-hover:text-black group-hover:border-[#FF7A1A]"}`}>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </div>

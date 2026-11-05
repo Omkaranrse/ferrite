@@ -7,6 +7,8 @@ import { Menu, X, ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import LiquidSurface from "@/components/navbar/LiquidSurface";
 import LiquidMark from "@/components/navbar/LiquidMark";
+import ThemeSwitch from "@/components/navbar/ThemeSwitch";
+import { useTheme } from "@/context/ThemeContext";
 import { useRFQ } from "@/context/RFQContext";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
@@ -26,6 +28,9 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { openRFQ } = useRFQ();
+  const { theme, isMounted } = useTheme();
+
+  const isLight = isMounted && theme === "light";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,9 +60,13 @@ export default function Navbar() {
           aria-label="Ferrite Main Navigation"
           className={cn(
             "pointer-events-auto relative w-full max-w-6xl rounded-full transition-all duration-500",
-            isScrolled
-              ? "py-2 px-3 sm:px-5 bg-[#111315]/95 backdrop-blur-2xl border border-charcoal-border/90 shadow-2xl shadow-graphite-950/90"
-              : "py-2.5 px-4 sm:px-6 bg-[#16181B]/80 backdrop-blur-xl border border-charcoal-border/60 shadow-xl shadow-graphite-950/60"
+            isLight
+              ? isScrolled
+                ? "py-2 px-3 sm:px-5 bg-white/95 backdrop-blur-2xl border-2 border-slate-400/80 shadow-2xl shadow-slate-900/10"
+                : "py-2.5 px-4 sm:px-6 bg-white/85 backdrop-blur-xl border-2 border-slate-400/60 shadow-xl shadow-slate-900/5"
+              : isScrolled
+                ? "py-2 px-3 sm:px-5 bg-[#111315]/95 backdrop-blur-2xl border border-charcoal-border/90 shadow-2xl shadow-graphite-950/90"
+                : "py-2.5 px-4 sm:px-6 bg-[#16181B]/80 backdrop-blur-xl border border-charcoal-border/60 shadow-xl shadow-graphite-950/60"
           )}
         >
           {/* Framer Liquid Metal Surface Layer */}
@@ -65,16 +74,24 @@ export default function Navbar() {
             <LiquidSurface
               material="navigation"
               edgeWidth={3.4}
-              brightness={1.08}
+              brightness={isLight ? 1.25 : 1.08}
               prism={0.65}
               radius={100}
               hoverLight={0.7}
               liquid={0.9}
-              colors={{
-                highlight: "#EEF6FF",
-                shade: "#111A28",
-                accent: "#C47A48", // Ferrite signature copper
-              }}
+              colors={
+                isLight
+                  ? {
+                      highlight: "#FFFFFF",
+                      shade: "#CBD5E1",
+                      accent: "#C47A48", // Ferrite signature copper
+                    }
+                  : {
+                      highlight: "#EEF6FF",
+                      shade: "#111A28",
+                      accent: "#C47A48", // Ferrite signature copper
+                    }
+              }
               motion={{
                 playback: "ambient",
                 speed: 1,
@@ -94,12 +111,17 @@ export default function Navbar() {
             >
               {/* LiquidMark Medallion Torus featuring ferrite-icon.svg */}
               <div className="shrink-0 transition-transform duration-300 group-hover:scale-105">
-                <LiquidMark size={46} imageSrc="/ferrite-icon.svg" flow={0.9} brightness={1.1} />
+                <LiquidMark size={46} imageSrc="/ferrite-icon.svg" flow={0.9} brightness={isLight ? 1.22 : 1.1} />
               </div>
 
               {/* Brand Typography */}
               <div className="flex flex-col">
-                <span className="font-heading font-bold text-sm sm:text-base tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors leading-tight">
+                <span
+                  className={cn(
+                    "font-heading font-bold text-sm sm:text-base tracking-[0.14em] uppercase transition-colors leading-tight",
+                    isLight ? "text-slate-900 group-hover:text-copper" : "text-white group-hover:text-copper"
+                  )}
+                >
                   FERRITE
                 </span>
               </div>
@@ -115,7 +137,13 @@ export default function Navbar() {
                     href={link.href}
                     className={cn(
                       "relative px-3.5 py-2 text-xs font-heading font-medium tracking-[0.08em] uppercase transition-colors duration-200 group select-none rounded-full",
-                      isActive ? "text-white" : "text-steel hover:text-offwhite"
+                      isLight
+                        ? isActive
+                          ? "text-slate-950 font-bold"
+                          : "text-slate-600 hover:text-slate-950"
+                        : isActive
+                          ? "text-white"
+                          : "text-steel hover:text-offwhite"
                     )}
                   >
                     <span className="relative z-10 transition-transform duration-200 group-hover:-translate-y-0.5 inline-block">
@@ -126,7 +154,12 @@ export default function Navbar() {
                     {isActive && (
                       <motion.span
                         layoutId="navActiveIndicator"
-                        className="absolute inset-0 bg-charcoal border border-charcoal-border rounded-full -z-0"
+                        className={cn(
+                          "absolute inset-0 rounded-full -z-0",
+                          isLight
+                            ? "bg-slate-200/90 border border-slate-300/80 shadow-sm"
+                            : "bg-charcoal border border-charcoal-border"
+                        )}
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
@@ -138,8 +171,13 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right: Quick Actions (WhatsApp Quote + Mobile Menu) */}
+            {/* Right: Quick Actions (Theme Switch + WhatsApp Quote + Mobile Menu) */}
             <div className="flex items-center gap-2 sm:gap-3">
+              {/* Theme Toggle Button placed between Contact and Request a Quote */}
+              <div className="hidden sm:flex items-center">
+                <ThemeSwitch />
+              </div>
+
               {/* Primary "Request a Quote" Liquid Copper CTA */}
               <motion.a
                 whileHover={{ scale: 1.03 }}
@@ -159,10 +197,20 @@ export default function Navbar() {
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </motion.a>
 
+              {/* Mobile: Compact Theme Toggle Button */}
+              <div className="sm:hidden flex items-center">
+                <ThemeSwitch />
+              </div>
+
               {/* Mobile Hamburger Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-9 h-9 rounded-full border border-charcoal-border bg-charcoal/90 flex items-center justify-center text-offwhite hover:text-white hover:border-copper transition-colors focus:outline-none"
+                className={cn(
+                  "lg:hidden w-9 h-9 rounded-full border flex items-center justify-center transition-colors focus:outline-none",
+                  isLight
+                    ? "border-slate-300 bg-white/90 text-slate-800 hover:text-black hover:border-copper"
+                    : "border-charcoal-border bg-charcoal/90 text-offwhite hover:text-white hover:border-copper"
+                )}
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -180,7 +228,12 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-0 z-40 lg:hidden bg-graphite/98 backdrop-blur-2xl border-b border-charcoal-border pt-24 pb-8 px-6 shadow-2xl"
+            className={cn(
+              "fixed inset-x-0 top-0 z-40 lg:hidden backdrop-blur-2xl pt-24 pb-8 px-6 shadow-2xl transition-colors",
+              isLight
+                ? "bg-white/98 border-b border-slate-200 text-slate-900"
+                : "bg-graphite/98 border-b border-charcoal-border text-offwhite"
+            )}
           >
             <div className="max-w-md mx-auto space-y-6">
               {/* Navigation Links with Staggered Entrance */}
@@ -202,25 +255,59 @@ export default function Navbar() {
                         onClick={() => setMobileMenuOpen(false)}
                         className={cn(
                           "flex items-center justify-between py-3 px-3.5 text-base font-heading font-medium rounded-lg transition-colors group",
-                          isActive
-                            ? "bg-charcoal text-copper border-l-2 border-copper"
-                            : "text-offwhite hover:bg-charcoal/50 hover:text-white"
+                          isLight
+                            ? isActive
+                              ? "bg-slate-100 text-copper border-l-2 border-copper"
+                              : "text-slate-800 hover:bg-slate-50 hover:text-black"
+                            : isActive
+                              ? "bg-charcoal text-copper border-l-2 border-copper"
+                              : "text-offwhite hover:bg-charcoal/50 hover:text-white"
                         )}
                       >
                         <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
-                        <ArrowUpRight className="w-4 h-4 text-steel group-hover:text-copper group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        <ArrowUpRight
+                          className={cn(
+                            "w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
+                            isLight
+                              ? "text-slate-400 group-hover:text-copper"
+                              : "text-steel group-hover:text-copper"
+                          )}
+                        />
                       </Link>
                     </motion.div>
                   );
                 })}
               </nav>
 
+              {/* Theme Switch Row in Mobile Drawer */}
+              <div
+                className={cn(
+                  "flex items-center justify-between py-2.5 px-3.5 rounded-lg border",
+                  isLight
+                    ? "bg-slate-50 border-slate-200"
+                    : "bg-charcoal/60 border-charcoal-border"
+                )}
+              >
+                <span
+                  className={cn(
+                    "text-xs font-heading font-semibold uppercase tracking-wider",
+                    isLight ? "text-slate-700" : "text-steel-light"
+                  )}
+                >
+                  Theme ({isLight ? "Light Mode" : "Dark Mode"})
+                </span>
+                <ThemeSwitch />
+              </div>
+
               {/* Direct Actions with Slide Up */}
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.35 }}
-                className="pt-4 border-t border-charcoal-border space-y-3"
+                className={cn(
+                  "pt-4 border-t space-y-3",
+                  isLight ? "border-slate-200" : "border-charcoal-border"
+                )}
               >
                 <a
                   href={FERRITE_CONTACT.getWhatsAppUrl()}
@@ -242,21 +329,36 @@ export default function Navbar() {
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <a
                     href={FERRITE_CONTACT.getTelUrl()}
-                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold transition-colors"
+                    className={cn(
+                      "flex items-center justify-center gap-2 py-2.5 px-3 rounded-full border font-heading font-semibold transition-colors",
+                      isLight
+                        ? "bg-slate-100 border-slate-200 text-slate-900 hover:border-copper"
+                        : "bg-charcoal border-charcoal-border text-white hover:border-copper"
+                    )}
                   >
                     <Phone className="w-3.5 h-3.5 text-copper" />
                     <span>Call HQ</span>
                   </a>
                   <a
                     href={FERRITE_CONTACT.getEmailUrl()}
-                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-charcoal border border-charcoal-border text-white hover:border-copper font-heading font-semibold transition-colors"
+                    className={cn(
+                      "flex items-center justify-center gap-2 py-2.5 px-3 rounded-full border font-heading font-semibold transition-colors",
+                      isLight
+                        ? "bg-slate-100 border-slate-200 text-slate-900 hover:border-copper"
+                        : "bg-charcoal border-charcoal-border text-white hover:border-copper"
+                    )}
                   >
                     <Mail className="w-3.5 h-3.5 text-copper" />
                     <span>Email Us</span>
                   </a>
                 </div>
 
-                <div className="space-y-1.5 text-[11px] text-steel pt-2 font-mono">
+                <div
+                  className={cn(
+                    "space-y-1.5 text-[11px] pt-2 font-mono",
+                    isLight ? "text-slate-500" : "text-steel"
+                  )}
+                >
                   <div>HQ: {FERRITE_CONTACT.phone}</div>
                   <div>Yard: {FERRITE_CONTACT.phoneSecondary}</div>
                   <div>Email: {FERRITE_CONTACT.email}</div>

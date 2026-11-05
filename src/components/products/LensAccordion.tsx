@@ -104,6 +104,7 @@ function Article({
   font,
   onOpenRFQ,
 }: ArticleProps) {
+  const isLight = textColor === "#0F172A" || textColor.toLowerCase() === "#0f172a";
   const dialogRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const closing = useRef(false);
@@ -288,8 +289,8 @@ function Article({
           background: panel,
           color: textColor,
           borderRadius: `${radius}px`,
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          boxShadow: "0 40px 120px rgba(0,0,0,0.85)",
+          border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.12)",
+          boxShadow: isLight ? "0 25px 70px rgba(15,23,42,0.18)" : "0 40px 120px rgba(0,0,0,0.85)",
         }}
       >
         <style>{`
@@ -312,8 +313,8 @@ function Article({
             width: 40,
             height: 40,
             borderRadius: "50%",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            background: "rgba(17, 22, 25, 0.85)",
+            border: isLight ? "1px solid #CBD5E1" : "1px solid rgba(255, 255, 255, 0.2)",
+            background: isLight ? "#F1F5F9" : "rgba(17, 22, 25, 0.85)",
             color: textColor,
             display: "flex",
             alignItems: "center",
@@ -324,7 +325,7 @@ function Article({
             transition: "all 0.2s ease",
           }}
         >
-          <X className="w-5 h-5 text-white hover:scale-110 transition-transform" />
+          <X className={`w-5 h-5 hover:scale-110 transition-transform ${isLight ? "text-slate-800" : "text-white"}`} />
         </button>
 
         {/* Hero Image */}
@@ -437,7 +438,7 @@ function Article({
           {paragraphs.length > 0 && (
             <div
               style={{
-                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                borderTop: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.1)",
                 paddingTop: 18,
                 display: "flex",
                 flexDirection: "column",
@@ -461,9 +462,9 @@ function Article({
               {item.profiles && (
                 <div
                   style={{
-                    background: "#111619",
+                    background: isLight ? "#F8FAFC" : "#111619",
                     padding: 16,
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.08)",
                     borderRadius: "6px",
                   }}
                 >
@@ -481,7 +482,7 @@ function Article({
                   >
                     AVAILABLE PROFILES & SECTIONS
                   </span>
-                  <ul className="space-y-1.5 text-xs text-[#D8DCDE]">
+                  <ul className={`space-y-1.5 text-xs ${isLight ? "text-slate-700" : "text-[#D8DCDE]"}`}>
                     {item.profiles.slice(0, 5).map((pr, idx) => (
                       <li key={idx} className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-[#C87940] shrink-0" />
@@ -495,9 +496,9 @@ function Article({
               {item.standards && (
                 <div
                   style={{
-                    background: "#111619",
+                    background: isLight ? "#F8FAFC" : "#111619",
                     padding: 16,
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.08)",
                     borderRadius: "6px",
                   }}
                 >
@@ -515,7 +516,7 @@ function Article({
                   >
                     GOVERNING STANDARDS & GRADES
                   </span>
-                  <ul className="space-y-1.5 text-xs font-mono text-[#D8DCDE]">
+                  <ul className={`space-y-1.5 text-xs font-mono ${isLight ? "text-slate-700" : "text-[#D8DCDE]"}`}>
                     {item.standards.map((st, idx) => (
                       <li key={idx} className="flex items-center gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#C87940] shrink-0" />
@@ -532,9 +533,9 @@ function Article({
           {(item.sizeRange || item.finishOptions) && (
             <div
               style={{
-                background: "rgba(17, 22, 25, 0.6)",
+                background: isLight ? "#F8FAFC" : "rgba(17, 22, 25, 0.6)",
                 padding: 16,
-                border: "1px solid rgba(255, 255, 255, 0.06)",
+                border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255, 255, 255, 0.06)",
                 borderRadius: "6px",
                 fontSize: 12,
               }}
@@ -543,7 +544,7 @@ function Article({
               {item.sizeRange && (
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-xs">
                   <span className="text-[#858B90] font-medium">Dimensional Range:</span>
-                  <span className="text-white font-mono">{item.sizeRange}</span>
+                  <span className={`font-mono ${isLight ? "text-slate-900" : "text-white"}`}>{item.sizeRange}</span>
                 </div>
               )}
               {item.finishOptions && (

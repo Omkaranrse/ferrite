@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 // Document icon for the folder tab
 const BlogDocIcon = () => (
@@ -82,10 +83,12 @@ const BLOG_POSTS: BlogPost[] = [
 ];
 
 export default function BlogSection() {
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
   return (
     <section
       id="insights"
-      className="bg-[#0A0E11] py-16 sm:py-24 relative text-offwhite border-t border-white/5 overflow-hidden"
+      className={`py-16 sm:py-24 relative overflow-hidden transition-colors duration-300 border-t ${isLight ? "bg-[#F8FAFC] text-slate-800 border-slate-200" : "bg-[#0A0E11] text-offwhite border-white/5"}`}
     >
       {/* Ambient background glows */}
       <div className="absolute -top-16 -right-16 w-96 h-96 bg-[#FF7A1A]/15 rounded-full blur-[140px] pointer-events-none" />
@@ -97,13 +100,13 @@ export default function BlogSection() {
           {/* Eyebrow */}
           <div className="flex items-center gap-2.5">
             <span className="w-6 h-[3px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-            <span className="text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] text-[#9CA3AF] uppercase">
+            <span className={`text-xs sm:text-[13px] font-mono font-bold tracking-[0.22em] uppercase ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
               INSIGHTS
             </span>
           </div>
 
           {/* Main Heading */}
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-white tracking-[-0.03em] leading-[1.12]">
+          <h2 className={`font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-[-0.03em] leading-[1.12] ${isLight ? "text-slate-900" : "text-white"}`}>
             Our{" "}
             <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.35)]">
               Blogs
@@ -111,7 +114,7 @@ export default function BlogSection() {
           </h2>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base text-[#9CA3AF] font-normal leading-relaxed">
+          <p className={`text-sm sm:text-base font-normal leading-relaxed ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
             Articles &amp; blog posts with useful information.
           </p>
         </div>
@@ -155,8 +158,8 @@ export default function BlogSection() {
                     >
                       <path
                         d="M 0 456 L 0 24 A 24 24 0 0 1 24 0 L 114 0 Q 130 0 136 12 Q 142 36 160 36 L 336 36 A 24 24 0 0 1 360 60 L 360 456 A 24 24 0 0 1 336 480 L 24 480 A 24 24 0 0 1 0 456 Z"
-                        fill="rgba(17, 23, 27, 0.88)"
-                        stroke={isFeatured ? "#FF7A1A" : "rgba(255, 255, 255, 0.12)"}
+                        fill={isLight ? "#FFFFFF" : "rgba(17, 23, 27, 0.88)"}
+                        stroke={isFeatured ? "#FF7A1A" : (isLight ? "rgba(203, 213, 225, 0.9)" : "rgba(255, 255, 255, 0.12)")}
                         strokeWidth={isFeatured ? 2.5 : 1.2}
                         vectorEffect="non-scaling-stroke"
                         className="transition-colors duration-300 group-hover:stroke-[#FF7A1A]"
@@ -169,7 +172,7 @@ export default function BlogSection() {
                     {/* Top Folder Tab Header Content */}
                     <div className="flex items-center gap-2 pl-2 pt-1 h-7">
                       <BlogDocIcon />
-                      <span className="text-xs sm:text-[13px] font-bold text-white tracking-wide">
+                      <span className={`text-xs sm:text-[13px] font-bold tracking-wide ${isLight ? "text-slate-800" : "text-white"}`}>
                         Blog
                       </span>
                     </div>
@@ -191,15 +194,15 @@ export default function BlogSection() {
                         </div>
 
                         {/* Blog Post Title */}
-                        <h3 className="font-heading font-extrabold text-[15px] sm:text-base lg:text-[17px] text-white tracking-tight leading-snug mt-4 group-hover:text-[#FF7A1A] transition-colors line-clamp-3">
+                        <h3 className={`font-heading font-extrabold text-[15px] sm:text-base lg:text-[17px] tracking-tight leading-snug mt-4 group-hover:text-[#FF7A1A] transition-colors line-clamp-3 ${isLight ? "text-slate-900" : "text-white"}`}>
                           {post.title}
                         </h3>
                       </div>
 
                       {/* Card Meta Footer Bar */}
-                      <div className="flex items-center justify-between pt-4 mt-6 border-t border-white/[0.08]">
+                      <div className={`flex items-center justify-between pt-4 mt-6 border-t ${isLight ? "border-slate-200" : "border-white/[0.08]"}`}>
                         {/* Date & Read Time */}
-                        <div className="flex items-center gap-2 text-xs text-[#9CA3AF] font-medium">
+                        <div className={`flex items-center gap-2 text-xs font-medium ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
                           <CalendarIcon />
                           <span>{post.date}</span>
                           <span className="text-white/20">|</span>
@@ -223,7 +226,7 @@ export default function BlogSection() {
         <div className="mt-10 sm:mt-12">
           <Link
             href="/capabilities"
-            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#0A0E11]/90 hover:bg-[#FF7A1A]/10 border border-[#FF7A1A] text-xs sm:text-sm font-bold text-white transition-all duration-300 group shadow-[0_0_15px_rgba(255,122,26,0.18)] hover:shadow-[0_0_25px_rgba(255,122,26,0.4)] hover:scale-105 active:scale-95"
+            className={`inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-[#FF7A1A] text-xs sm:text-sm font-bold transition-all duration-300 group hover:scale-105 active:scale-95 ${isLight ? "bg-white hover:bg-orange-50 text-slate-900 shadow-sm hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]" : "bg-[#0A0E11]/90 hover:bg-[#FF7A1A]/10 text-white shadow-[0_0_15px_rgba(255,122,26,0.18)] hover:shadow-[0_0_25px_rgba(255,122,26,0.4)]"}`}
           >
             <span>View All Blogs</span>
             <span className="text-[#FF7A1A] font-bold text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">

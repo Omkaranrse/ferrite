@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Phone, MapPin, ArrowRight } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 import { FERRITE_CONTACT } from "@/lib/contact";
 
 // Social Media SVG Icons
@@ -76,8 +77,10 @@ function PolaroidCard({ image, caption, rotate, zIndex, className = "" }: Polaro
 }
 
 export default function Footer() {
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
   return (
-    <footer className="bg-[#070A0D] text-[#9CA3AF] relative pt-8 sm:pt-12 pb-8 overflow-hidden">
+    <footer className={`relative pt-8 sm:pt-12 pb-8 overflow-hidden transition-colors duration-300 ${isLight ? "bg-[#F1F5F9] text-slate-600 border-t border-slate-200" : "bg-[#070A0D] text-[#9CA3AF]"}`}>
       {/* Ambient Deep Glows */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[750px] h-[300px] bg-[#FF7A1A]/8 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-20 -left-20 w-96 h-96 bg-[#FF7A1A]/6 rounded-full blur-[140px] pointer-events-none" />
@@ -90,7 +93,7 @@ export default function Footer() {
           {/* Underglow Reflection */}
           <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
 
-          <div className="rounded-[28px] sm:rounded-[32px] md:rounded-[36px] bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden">
+          <div className={`rounded-[28px] sm:rounded-[32px] md:rounded-[36px] p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 relative overflow-hidden transition-all duration-300 ${isLight ? "bg-white border border-slate-200 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" : "bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)]"}`}>
             {/* Orange Backlight for the Polaroid Reel */}
             <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#FF7A1A]/15 blur-[90px] rounded-full pointer-events-none" />
 
@@ -100,13 +103,13 @@ export default function Footer() {
                 {/* Eyebrow with orange line */}
                 <div className="inline-flex items-center gap-2">
                   <span className="w-5 h-[2.5px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-                  <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-white/90 uppercase">
+                  <span className={`text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] uppercase ${isLight ? "text-slate-500" : "text-white/90"}`}>
                     GET IN TOUCH
                   </span>
                 </div>
 
                 {/* Main Headline */}
-                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.5rem] text-white tracking-[-0.03em] leading-[1.12]">
+                <h2 className={`font-heading font-extrabold text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.5rem] tracking-[-0.03em] leading-[1.12] ${isLight ? "text-slate-900" : "text-white"}`}>
                   Still have a question about your{" "}
                   <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.4)]">
                     steel requirement?
@@ -114,7 +117,7 @@ export default function Footer() {
                 </h2>
 
                 {/* Subtitle Paragraph */}
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#9CA3AF] leading-relaxed max-w-lg font-normal">
+                <p className={`text-xs sm:text-sm lg:text-[14px] leading-relaxed max-w-lg font-normal ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
                   Share your requirement and our experts will help you with the right steel solution,
                   best price and on-time delivery across India.
                 </p>
@@ -198,24 +201,24 @@ export default function Footer() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-heading font-extrabold text-lg sm:text-xl tracking-wider text-white uppercase leading-none">
+                  <span className={`font-heading font-extrabold text-lg sm:text-xl tracking-wider uppercase leading-none ${isLight ? "text-slate-900" : "text-white"}`}>
                     FERRITE
                   </span>
-                  <span className="text-[8.5px] uppercase tracking-[0.22em] font-medium text-[#9CA3AF] mt-1">
+                  <span className={`text-[8.5px] uppercase tracking-[0.22em] font-medium mt-1 ${isLight ? "text-slate-500" : "text-[#9CA3AF]"}`}>
                     STRUCTURAL STEELS PVT. LTD.
                   </span>
                 </div>
               </Link>
 
               {/* Lineage Statement matching screenshot */}
-              <div className="font-heading font-extrabold text-lg sm:text-xl text-white tracking-tight leading-snug space-y-0.5 pt-2">
+              <div className={`font-heading font-extrabold text-lg sm:text-xl tracking-tight leading-snug space-y-0.5 pt-2 ${isLight ? "text-slate-900" : "text-white"}`}>
                 <div>Built for projects.</div>
                 <div>Stocked in Mumbai.</div>
                 <div className="text-[#FF7A1A]">Lineage since 1965.</div>
               </div>
 
               {/* Tagline Paragraph */}
-              <p className="text-xs text-[#9CA3AF] leading-relaxed max-w-xs pt-1">
+              <p className={`text-xs leading-relaxed max-w-xs pt-1 ${isLight ? "text-slate-600" : "text-[#9CA3AF]"}`}>
                 Your trusted partner for structural steel products, fabrication and complete steel
                 solutions across India.
               </p>
@@ -223,7 +226,7 @@ export default function Footer() {
 
             {/* Column 2: QUICK LINKS (1.5 cols) */}
             <div className="lg:col-span-2 xl:col-span-2 space-y-3.5">
-              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+              <h3 className={`font-heading text-xs font-extrabold tracking-wider uppercase ${isLight ? "text-slate-900" : "text-white"}`}>
                 QUICK LINKS
               </h3>
               <ul className="space-y-2.5 text-xs">
@@ -238,7 +241,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                      className={`flex items-center gap-1.5 transition-colors group ${isLight ? "text-slate-600 hover:text-slate-900" : "text-[#9CA3AF] hover:text-white"}`}
                     >
                       <span className="text-[#FF7A1A] text-sm leading-none font-bold group-hover:translate-x-0.5 transition-transform">
                         ›
@@ -252,7 +255,7 @@ export default function Footer() {
 
             {/* Column 3: STEEL PRODUCTS (2 cols) */}
             <div className="lg:col-span-2 xl:col-span-2 space-y-3.5">
-              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+              <h3 className={`font-heading text-xs font-extrabold tracking-wider uppercase ${isLight ? "text-slate-900" : "text-white"}`}>
                 STEEL PRODUCTS
               </h3>
               <ul className="space-y-2.5 text-xs">
@@ -268,7 +271,7 @@ export default function Footer() {
                   <li key={prod.name}>
                     <Link
                       href={prod.href}
-                      className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                      className={`flex items-center gap-1.5 transition-colors group ${isLight ? "text-slate-600 hover:text-slate-900" : "text-[#9CA3AF] hover:text-white"}`}
                     >
                       <span className="text-[#FF7A1A] text-sm leading-none font-bold group-hover:translate-x-0.5 transition-transform">
                         ›
@@ -282,7 +285,7 @@ export default function Footer() {
 
             {/* Column 4: LOCATIONS (2.5 cols) */}
             <div className="lg:col-span-2 xl:col-span-2 space-y-5">
-              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+              <h3 className={`font-heading text-xs font-extrabold tracking-wider uppercase ${isLight ? "text-slate-900" : "text-white"}`}>
                 LOCATIONS
               </h3>
 
@@ -414,13 +417,13 @@ export default function Footer() {
           <div className="absolute -bottom-2 left-0 w-64 sm:w-80 h-[2px] bg-gradient-to-r from-[#FF7A1A] via-[#FF7A1A]/70 to-transparent shadow-[0_0_12px_#FF7A1A] pointer-events-none" />
 
           {/* Bottom Copyright & Credits Bar */}
-          <div className="pt-8 mt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6B7280] relative z-10">
+          <div className={`pt-8 mt-4 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-xs relative z-10 ${isLight ? "border-slate-200 text-slate-500" : "border-white/[0.08] text-[#6B7280]"}`}>
             <div>
               © 2026 Ferrite Structural Steels Pvt. Ltd. All rights reserved.
             </div>
             <div>
-              Designed by <span className="text-white/80 font-medium">Vebiotic Web Solutions</span>{" "}
-              | Marketing by <span className="text-white/80 font-medium">Adinads</span>
+              Designed by <span className={isLight ? "text-slate-700 font-medium" : "text-white/80 font-medium"}>Vebiotic Web Solutions</span>{" "}
+              | Marketing by <span className={isLight ? "text-slate-700 font-medium" : "text-white/80 font-medium"}>Adinads</span>
             </div>
           </div>
         </div>

@@ -4,8 +4,11 @@ import React, { useMemo } from "react";
 import PageHeader from "@/components/shared/PageHeader";
 import { productsData } from "@/data/products";
 import LensAccordion, { LensAccordionItem } from "./LensAccordion";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function ProductsCatalogClient() {
+  const { theme, isMounted } = useTheme();
+  const isLight = isMounted && theme === "light";
 
   const accordionItems: LensAccordionItem[] = useMemo(() => {
     return productsData.map((prod) => ({
@@ -39,17 +42,17 @@ export default function ProductsCatalogClient() {
       />
 
       {/* Main Products Section - Only the Accordion */}
-      <section className="bg-charcoal py-12 sm:py-16 lg:py-20 text-offwhite min-h-[calc(100vh-280px)]">
+      <section className={`py-12 sm:py-16 lg:py-20 min-h-[calc(100vh-280px)] transition-colors duration-300 ${isLight ? "bg-[#F8FAFC] text-slate-800" : "bg-charcoal text-offwhite"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Introductory Paragraph from Specification */}
           <div className="mb-8 max-w-4xl">
-            <p className="text-xs sm:text-sm text-steel-light leading-relaxed">
+            <p className={`text-xs sm:text-sm leading-relaxed ${isLight ? "text-slate-600" : "text-steel-light"}`}>
               Whether you require robust steel beams for construction, precise steel sheets for manufacturing, or durable steel pipes for industrial applications, we have the right solution for you. Each product is crafted using advanced production technologies, ensuring exceptional strength, durability, and performance. Explore our wide range of products below.
             </p>
           </div>
 
           {/* Clean 7-Product Accordion Viewport */}
-          <div className="relative w-full h-[540px] sm:h-[620px] lg:h-[680px] rounded-2xl overflow-hidden border border-charcoal-border bg-graphite-950 p-2 sm:p-3 shadow-2xl">
+          <div className={`relative w-full h-[540px] sm:h-[620px] lg:h-[680px] rounded-2xl overflow-hidden p-2 sm:p-3 shadow-xl transition-all duration-300 ${isLight ? "border border-slate-200 bg-white" : "border border-charcoal-border bg-graphite-950"}`}>
             <LensAccordion
               items={accordionItems}
               startIndex={1}
@@ -63,9 +66,9 @@ export default function ProductsCatalogClient() {
               ripple={30}
               reorder={false}
               popup={true}
-              panel="#17191B"
-              backdrop="rgba(10, 14, 17, 0.85)"
-              textColor="#F5F3EF"
+              panel={isLight ? "#FFFFFF" : "#17191B"}
+              backdrop={isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(10, 14, 17, 0.85)"}
+              textColor={isLight ? "#0F172A" : "#F5F3EF"}
               accent="#C87940"
             />
           </div>
