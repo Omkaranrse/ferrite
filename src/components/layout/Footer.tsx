@@ -4,19 +4,19 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, MapPin, ArrowRight } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
 
 // Social Media SVG Icons
-const FacebookIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-  </svg>
-);
-
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+  </svg>
+);
+
+const YouTubeIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
 
@@ -32,53 +32,43 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-const YouTubeIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-  </svg>
-);
-
-// Authentic White Polaroid Snapshot Component (from Framer Snapshot-Footer Spec)
-function SnapshotPolaroid({
-  image,
-  caption,
-  rotate = 0,
-  zIndex = 1,
-  className = "",
-}: {
+// Fanned Polaroid Component matching the exact reference mockup
+interface PolaroidCardProps {
   image: string;
   caption: string;
-  rotate?: number;
-  zIndex?: number;
+  rotate: number;
+  zIndex: number;
   className?: string;
-}) {
+}
+
+function PolaroidCard({ image, caption, rotate, zIndex, className = "" }: PolaroidCardProps) {
   return (
     <motion.div
       drag
-      dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
+      dragConstraints={{ left: -25, right: 25, top: -25, bottom: 25 }}
       initial={{ rotate }}
       whileHover={{
         rotate: 0,
-        scale: 1.12,
+        scale: 1.16,
         zIndex: 50,
-        transition: { type: "spring", stiffness: 350, damping: 22 },
+        transition: { type: "spring", stiffness: 380, damping: 24 },
       }}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.96 }}
       style={{ zIndex }}
-      className={`relative cursor-grab active:cursor-grabbing bg-[#FAFAFA] p-2.5 sm:p-3 pb-8 sm:pb-9 rounded-[3px] shadow-[0_16px_36px_-6px_rgba(0,0,0,0.65),0_2px_6px_rgba(0,0,0,0.2)] select-none shrink-0 w-[170px] sm:w-[200px] lg:w-[210px] transition-shadow hover:shadow-[0_24px_48px_rgba(0,0,0,0.85)] ${className}`}
+      className={`relative cursor-grab active:cursor-grabbing bg-white p-2 sm:p-2.5 pb-4 sm:pb-5 rounded-[2px] shadow-[0_16px_36px_rgba(0,0,0,0.65),0_2px_8px_rgba(0,0,0,0.25)] select-none shrink-0 w-[120px] sm:w-[140px] md:w-[155px] lg:w-[168px] xl:w-[178px] transition-shadow hover:shadow-[0_24px_50px_rgba(0,0,0,0.9)] ${className}`}
     >
-      {/* Inner Photo Frame */}
-      <div className="relative aspect-[4/3] sm:aspect-square w-full rounded-[2px] overflow-hidden bg-zinc-900 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.12)]">
+      {/* Inner Image Frame */}
+      <div className="relative aspect-[4/3] w-full rounded-[1px] overflow-hidden bg-black shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
         <Image
           src={image}
           alt={caption}
           fill
-          sizes="220px"
+          sizes="200px"
           className="object-cover pointer-events-none"
         />
       </div>
-      {/* Handwritten / Monospace Caption */}
-      <p className="mt-2.5 text-[11px] font-mono tracking-tight text-zinc-700 text-center truncate select-none px-1">
+      {/* Dark Bold Label matching the mockup */}
+      <p className="mt-2 text-[10px] sm:text-[11.5px] font-heading font-bold text-zinc-900 text-center tracking-tight truncate select-none px-0.5">
         {caption}
       </p>
     </motion.div>
@@ -87,360 +77,350 @@ function SnapshotPolaroid({
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0E11] text-[#9CA3AF] relative py-12 sm:py-16 overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-[#FF7A1A]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#FF7A1A]/4 rounded-full blur-[140px] pointer-events-none" />
+    <footer className="bg-[#070A0D] text-[#9CA3AF] relative pt-8 sm:pt-12 pb-8 overflow-hidden">
+      {/* Ambient Deep Glows */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[750px] h-[300px] bg-[#FF7A1A]/8 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-20 -left-20 w-96 h-96 bg-[#FF7A1A]/6 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Main Contained Framer Snapshot-Footer Card */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-[28px] sm:rounded-[36px] bg-[#12161A] border border-white/10 overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] relative flex flex-col">
-          {/* ========================================================== */}
-          {/* TOP STAGE: Large Heading, Paragraph & Snapshot Photo Fan   */}
-          {/* ========================================================== */}
-          <div className="px-6 pt-10 sm:px-12 sm:pt-16 lg:px-14 lg:pt-20 pb-16 sm:pb-24 relative overflow-hidden bg-gradient-to-b from-[#14191F] to-[#101418]">
-            {/* Heading and Intro Row */}
-            <div className="flex flex-col lg:flex-row items-start lg:items-start justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
-              {/* Left Heading */}
-              <div className="max-w-xl">
-                <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[2.75rem] text-white tracking-[-0.03em] leading-[1.12]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* ========================================================== */}
+        {/* TOP FLOATING CARD BANNER (Exact Match to Mockup)          */}
+        {/* ========================================================== */}
+        <div className="relative">
+          {/* Underglow Reflection */}
+          <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
+
+          <div className="rounded-[28px] sm:rounded-[32px] md:rounded-[36px] bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden">
+            {/* Orange Backlight for the Polaroid Reel */}
+            <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#FF7A1A]/15 blur-[90px] rounded-full pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+              {/* Left Column: Heading, Paragraph & CTA Button */}
+              <div className="lg:col-span-5 xl:col-span-5 space-y-4 sm:space-y-5 text-left relative z-10">
+                {/* Eyebrow with orange line */}
+                <div className="inline-flex items-center gap-2">
+                  <span className="w-5 h-[2.5px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
+                  <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-white/90 uppercase">
+                    GET IN TOUCH
+                  </span>
+                </div>
+
+                {/* Main Headline */}
+                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.5rem] text-white tracking-[-0.03em] leading-[1.12]">
                   Still have a question about your{" "}
-                  <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.35)]">
+                  <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.4)]">
                     steel requirement?
                   </span>
                 </h2>
-              </div>
 
-              {/* Right Paragraph & Quick CTA */}
-              <div className="max-w-md space-y-4">
-                <p className="text-xs sm:text-sm lg:text-[15px] text-[#9CA3AF] leading-relaxed">
+                {/* Subtitle Paragraph */}
+                <p className="text-xs sm:text-sm lg:text-[14px] text-[#9CA3AF] leading-relaxed max-w-lg font-normal">
                   Share your requirement and our experts will help you with the right steel solution,
                   best price and on-time delivery across India.
                 </p>
-                <div className="pt-1">
+
+                {/* Orange Pill Button */}
+                <div className="pt-2">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D9651E] to-[#FF7A1A] hover:from-[#E66E24] hover:to-[#FF882E] text-white font-heading text-xs sm:text-sm font-bold shadow-lg hover:shadow-[0_0_20px_rgba(255,122,26,0.4)] transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_25px_rgba(255,122,26,0.45)] hover:shadow-[0_4px_35px_rgba(255,122,26,0.65)] hover:scale-105 active:scale-95 transition-all group"
                   >
                     <span>Request a Quote</span>
-                    <span className="font-bold text-base">→</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
-            </div>
 
-            {/* ======================================================== */}
-            {/* SNAPSHOT PHOTO PILE (Framer Snapshot Footer Signature)    */}
-            {/* Straddles the boundary between top stage and bottom body */}
-            {/* ======================================================== */}
-            <div className="relative pt-6 sm:pt-10 overflow-x-auto no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0">
-              <div className="flex items-center justify-start lg:justify-center gap-3 sm:gap-4 lg:gap-5 min-w-max lg:min-w-0 pb-4">
-                {/* Photo 1: Angles */}
-                <SnapshotPolaroid
-                  image="/images/products/steel-angle.png"
-                  caption="Stockyard Angles · 9:04 AM"
-                  rotate={-6}
-                  zIndex={2}
-                />
+              {/* Right Column: 5 Fanned-Out White Polaroids */}
+              <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible pt-4 pb-4 sm:py-2">
+                <div className="relative flex items-center justify-center -space-x-4 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
+                  {/* Photo 1: Steel Angles */}
+                  <PolaroidCard
+                    image="/images/products/steel-angle.png"
+                    caption="Steel Angles"
+                    rotate={-9}
+                    zIndex={10}
+                  />
 
-                {/* Photo 2: Beams */}
-                <SnapshotPolaroid
-                  image="/images/products/steel-beams.png"
-                  caption="Heavy Sections Mill · 11:30 AM"
-                  rotate={4}
-                  zIndex={3}
-                  className="-ml-4 sm:-ml-6"
-                />
+                  {/* Photo 2: Heavy Sections */}
+                  <PolaroidCard
+                    image="/images/products/steel-beams.png"
+                    caption="Heavy Sections"
+                    rotate={-3}
+                    zIndex={20}
+                  />
 
-                {/* Central Sticky NoteCard */}
-                <motion.div
-                  drag
-                  dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
-                  initial={{ rotate: -2 }}
-                  whileHover={{
-                    rotate: 0,
-                    scale: 1.12,
-                    zIndex: 50,
-                    transition: { type: "spring", stiffness: 350, damping: 22 },
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ zIndex: 10 }}
-                  className="relative cursor-grab active:cursor-grabbing bg-[#1C232B] p-4 pb-5 rounded-xl border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.7)] select-none shrink-0 w-[190px] sm:w-[220px] -ml-4 sm:-ml-6 text-left"
-                >
-                  {/* Adhesive Tape Header */}
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-white/20 backdrop-blur-sm rounded-sm border border-white/25 rotate-[-2deg]" />
+                  {/* Photo 3: Steel Pipes */}
+                  <PolaroidCard
+                    image="/images/products/steel-pipes.png"
+                    caption="Steel Pipes"
+                    rotate={2}
+                    zIndex={30}
+                  />
 
-                  {/* Note Card Content */}
-                  <div className="pt-1.5 space-y-1.5 font-mono">
-                    <div className="text-[10px] font-bold text-[#FF7A1A] tracking-wider uppercase">
-                      FERRITE HQ
-                    </div>
-                    <div className="text-xs font-bold text-white leading-snug">
-                      Excel Plaza, 803/B wing
-                      <br />
-                      Ghatkopar, Mumbai 400075
-                    </div>
-                    <div className="pt-2 border-t border-white/10 text-[10px] text-[#9CA3AF] space-y-0.5">
-                      <div>Mon – Sat: 08:30 AM – 07:30 PM</div>
-                      <div className="text-white font-semibold pt-0.5">{FERRITE_CONTACT.phone}</div>
-                      <div className="text-[#9CA3AF] truncate">{FERRITE_CONTACT.email}</div>
-                    </div>
-                  </div>
-                </motion.div>
+                  {/* Photo 4: Fabrication */}
+                  <PolaroidCard
+                    image="/images/services/welded-assemblies.jpg"
+                    caption="Fabrication"
+                    rotate={5}
+                    zIndex={20}
+                  />
 
-                {/* Photo 3: Pipes */}
-                <SnapshotPolaroid
-                  image="/images/products/steel-pipes.png"
-                  caption="Kalamboli Yard · 2:15 PM"
-                  rotate={5}
-                  zIndex={4}
-                  className="-ml-4 sm:-ml-6"
-                />
-
-                {/* Photo 4: Fabrication */}
-                <SnapshotPolaroid
-                  image="/images/services/welded-assemblies.jpg"
-                  caption="Fabrication Shop · 4:45 PM"
-                  rotate={-5}
-                  zIndex={3}
-                  className="-ml-4 sm:-ml-6"
-                />
-
-                {/* Photo 5: Erection */}
-                <SnapshotPolaroid
-                  image="/images/services/structural-steelwork.jpg"
-                  caption="Site Erection · 6:10 PM"
-                  rotate={7}
-                  zIndex={2}
-                  className="-ml-4 sm:-ml-6"
-                />
+                  {/* Photo 5: Site Erection */}
+                  <PolaroidCard
+                    image="/images/services/structural-steelwork.jpg"
+                    caption="Site Erection"
+                    rotate={9}
+                    zIndex={10}
+                  />
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* ========================================================== */}
-          {/* BOTTOM BODY: Navigation Columns, Content & Help Card       */}
-          {/* ========================================================== */}
-          <div className="bg-[#0A0D10] px-6 sm:px-12 lg:px-14 py-12 sm:py-16 border-t border-white/[0.08]">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-8">
-              {/* Left Column: Brand Wordmark & Lineage Statement */}
-              <div className="md:col-span-12 lg:col-span-3 space-y-6 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF7A1A] shadow-[0_0_8px_#FF7A1A]" />
-                    <span className="font-heading font-extrabold text-xl text-white tracking-wider">
-                      FERRITE
-                    </span>
+        {/* ========================================================== */}
+        {/* LOWER FOOTER: 5-Column Navigation & Contact Block         */}
+        {/* ========================================================== */}
+        <div className="pt-14 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+            {/* Column 1: Brand Wordmark, Lineage & Description (3.5 cols) */}
+            <div className="lg:col-span-4 xl:col-span-3 space-y-4">
+              {/* Brand Logo with ferrite-icon.svg */}
+              <Link href="/" className="inline-flex items-center gap-3 group select-none">
+                <div className="relative w-8 h-8 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                  <Image
+                    src="/ferrite-icon.svg"
+                    alt="Ferrite Structural Steels"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-heading font-extrabold text-lg sm:text-xl tracking-wider text-white uppercase leading-none">
+                    FERRITE
+                  </span>
+                  <span className="text-[8.5px] uppercase tracking-[0.22em] font-medium text-[#9CA3AF] mt-1">
+                    STRUCTURAL STEELS PVT. LTD.
+                  </span>
+                </div>
+              </Link>
+
+              {/* Lineage Statement matching screenshot */}
+              <div className="font-heading font-extrabold text-lg sm:text-xl text-white tracking-tight leading-snug space-y-0.5 pt-2">
+                <div>Built for projects.</div>
+                <div>Stocked in Mumbai.</div>
+                <div className="text-[#FF7A1A]">Lineage since 1965.</div>
+              </div>
+
+              {/* Tagline Paragraph */}
+              <p className="text-xs text-[#9CA3AF] leading-relaxed max-w-xs pt-1">
+                Your trusted partner for structural steel products, fabrication and complete steel
+                solutions across India.
+              </p>
+            </div>
+
+            {/* Column 2: QUICK LINKS (1.5 cols) */}
+            <div className="lg:col-span-2 xl:col-span-2 space-y-3.5">
+              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+                QUICK LINKS
+              </h3>
+              <ul className="space-y-2.5 text-xs">
+                {[
+                  { name: "Home", href: "/" },
+                  { name: "About Us", href: "/about" },
+                  { name: "Services", href: "/capabilities" },
+                  { name: "Blogs", href: "/#insights" },
+                  { name: "FAQs", href: "/contact" },
+                  { name: "Contact Us", href: "/contact" },
+                ].map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                    >
+                      <span className="text-[#FF7A1A] text-sm leading-none font-bold group-hover:translate-x-0.5 transition-transform">
+                        ›
+                      </span>
+                      <span>{link.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3: STEEL PRODUCTS (2 cols) */}
+            <div className="lg:col-span-2 xl:col-span-2 space-y-3.5">
+              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+                STEEL PRODUCTS
+              </h3>
+              <ul className="space-y-2.5 text-xs">
+                {[
+                  { name: "Steel Angle", href: "/products#steel-angles" },
+                  { name: "Steel Beams", href: "/products#structural-beams" },
+                  { name: "Steel Channels", href: "/products#steel-channels" },
+                  { name: "Steel Bars", href: "/products#tmt-merchant-bars" },
+                  { name: "Steel Pipes", href: "/products#hollow-sections-pipes" },
+                  { name: "Steel Sheets", href: "/products#plates-and-sheets" },
+                  { name: "Steel Plates", href: "/products#plates-and-sheets" },
+                ].map((prod) => (
+                  <li key={prod.name}>
+                    <Link
+                      href={prod.href}
+                      className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                    >
+                      <span className="text-[#FF7A1A] text-sm leading-none font-bold group-hover:translate-x-0.5 transition-transform">
+                        ›
+                      </span>
+                      <span>{prod.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4: LOCATIONS (2.5 cols) */}
+            <div className="lg:col-span-2 xl:col-span-2 space-y-5">
+              <h3 className="font-heading text-xs font-extrabold text-white tracking-wider uppercase">
+                LOCATIONS
+              </h3>
+
+              {/* Head Office */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-white font-heading font-bold text-xs">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 fill-[#FF7A1A]/20" />
+                  <span>Head Office / Sales</span>
+                </div>
+                <p className="text-[11px] text-[#9CA3AF] leading-relaxed pl-5">
+                  Excel Plaza, 803/8 wing, 90 Feet Rd, Pant Nagar, Ghatkopar East, Mumbai – 400075
+                </p>
+              </div>
+
+              {/* Factory Address */}
+              <div className="space-y-1.5 pt-1">
+                <div className="flex items-center gap-1.5 text-white font-heading font-bold text-xs">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 fill-[#FF7A1A]/20" />
+                  <span>Factory Address</span>
+                </div>
+                <p className="text-[11px] text-[#9CA3AF] leading-relaxed pl-5">
+                  Plot 18, KWC Kalamboli, Dist. – Raigad, Navi Mumbai – 410218
+                </p>
+              </div>
+            </div>
+
+            {/* Column 5: NEED HELP? CALL NOW! Card (3 cols) */}
+            <div className="lg:col-span-2 xl:col-span-3">
+              <div className="rounded-2xl bg-[#11161B] border border-white/10 p-5 sm:p-6 text-center shadow-2xl relative overflow-hidden">
+                {/* Glowing Molten Top Edge Accent Line */}
+                <div className="absolute top-0 inset-x-0 h-1 bg-[#FF7A1A] shadow-[0_0_15px_#FF7A1A]" />
+
+                {/* Telephone Icon Box */}
+                <div className="w-11 h-11 rounded-xl bg-[#1A2129] border border-[#FF7A1A]/30 flex items-center justify-center mx-auto text-[#FF7A1A] shadow-[0_0_15px_rgba(255,122,26,0.2)] mb-3">
+                  <Phone className="w-4 h-4" />
+                </div>
+
+                {/* Title */}
+                <div className="space-y-0.5">
+                  <div className="text-[10px] font-bold text-[#9CA3AF] tracking-wider uppercase">
+                    NEED HELP?
                   </div>
-                  <div className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug space-y-0.5">
-                    <div>Built for projects.</div>
-                    <div>Stocked in Mumbai.</div>
-                    <div className="text-[#FF7A1A]">Lineage since 1965.</div>
+                  <div className="font-heading text-lg font-extrabold text-white tracking-tight">
+                    CALL NOW!
                   </div>
                 </div>
 
-                {/* Quick Call Desk */}
-                <div className="pt-4 border-t border-white/10 text-xs text-[#9CA3AF] space-y-1">
-                  <div className="text-[11px] uppercase tracking-wider text-white/60 font-semibold">
-                    Direct Sales Desk
+                {/* Phone Call Button */}
+                <a
+                  href={FERRITE_CONTACT.getTelUrl()}
+                  className="mt-3.5 block w-full py-2.5 rounded-full bg-[#FF7A1A] hover:bg-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_16px_rgba(255,122,26,0.4)] hover:shadow-[0_4px_25px_rgba(255,122,26,0.6)] hover:scale-105 active:scale-95 transition-all"
+                >
+                  {FERRITE_CONTACT.phone}
+                </a>
+
+                {/* Stay Connected */}
+                <div className="mt-4 pt-3.5 border-t border-white/[0.08] space-y-2.5">
+                  <div className="text-[9.5px] font-bold text-[#9CA3AF] tracking-widest uppercase">
+                    STAY CONNECTED
                   </div>
-                  <a
-                    href={FERRITE_CONTACT.getTelUrl()}
-                    className="text-white hover:text-[#FF7A1A] transition-colors font-bold text-sm block"
-                  >
-                    {FERRITE_CONTACT.phone}
-                  </a>
-                  <a
-                    href={`mailto:${FERRITE_CONTACT.email}`}
-                    className="hover:text-white transition-colors block text-xs"
-                  >
-                    {FERRITE_CONTACT.email}
-                  </a>
-                </div>
-              </div>
+                  <div className="flex items-center justify-center gap-2">
+                    {/* LinkedIn */}
+                    <a
+                      href={FERRITE_CONTACT.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-7 h-7 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md"
+                      aria-label="LinkedIn"
+                    >
+                      <LinkedInIcon />
+                    </a>
 
-              {/* Col 1: QUICK LINKS */}
-              <div className="sm:col-span-6 md:col-span-3 lg:col-span-2 space-y-3.5">
-                <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-                  QUICK LINKS
-                </h3>
-                <ul className="space-y-2 text-xs">
-                  {[
-                    { name: "Home", href: "/" },
-                    { name: "About Us", href: "/about" },
-                    { name: "Services", href: "/capabilities" },
-                    { name: "Blogs", href: "/#insights" },
-                    { name: "FAQs", href: "/contact" },
-                    { name: "Contact Us", href: "/contact" },
-                  ].map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
-                      >
-                        <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
-                          ›
-                        </span>
-                        <span>{link.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* YouTube */}
+                    <a
+                      href="https://youtube.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-7 h-7 rounded-lg bg-[#FF0000] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md"
+                      aria-label="YouTube"
+                    >
+                      <YouTubeIcon />
+                    </a>
 
-              {/* Col 2: STEEL PRODUCTS */}
-              <div className="sm:col-span-6 md:col-span-3 lg:col-span-2 space-y-3.5">
-                <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-                  STEEL PRODUCTS
-                </h3>
-                <ul className="space-y-2 text-xs">
-                  {[
-                    { name: "Steel Angle", href: "/products#steel-angles" },
-                    { name: "Steel Beams", href: "/products#structural-beams" },
-                    { name: "Steel Channels", href: "/products#steel-channels" },
-                    { name: "Steel Bars", href: "/products#tmt-merchant-bars" },
-                    { name: "Steel Pipes", href: "/products#hollow-sections-pipes" },
-                    { name: "Steel Sheets", href: "/products#plates-and-sheets" },
-                    { name: "Steel Plates", href: "/products#plates-and-sheets" },
-                  ].map((prod) => (
-                    <li key={prod.name}>
-                      <Link
-                        href={prod.href}
-                        className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
-                      >
-                        <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
-                          ›
-                        </span>
-                        <span>{prod.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* Instagram */}
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md"
+                      aria-label="Instagram"
+                    >
+                      <InstagramIcon />
+                    </a>
 
-              {/* Col 3: ADDRESSES (Head Office & Factory) */}
-              <div className="sm:col-span-6 md:col-span-6 lg:col-span-2 space-y-5">
-                {/* HEAD OFFICE */}
-                <div className="space-y-2">
-                  <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-                    HEAD OFFICE / SALES
-                  </h3>
-                  <div className="flex items-start gap-1.5 text-xs text-[#9CA3AF]">
-                    <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 mt-0.5" />
-                    <span className="leading-relaxed text-[11px]">
-                      Excel Plaza, 803/B wing, 90 Feet Rd, Pant Nagar, Ghatkopar East, Mumbai - 400075
-                    </span>
-                  </div>
-                </div>
-
-                {/* FACTORY ADDRESS */}
-                <div className="space-y-2 pt-2 border-t border-white/[0.06]">
-                  <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-                    FACTORY ADDRESS
-                  </h3>
-                  <div className="flex items-start gap-1.5 text-xs text-[#9CA3AF]">
-                    <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 mt-0.5" />
-                    <span className="leading-relaxed text-[11px]">
-                      Plot 18, KWC Kalamboli, Dist. - Raigad, Navi Mumbai - 410218
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Col 4: NEED HELP? CALL NOW! CARD (From Screenshot) */}
-              <div className="sm:col-span-6 md:col-span-6 lg:col-span-3">
-                <div className="rounded-2xl bg-[#11171D] border border-white/10 p-5 sm:p-6 text-center space-y-3.5 shadow-xl relative overflow-hidden">
-                  {/* Orange Top Accent Line */}
-                  <div className="absolute top-0 inset-x-0 h-1 bg-[#FF7A1A] shadow-[0_0_10px_#FF7A1A]" />
-
-                  {/* Phone Icon */}
-                  <div className="w-11 h-11 mx-auto rounded-full bg-[#FF7A1A]/15 border border-[#FF7A1A]/30 flex items-center justify-center text-[#FF7A1A]">
-                    <Phone className="w-4 h-4" />
-                  </div>
-
-                  {/* Title & Call Now */}
-                  <div className="space-y-0.5">
-                    <div className="text-[11px] font-bold text-[#9CA3AF] tracking-wider uppercase">
-                      NEED HELP?
-                    </div>
-                    <div className="font-heading text-lg font-extrabold text-white tracking-tight">
-                      CALL NOW!
-                    </div>
-                  </div>
-
-                  {/* Call Button */}
-                  <a
-                    href={FERRITE_CONTACT.getTelUrl()}
-                    className="block w-full py-2.5 rounded-full bg-[#D9651E] hover:bg-[#FF7A1A] text-white font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-[0_0_20px_rgba(255,122,26,0.4)] transition-all active:scale-95"
-                  >
-                    {FERRITE_CONTACT.phone}
-                  </a>
-
-                  {/* Stay Connected & Socials */}
-                  <div className="pt-2 border-t border-white/10 space-y-2">
-                    <div className="text-[10px] font-bold text-[#9CA3AF] tracking-widest uppercase">
-                      STAY CONNECTED
-                    </div>
-                    <div className="flex items-center justify-center gap-2">
-                      <a
-                        href="https://facebook.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/40 text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-all flex items-center justify-center"
-                        aria-label="Facebook"
-                      >
-                        <FacebookIcon />
-                      </a>
-                      <a
-                        href={FERRITE_CONTACT.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all flex items-center justify-center"
-                        aria-label="LinkedIn"
-                      >
-                        <LinkedInIcon />
-                      </a>
-                      <a
-                        href="https://instagram.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#E4405F]/20 border border-[#E4405F]/40 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all flex items-center justify-center"
-                        aria-label="Instagram"
-                      >
-                        <InstagramIcon />
-                      </a>
-                      <a
-                        href={FERRITE_CONTACT.getWhatsAppUrl()}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center"
-                        aria-label="WhatsApp"
-                      >
-                        <WhatsAppIcon />
-                      </a>
-                      <a
-                        href="https://youtube.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-7 h-7 rounded-full bg-[#FF0000]/20 border border-[#FF0000]/40 text-[#FF0000] hover:bg-[#FF0000] hover:text-white transition-all flex items-center justify-center"
-                        aria-label="YouTube"
-                      >
-                        <YouTubeIcon />
-                      </a>
-                    </div>
+                    {/* WhatsApp */}
+                    <a
+                      href={FERRITE_CONTACT.getWhatsAppUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-7 h-7 rounded-lg bg-[#25D366] text-white flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-md"
+                      aria-label="WhatsApp"
+                    >
+                      <WhatsAppIcon />
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Bottom Credits Line */}
-            <div className="pt-10 sm:pt-14 mt-10 sm:mt-14 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280]">
-              <div>
-                © {new Date().getFullYear()} Ferrite Structural Steels Pvt Ltd. All rights reserved.
-              </div>
-              <div>
-                Designed by <span className="text-white/80 font-medium">Vebiotic Web Solutions</span> Marketing by <span className="text-white/80 font-medium">Adinads</span>
-              </div>
+        {/* ========================================================== */}
+        {/* BOTTOM ATMOSPHERE: Stacked Beams & Molten Glowing Line     */}
+        {/* ========================================================== */}
+        <div className="relative">
+          {/* Bottom Left Beam Graphic */}
+          <div className="absolute -left-12 -bottom-4 w-72 sm:w-96 lg:w-[440px] h-32 sm:h-44 pointer-events-none opacity-30 select-none overflow-hidden -z-0">
+            <Image
+              src="/images/services/cta-beam.webp"
+              alt="Structural Steel Beams"
+              fill
+              className="object-cover object-left-bottom -scale-x-100"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#070A0D] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#070A0D]" />
+          </div>
+
+          {/* Glowing Molten Top Edge Accent Line across bottom-left */}
+          <div className="absolute -bottom-2 left-0 w-64 sm:w-80 h-[2px] bg-gradient-to-r from-[#FF7A1A] via-[#FF7A1A]/70 to-transparent shadow-[0_0_12px_#FF7A1A] pointer-events-none" />
+
+          {/* Bottom Copyright & Credits Bar */}
+          <div className="pt-8 mt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6B7280] relative z-10">
+            <div>
+              © 2026 Ferrite Structural Steels Pvt. Ltd. All rights reserved.
+            </div>
+            <div>
+              Designed by <span className="text-white/80 font-medium">Vebiotic Web Solutions</span>{" "}
+              | Marketing by <span className="text-white/80 font-medium">Adinads</span>
             </div>
           </div>
         </div>
