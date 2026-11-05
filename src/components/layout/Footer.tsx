@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Phone, MapPin, ArrowRight } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
@@ -76,6 +77,9 @@ function PolaroidCard({ image, caption, rotate, zIndex, className = "" }: Polaro
 }
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isContactPage = pathname === "/contact";
+
   return (
     <footer className="bg-[#070A0D] text-[#9CA3AF] relative pt-8 sm:pt-12 pb-8 overflow-hidden">
       {/* Ambient Deep Glows */}
@@ -86,103 +90,105 @@ export default function Footer() {
         {/* ========================================================== */}
         {/* TOP FLOATING CARD BANNER (Exact Match to Mockup)          */}
         {/* ========================================================== */}
-        <div className="relative">
-          {/* Underglow Reflection */}
-          <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
+        {!isContactPage && (
+          <div className="relative">
+            {/* Underglow Reflection */}
+            <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
 
-          <div className="rounded-[28px] sm:rounded-[32px] md:rounded-[36px] bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden">
-            {/* Orange Backlight for the Polaroid Reel */}
-            <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#FF7A1A]/15 blur-[90px] rounded-full pointer-events-none" />
+            <div className="rounded-[28px] sm:rounded-[32px] md:rounded-[36px] bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden">
+              {/* Orange Backlight for the Polaroid Reel */}
+              <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#FF7A1A]/15 blur-[90px] rounded-full pointer-events-none" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-              {/* Left Column: Heading, Paragraph & CTA Button */}
-              <div className="lg:col-span-5 xl:col-span-5 space-y-4 sm:space-y-5 text-left relative z-10">
-                {/* Eyebrow with orange line */}
-                <div className="inline-flex items-center gap-2">
-                  <span className="w-5 h-[2.5px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-                  <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-white/90 uppercase">
-                    GET IN TOUCH
-                  </span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+                {/* Left Column: Heading, Paragraph & CTA Button */}
+                <div className="lg:col-span-5 xl:col-span-5 space-y-4 sm:space-y-5 text-left relative z-10">
+                  {/* Eyebrow with orange line */}
+                  <div className="inline-flex items-center gap-2">
+                    <span className="w-5 h-[2.5px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
+                    <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-white/90 uppercase">
+                      GET IN TOUCH
+                    </span>
+                  </div>
+
+                  {/* Main Headline */}
+                  <h2 className="font-heading font-extrabold text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.5rem] text-white tracking-[-0.03em] leading-[1.12]">
+                    Still have a question about your{" "}
+                    <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.4)]">
+                      steel requirement?
+                    </span>
+                  </h2>
+
+                  {/* Subtitle Paragraph */}
+                  <p className="text-xs sm:text-sm lg:text-[14px] text-[#9CA3AF] leading-relaxed max-w-lg font-normal">
+                    Share your requirement and our experts will help you with the right steel solution,
+                    best price and on-time delivery across India.
+                  </p>
+
+                  {/* Orange Pill Button */}
+                  <div className="pt-2">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_25px_rgba(255,122,26,0.45)] hover:shadow-[0_4px_35px_rgba(255,122,26,0.65)] hover:scale-105 active:scale-95 transition-all group"
+                    >
+                      <span>Request a Quote</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 </div>
 
-                {/* Main Headline */}
-                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.5rem] text-white tracking-[-0.03em] leading-[1.12]">
-                  Still have a question about your{" "}
-                  <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.4)]">
-                    steel requirement?
-                  </span>
-                </h2>
+                {/* Right Column: 5 Fanned-Out White Polaroids */}
+                <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible pt-4 pb-4 sm:py-2">
+                  <div className="relative flex items-center justify-center -space-x-4 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
+                    {/* Photo 1: Steel Angles */}
+                    <PolaroidCard
+                      image="/images/products/steel-angle.png"
+                      caption="Steel Angles"
+                      rotate={-9}
+                      zIndex={10}
+                    />
 
-                {/* Subtitle Paragraph */}
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#9CA3AF] leading-relaxed max-w-lg font-normal">
-                  Share your requirement and our experts will help you with the right steel solution,
-                  best price and on-time delivery across India.
-                </p>
+                    {/* Photo 2: Heavy Sections */}
+                    <PolaroidCard
+                      image="/images/products/steel-beams.png"
+                      caption="Heavy Sections"
+                      rotate={-3}
+                      zIndex={20}
+                    />
 
-                {/* Orange Pill Button */}
-                <div className="pt-2">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_25px_rgba(255,122,26,0.45)] hover:shadow-[0_4px_35px_rgba(255,122,26,0.65)] hover:scale-105 active:scale-95 transition-all group"
-                  >
-                    <span>Request a Quote</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
+                    {/* Photo 3: Steel Pipes */}
+                    <PolaroidCard
+                      image="/images/products/steel-pipes.png"
+                      caption="Steel Pipes"
+                      rotate={2}
+                      zIndex={30}
+                    />
 
-              {/* Right Column: 5 Fanned-Out White Polaroids */}
-              <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible pt-4 pb-4 sm:py-2">
-                <div className="relative flex items-center justify-center -space-x-4 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
-                  {/* Photo 1: Steel Angles */}
-                  <PolaroidCard
-                    image="/images/products/steel-angle.png"
-                    caption="Steel Angles"
-                    rotate={-9}
-                    zIndex={10}
-                  />
+                    {/* Photo 4: Fabrication */}
+                    <PolaroidCard
+                      image="/images/services/welded-assemblies.jpg"
+                      caption="Fabrication"
+                      rotate={5}
+                      zIndex={20}
+                    />
 
-                  {/* Photo 2: Heavy Sections */}
-                  <PolaroidCard
-                    image="/images/products/steel-beams.png"
-                    caption="Heavy Sections"
-                    rotate={-3}
-                    zIndex={20}
-                  />
-
-                  {/* Photo 3: Steel Pipes */}
-                  <PolaroidCard
-                    image="/images/products/steel-pipes.png"
-                    caption="Steel Pipes"
-                    rotate={2}
-                    zIndex={30}
-                  />
-
-                  {/* Photo 4: Fabrication */}
-                  <PolaroidCard
-                    image="/images/services/welded-assemblies.jpg"
-                    caption="Fabrication"
-                    rotate={5}
-                    zIndex={20}
-                  />
-
-                  {/* Photo 5: Site Erection */}
-                  <PolaroidCard
-                    image="/images/services/structural-steelwork.jpg"
-                    caption="Site Erection"
-                    rotate={9}
-                    zIndex={10}
-                  />
+                    {/* Photo 5: Site Erection */}
+                    <PolaroidCard
+                      image="/images/services/structural-steelwork.jpg"
+                      caption="Site Erection"
+                      rotate={9}
+                      zIndex={10}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ========================================================== */}
         {/* LOWER FOOTER: 5-Column Navigation & Contact Block         */}
         {/* ========================================================== */}
-        <div className="pt-14 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 relative">
+        <div className={`${isContactPage ? "pt-6 sm:pt-10 border-t border-white/[0.08]" : "pt-14 sm:pt-16 lg:pt-20"} pb-8 sm:pb-12 relative`}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
             {/* Column 1: Brand Wordmark, Lineage & Description (3.5 cols) */}
             <div className="lg:col-span-4 xl:col-span-3 space-y-4">
