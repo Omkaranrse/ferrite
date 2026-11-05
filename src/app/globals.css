@@ -304,4 +304,157 @@
       animation: none;
     }
   }
+
+  /* ─── ArrowFillButton (Framer Component) ─── */
+  .hpx-afb {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 52px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 0 24px;
+    padding-right: calc(var(--icon-circle, 38px) + var(--icon-right, 6px) + 14px);
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    --icon-circle: 38px;
+    --icon-right: 6px;
+    --circle-inset-y: calc((100% - var(--icon-circle)) / 2);
+    background-color: var(--btn-bg, #FF7A1A);
+    color: var(--btn-text, #ffffff);
+    box-shadow: 0 4px 24px rgba(255, 122, 26, 0.38);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .hpx-afb:hover {
+    box-shadow: 0 6px 32px rgba(255, 122, 26, 0.55);
+  }
+
+  .hpx-afb__label {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1px;
+  }
+
+  .hpx-afb__circle {
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    border-radius: 9999px;
+    background-color: var(--btn-fill-bg, #ffffff);
+    top: var(--circle-inset-y);
+    bottom: var(--circle-inset-y);
+    right: var(--icon-right);
+    left: calc(100% - var(--icon-right) - var(--icon-circle));
+    transition: background-color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      inset var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__circle,
+  .hpx-afb[data-pressed="true"] .hpx-afb__circle {
+    background-color: var(--btn-fill-bg-hover, #ffffff);
+    inset: 0;
+  }
+
+  .hpx-afb__mask {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    padding-right: calc(var(--icon-circle, 38px) + var(--icon-right, 6px) + 14px);
+    color: var(--btn-fill-text, #FF7A1A);
+    clip-path: inset(var(--circle-inset-y) var(--icon-right) var(--circle-inset-y) calc(100% - var(--icon-right) - var(--icon-circle)));
+    transition: color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      clip-path var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__mask,
+  .hpx-afb[data-pressed="true"] .hpx-afb__mask {
+    color: var(--btn-fill-text-hover, #FF7A1A);
+    clip-path: inset(0 0 0 0);
+  }
+
+  .hpx-afb__mask-label {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1px;
+    white-space: nowrap;
+  }
+
+  .hpx-afb__icon {
+    pointer-events: none;
+    position: absolute;
+    right: var(--icon-right);
+    top: 50%;
+    z-index: 3;
+    display: inline-flex;
+    height: var(--icon-circle);
+    width: var(--icon-circle);
+    flex-shrink: 0;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--btn-fill-bg, #ffffff);
+    color: var(--btn-arrow, #FF7A1A);
+    transition: background-color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon {
+    background-color: var(--btn-fill-bg-hover, #ffffff);
+    color: var(--btn-arrow-hover, #FF7A1A);
+  }
+
+  .hpx-afb__icon-svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    transform-origin: center;
+    color: currentColor;
+    transition: transform var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb__icon-svg--enter {
+    transform: translate(-170%, -50%) scale(0);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon-svg--enter,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg--enter {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hpx-afb__icon-svg--exit {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon-svg--exit,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg--exit {
+    transform: translate(70%, -50%) scale(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hpx-afb__circle,
+    .hpx-afb__mask,
+    .hpx-afb__icon,
+    .hpx-afb__icon-svg {
+      transition: none !important;
+    }
+  }
 }

@@ -3,9 +3,10 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Award, Users, Shield, ArrowRight } from "lucide-react";
+import { Award, Users, Shield } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
+import ArrowFillButton from "@/components/ui/ArrowFillButton";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -143,24 +144,29 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1"
           >
-            {/* Primary Orange Button */}
-            <a
+            {/* Primary Orange ArrowFillButton Component */}
+            <ArrowFillButton
+              btnText="REQUEST A QUOTE"
               href={FERRITE_CONTACT.getWhatsAppUrl(
                 "Hello Ferrite Team, I would like to request a quotation for structural steel."
               )}
-              target="_blank"
-              rel="noopener noreferrer"
+              newTab={true}
+              bgColor="#FF7A1A"
+              textColor="#ffffff"
+              fillBgColor="#ffffff"
+              fillTextColor="#FF7A1A"
+              hoverFillBgColor="#ffffff"
+              hoverFillTextColor="#FF7A1A"
+              arrowColor="#FF7A1A"
+              hoverArrowColor="#FF7A1A"
+              className="w-full justify-center"
               onClick={() =>
                 trackEvent({
                   name: "whatsapp_click",
                   params: { location: "hero_primary_cta", message_type: "quote_request" },
                 })
               }
-              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#FF7A1A] hover:bg-[#E56A10] text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.12em] uppercase transition-all duration-300 shadow-[0_4px_24px_rgba(255,122,26,0.4)] hover:shadow-[0_6px_32px_rgba(255,122,26,0.55)] group w-full text-center"
-            >
-              <span>Request Quote</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
+            />
 
             {/* Secondary WhatsApp Button — Glass Style */}
             <a
@@ -173,7 +179,7 @@ export default function Hero() {
                   params: { location: "hero_secondary_cta", message_type: "talk_to_us" },
                 })
               }
-              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.15] hover:border-[#25D366]/60 backdrop-blur-xl text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.08em] transition-all duration-300 shadow-md group w-full text-center"
+              className="flex items-center justify-center gap-2.5 h-[52px] px-6 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.15] hover:border-[#25D366]/60 backdrop-blur-xl text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.08em] transition-all duration-300 shadow-md group w-full text-center"
             >
               <svg
                 viewBox="0 0 24 24"
