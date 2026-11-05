@@ -102,9 +102,6 @@ export default function Navbar() {
                 <span className="font-heading font-bold text-sm sm:text-base tracking-[0.14em] uppercase text-white group-hover:text-copper transition-colors leading-tight">
                   FERRITE
                 </span>
-                <span className="text-[8.5px] sm:text-[9px] font-mono tracking-[0.18em] uppercase text-steel-light/75 hidden sm:block leading-none mt-0.5">
-                  STRUCTURAL STEELS PVT. LTD.
-                </span>
               </div>
             </Link>
 

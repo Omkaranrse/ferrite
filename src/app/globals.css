@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,7 @@
 
 @layer base {
   :root {
+    --font-manrope: 'Manrope', system-ui, -apple-system, sans-serif;
     --color-graphite: #17191b;
     --color-charcoal: #202326;
     --color-steel: #858b90;
@@ -17,6 +18,7 @@
     scroll-behavior: initial;
     background-color: #17191b;
     color: #f4f3ef;
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
@@ -24,9 +26,38 @@
     background-color: #17191b;
     color: #f4f3ef;
     overflow-x: hidden;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, .h1 {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+  }
+
+  h2, .h2 {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+  }
+
+  h3, .h3 {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+  }
+
+  h4, .h4, h5, .h5, h6, .h6 {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+  }
+
+  p {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+  }
+
+  button, input, textarea, select {
+    font-family: var(--font-manrope), 'Manrope', system-ui, -apple-system, sans-serif;
   }
 
   ::selection {
@@ -213,6 +244,217 @@
     .lm-medallion .lmm-center {
       color: CanvasText !important;
       filter: none !important;
+    }
+  }
+
+  /* ─── 3D Animated Fire / Molten Border Effect ─── */
+  @property --fire-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes fireRotate {
+    0% { --fire-angle: 0deg; }
+    100% { --fire-angle: 360deg; }
+  }
+
+  @keyframes fireGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 20px rgba(200, 121, 64, 0.3),
+        0 0 40px rgba(200, 121, 64, 0.15),
+        0 0 80px rgba(200, 121, 64, 0.08);
+    }
+    50% {
+      box-shadow:
+        0 0 28px rgba(242, 138, 53, 0.45),
+        0 0 56px rgba(200, 121, 64, 0.25),
+        0 0 100px rgba(200, 121, 64, 0.12);
+    }
+  }
+
+  .fire-border-glow {
+    animation: fireGlow 3s ease-in-out infinite;
+  }
+
+  .fire-border-rotate {
+    background: conic-gradient(
+      from var(--fire-angle),
+      #C87940,
+      #FF6B35,
+      #FFA500,
+      #FF4500,
+      #C87940,
+      #A45F31,
+      #FF8C00,
+      #E07A2C,
+      #C87940
+    );
+    animation: fireRotate 4s linear infinite;
+    filter: blur(1.5px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fire-border-glow {
+      animation: none;
+      box-shadow: 0 0 20px rgba(200, 121, 64, 0.3);
+    }
+    .fire-border-rotate {
+      animation: none;
+    }
+  }
+
+  /* ─── ArrowFillButton (Framer Component) ─── */
+  .hpx-afb {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 52px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding: 0 24px;
+    padding-right: calc(var(--icon-circle, 38px) + var(--icon-right, 6px) + 14px);
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    --icon-circle: 38px;
+    --icon-right: 6px;
+    --circle-inset-y: calc((100% - var(--icon-circle)) / 2);
+    background-color: var(--btn-bg, #FF7A1A);
+    color: var(--btn-text, #ffffff);
+    box-shadow: 0 4px 24px rgba(255, 122, 26, 0.38);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .hpx-afb:hover {
+    box-shadow: 0 6px 32px rgba(255, 122, 26, 0.55);
+  }
+
+  .hpx-afb__label {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1px;
+  }
+
+  .hpx-afb__circle {
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    border-radius: 9999px;
+    background-color: var(--btn-fill-bg, #ffffff);
+    top: var(--circle-inset-y);
+    bottom: var(--circle-inset-y);
+    right: var(--icon-right);
+    left: calc(100% - var(--icon-right) - var(--icon-circle));
+    transition: background-color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      inset var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__circle,
+  .hpx-afb[data-pressed="true"] .hpx-afb__circle {
+    background-color: var(--btn-fill-bg-hover, #ffffff);
+    inset: 0;
+  }
+
+  .hpx-afb__mask {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    padding-right: calc(var(--icon-circle, 38px) + var(--icon-right, 6px) + 14px);
+    color: var(--btn-fill-text, #FF7A1A);
+    clip-path: inset(var(--circle-inset-y) var(--icon-right) var(--circle-inset-y) calc(100% - var(--icon-right) - var(--icon-circle)));
+    transition: color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      clip-path var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__mask,
+  .hpx-afb[data-pressed="true"] .hpx-afb__mask {
+    color: var(--btn-fill-text-hover, #FF7A1A);
+    clip-path: inset(0 0 0 0);
+  }
+
+  .hpx-afb__mask-label {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 1px;
+    white-space: nowrap;
+  }
+
+  .hpx-afb__icon {
+    pointer-events: none;
+    position: absolute;
+    right: var(--icon-right);
+    top: 50%;
+    z-index: 3;
+    display: inline-flex;
+    height: var(--icon-circle);
+    width: var(--icon-circle);
+    flex-shrink: 0;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--btn-fill-bg, #ffffff);
+    color: var(--btn-arrow, #FF7A1A);
+    transition: background-color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86),
+      color var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon {
+    background-color: var(--btn-fill-bg-hover, #ffffff);
+    color: var(--btn-arrow-hover, #FF7A1A);
+  }
+
+  .hpx-afb__icon-svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 17px;
+    height: 17px;
+    transform-origin: center;
+    color: currentColor;
+    transition: transform var(--btn-duration, 450ms) cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  .hpx-afb__icon-svg--enter {
+    transform: translate(-170%, -50%) scale(0);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon-svg--enter,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg--enter {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hpx-afb__icon-svg--exit {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hpx-afb:hover .hpx-afb__icon-svg--exit,
+  .hpx-afb[data-pressed="true"] .hpx-afb__icon-svg--exit {
+    transform: translate(70%, -50%) scale(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hpx-afb__circle,
+    .hpx-afb__mask,
+    .hpx-afb__icon,
+    .hpx-afb__icon-svg {
+      transition: none !important;
     }
   }
 }
