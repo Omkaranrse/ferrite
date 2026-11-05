@@ -11,7 +11,8 @@ interface PageHeaderProps {
   title: string;
   highlightedTitle?: string;
   subtitle: string;
-  breadcrumb: string;
+  breadcrumb?: string;
+  showBreadcrumb?: boolean;
 }
 
 export default function PageHeader({
@@ -20,6 +21,7 @@ export default function PageHeader({
   highlightedTitle,
   subtitle,
   breadcrumb,
+  showBreadcrumb = true,
 }: PageHeaderProps) {
   return (
     <section className="relative pt-36 pb-20 sm:pt-44 sm:pb-28 bg-graphite border-b border-charcoal-border overflow-hidden bg-grid-pattern">
@@ -28,18 +30,20 @@ export default function PageHeader({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex items-center gap-2 text-xs font-mono text-steel mb-6"
-        >
-          <Link href="/" className="hover:text-copper transition-colors">
-            FERRITE
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-copper font-medium">{breadcrumb.toUpperCase()}</span>
-        </motion.div>
+        {showBreadcrumb && breadcrumb && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex items-center gap-2 text-xs font-mono text-steel mb-6"
+          >
+            <Link href="/" className="hover:text-copper transition-colors">
+              FERRITE
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="text-copper font-medium">{breadcrumb.toUpperCase()}</span>
+          </motion.div>
+        )}
 
         {/* Eyebrow */}
         <motion.div

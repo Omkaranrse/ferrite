@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ProductsCatalogClient from "@/components/products/ProductsCatalogClient";
-import { BreadcrumbSchema } from "@/components/shared/JsonLd";
 
 export const metadata: Metadata = {
   title: "Structural Steel Products & Specifications | Beams, Angles, Channels, Plates",
@@ -18,15 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
-  return (
-    <>
-      <BreadcrumbSchema
-        items={[
-          { name: "Home", url: "https://ferrite.in" },
-          { name: "Products", url: "https://ferrite.in/products" },
-        ]}
-      />
-      <ProductsCatalogClient />
-    </>
-  );
+  return <ProductsCatalogClient />;
 }
