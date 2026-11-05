@@ -215,4 +215,62 @@
       filter: none !important;
     }
   }
+
+  /* ─── 3D Animated Fire / Molten Border Effect ─── */
+  @property --fire-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes fireRotate {
+    0% { --fire-angle: 0deg; }
+    100% { --fire-angle: 360deg; }
+  }
+
+  @keyframes fireGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 20px rgba(200, 121, 64, 0.3),
+        0 0 40px rgba(200, 121, 64, 0.15),
+        0 0 80px rgba(200, 121, 64, 0.08);
+    }
+    50% {
+      box-shadow:
+        0 0 28px rgba(242, 138, 53, 0.45),
+        0 0 56px rgba(200, 121, 64, 0.25),
+        0 0 100px rgba(200, 121, 64, 0.12);
+    }
+  }
+
+  .fire-border-glow {
+    animation: fireGlow 3s ease-in-out infinite;
+  }
+
+  .fire-border-rotate {
+    background: conic-gradient(
+      from var(--fire-angle),
+      #C87940,
+      #FF6B35,
+      #FFA500,
+      #FF4500,
+      #C87940,
+      #A45F31,
+      #FF8C00,
+      #E07A2C,
+      #C87940
+    );
+    animation: fireRotate 4s linear infinite;
+    filter: blur(1.5px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fire-border-glow {
+      animation: none;
+      box-shadow: 0 0 20px rgba(200, 121, 64, 0.3);
+    }
+    .fire-border-rotate {
+      animation: none;
+    }
+  }
 }
