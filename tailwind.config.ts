@@ -50,9 +50,11 @@ const config: Config = {
         },
       },
       fontFamily: {
-        heading: ["'Space Grotesk'", "system-ui", "-apple-system", "sans-serif"],
-        body: ["'Inter'", "system-ui", "-apple-system", "sans-serif"],
-        editorial: ["'DM Sans'", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "sans-serif"],
+        heading: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "sans-serif"],
+        body: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "sans-serif"],
+        editorial: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "sans-serif"],
+        manrope: ["var(--font-manrope)", "'Manrope'", "system-ui", "-apple-system", "sans-serif"],
       },
       letterSpacing: {
         widest: "0.2em",
