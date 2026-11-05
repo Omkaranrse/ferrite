@@ -2,12 +2,10 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Award, Users, Shield, ArrowRight } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
-import Aperture3DCard from "./Aperture3DCard";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,182 +23,170 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_55%] md:object-[60%_50%] brightness-[0.75] contrast-[1.08]"
+          className="object-cover object-[center_55%] md:object-[60%_50%] brightness-[0.82] contrast-[1.05]"
         />
 
-        {/* Directional Gradient Scrim — Guarantees high text contrast on the left */}
+        {/* Localized Soft Text Mask — Strictly behind bottom-left content, leaving the rest natural */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(90deg, rgba(10,14,17,0.94) 0%, rgba(10,14,17,0.82) 42%, rgba(10,14,17,0.40) 70%, rgba(10,14,17,0.18) 100%)",
+              "radial-gradient(ellipse 70% 60% at 0% 100%, rgba(10,14,17,0.78) 0%, rgba(10,14,17,0.38) 50%, transparent 80%)",
           }}
         />
 
         {/* Ambient Top Vignette for Floating Navbar Legibility */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0A0E11]/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0A0E11]/60 to-transparent pointer-events-none" />
 
         {/* Bottom Fade for Clean Section Transition */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0E11] via-[#0A0E11]/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A0E11] via-[#0A0E11]/40 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Hero Content Area — Dual Column Layout */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center pt-28 sm:pt-32 lg:pt-[12vh] pb-8 sm:pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Left Column: Narrative & Primary CTAs */}
-          <div className="lg:col-span-7 space-y-3 sm:space-y-4">
-            {/* Eyebrow Label */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center"
-            >
-              <div className="inline-flex items-center text-[10px] sm:text-xs font-mono tracking-[0.22em] text-white/85 uppercase font-medium">
-                <span className="w-1 h-4 bg-copper rounded-sm inline-block mr-2.5" />
-                <span>FERRITE STRUCTURAL STEELS PVT LTD</span>
-              </div>
-            </motion.div>
+      {/* Main Hero Content Area — Anchored at Bottom Left (Portfolio Style) */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-end pb-8 sm:pb-12 lg:pb-14 pt-32">
+        <div className="max-w-xl sm:max-w-2xl space-y-3 sm:space-y-4">
+          {/* Eyebrow Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center"
+          >
+            <div className="inline-flex items-center text-[11px] sm:text-xs font-mono tracking-[0.2em] text-white/90 uppercase font-medium">
+              <span className="w-1.5 h-3.5 bg-[#FF7A1A] rounded-full inline-block mr-2.5 shadow-[0_0_10px_#FF7A1A]" />
+              <span>FERRITE STRUCTURAL STEELS PVT LTD</span>
+            </div>
+          </motion.div>
 
-            {/* Main Headline — Premium Industrial Typography */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-[2rem] sm:text-[2.65rem] lg:text-[3.2rem] xl:text-[3.75rem] font-extrabold text-white tracking-[-0.035em] leading-[1.08] [text-shadow:_0_2px_16px_rgba(0,0,0,0.95),_0_0_40px_rgba(0,0,0,0.5)]"
-            >
-              Structural Steels{" "}
-              <br className="hidden sm:block" />
-              Manufacturer{" "}
-              <br />
-              &amp; Supplier in{" "}
-              <span className="text-copper bg-gradient-to-r from-copper to-copper-light bg-clip-text text-transparent">
-                Mumbai, India
-              </span>
-            </motion.h1>
+          {/* Main Headline — Premium Industrial Typography with Vibrant Orange Accent */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-heading text-[2.15rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[3.85rem] font-extrabold text-white tracking-[-0.035em] leading-[1.08] [text-shadow:_0_2px_16px_rgba(0,0,0,0.95),_0_0_40px_rgba(0,0,0,0.6)]"
+          >
+            Structural Steels{" "}
+            <br className="hidden sm:block" />
+            Manufacturer{" "}
+            <br />
+            &amp; Supplier in{" "}
+            <span className="text-[#FF7A1A] [text-shadow:_0_0_28px_rgba(255,122,26,0.45)]">
+              Mumbai, India
+            </span>
+          </motion.h1>
 
-            {/* Credibility & Scale Stats Strip (59+ Years, 1000+ Clients, Quality) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#1C2023]/95 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-2xl my-2 max-w-xl"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 items-center">
-                {/* 59+ Experience */}
-                <div className="flex items-center gap-3">
-                  <Award className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
-                  <div>
-                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
-                      59+
-                    </div>
-                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
-                      Years of Experience
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
-                      Since 1965
-                    </div>
+          {/* Credibility Stats Box with Frosted Glass Effect */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="relative overflow-hidden rounded-2xl p-4 sm:p-5 bg-white/[0.05] hover:bg-white/[0.07] backdrop-blur-xl border border-white/[0.12] shadow-[0_12px_36px_0_rgba(0,0,0,0.5),inset_0_1px_0_0_rgba(255,255,255,0.15)] transition-all duration-300 w-full max-w-xl group"
+          >
+            {/* Subtle Specular Top Highlight */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 items-center">
+              {/* 59+ Experience */}
+              <div className="flex items-center gap-3">
+                <Award className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <div>
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    59+
                   </div>
-                </div>
-
-                {/* 1000+ Clients */}
-                <div className="flex items-center gap-3">
-                  <Users className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
-                  <div>
-                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
-                      1000+
-                    </div>
-                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
-                      Happy Clients
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
-                      Across India
-                    </div>
+                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                    Years of Experience
                   </div>
-                </div>
-
-                {/* Quality */}
-                <div className="flex items-center gap-3">
-                  <Shield className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
-                  <div>
-                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
-                      Quality
-                    </div>
-                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
-                      Products as per IS,
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
-                      ASTM &amp; EN Standards
-                    </div>
+                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                    Since 1965
                   </div>
                 </div>
               </div>
-            </motion.div>
 
-            {/* Dual Conversion CTA Row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center gap-3 pt-2"
+              {/* 1000+ Clients */}
+              <div className="flex items-center gap-3">
+                <Users className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <div>
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    1000+
+                  </div>
+                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                    Happy Clients
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                    Across India
+                  </div>
+                </div>
+              </div>
+
+              {/* Quality */}
+              <div className="flex items-center gap-3">
+                <Shield className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                <div>
+                  <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                    Quality
+                  </div>
+                  <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                    Products as per IS,
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                    ASTM &amp; EN Standards
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Dual Conversion CTA Row — Equal Width to Box Above */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1"
+          >
+            {/* Primary Orange Button */}
+            <a
+              href={FERRITE_CONTACT.getWhatsAppUrl(
+                "Hello Ferrite Team, I would like to request a quotation for structural steel."
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent({
+                  name: "whatsapp_click",
+                  params: { location: "hero_primary_cta", message_type: "quote_request" },
+                })
+              }
+              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#FF7A1A] hover:bg-[#E56A10] text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.12em] uppercase transition-all duration-300 shadow-[0_4px_24px_rgba(255,122,26,0.4)] hover:shadow-[0_6px_32px_rgba(255,122,26,0.55)] group w-full text-center"
             >
-              {/* Primary Orange Button */}
-              <a
-                href={FERRITE_CONTACT.getWhatsAppUrl(
-                  "Hello Ferrite Team, I would like to request a quotation for structural steel."
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent({
-                    name: "whatsapp_click",
-                    params: { location: "hero_primary_cta", message_type: "quote_request" },
-                  })
-                }
-                className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-copper to-copper-light hover:from-copper-hover hover:to-copper text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.12em] uppercase transition-all duration-300 shadow-[0_4px_24px_rgba(200,121,64,0.35)] hover:shadow-[0_6px_32px_rgba(200,121,64,0.5)] group"
-              >
-                <span>Request Quote</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </a>
+              <span>Request Quote</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </a>
 
-              {/* Secondary WhatsApp "Talk to Us" Button */}
-              <a
-                href={FERRITE_CONTACT.getWhatsAppUrl("Hello Ferrite Team, I would like to talk to an expert.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent({
-                    name: "whatsapp_click",
-                    params: { location: "hero_secondary_cta", message_type: "talk_to_us" },
-                  })
-                }
-                className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full border border-white/20 hover:border-[#25D366]/60 bg-white/[0.04] hover:bg-white/[0.08] text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.08em] transition-all duration-300 shadow-md group backdrop-blur-sm"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="15"
-                  height="15"
-                  fill="currentColor"
-                  className="text-[#25D366] group-hover:scale-110 transition-transform"
-                >
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                </svg>
-                <span>Talk to Us</span>
-              </a>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Featured Facility Card & Floating Stats Combined with Aperture 3D Card */}
-          <div className="lg:col-span-5 relative mt-6 lg:mt-0 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full max-w-[540px]"
+            {/* Secondary WhatsApp Button — Glass Style */}
+            <a
+              href={FERRITE_CONTACT.getWhatsAppUrl("Hello Ferrite Team, I would like to talk to an expert.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackEvent({
+                  name: "whatsapp_click",
+                  params: { location: "hero_secondary_cta", message_type: "talk_to_us" },
+                })
+              }
+              className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.15] hover:border-[#25D366]/60 backdrop-blur-xl text-white font-heading text-xs sm:text-[13px] font-bold tracking-[0.08em] transition-all duration-300 shadow-md group w-full text-center"
             >
-              <Aperture3DCard />
-            </motion.div>
-          </div>
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="text-[#25D366] group-hover:scale-110 transition-transform"
+              >
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+              </svg>
+              <span>Talk to Us</span>
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
