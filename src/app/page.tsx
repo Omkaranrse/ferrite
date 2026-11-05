@@ -4,7 +4,6 @@ import ProductGrid from "@/components/home/ProductGrid";
 import Capabilities from "@/components/home/Capabilities";
 import BlogSection from "@/components/home/BlogSection";
 import CompanyIntro from "@/components/home/CompanyIntro";
-import ContactCTA from "@/components/home/ContactCTA";
 
 export const metadata: Metadata = {
   title: "Structural Steel Supplier & Stockist India | Ferrite Structural Steels",
@@ -39,8 +38,7 @@ export default function HomePage() {
       {/* 5. About Ferrite Section & Verified Statistics */}
       <CompanyIntro />
 
-      {/* 6. Quotation CTA Section Banner */}
-      <ContactCTA />
+
     </>
   );
 }
