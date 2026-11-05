@@ -48,16 +48,6 @@ export default function Hero() {
       {/* Main Hero Content Area */}
       <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center pt-28 sm:pt-32 lg:pt-[16vh] pb-10 sm:pb-12">
         <div className="relative max-w-[620px] space-y-4 sm:space-y-5">
-          {/* Contrast Mask Applied Strictly to Text Area Only */}
-          <div
-            className="absolute -inset-4 sm:-inset-8 -z-10 rounded-2xl pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at 40% 45%, rgba(10,14,17,0.78) 0%, rgba(10,14,17,0.52) 55%, transparent 100%)",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-            }}
-          />
           {/* Eyebrow Label with Mask Reveal */}
           <div className="overflow-hidden">
             <motion.div
@@ -67,14 +57,14 @@ export default function Hero() {
               animate="visible"
               className="inline-flex items-center"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0A0E11]/80 border border-copper/50 rounded-sm text-xs font-mono font-semibold tracking-wider text-copper uppercase backdrop-blur-sm shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0A0E11]/85 border border-copper/60 rounded-sm text-xs font-mono font-semibold tracking-wider text-copper uppercase backdrop-blur-sm shadow-md">
                 <span className="w-1.5 h-1.5 bg-copper inline-block rounded-none animate-pulse" />
                 <span>— STRUCTURAL STEEL SUPPLIER | EST. 1965</span>
               </div>
             </motion.div>
           </div>
 
-          {/* Main Headline with Text Mask Reveal */}
+          {/* Main Headline with Text Mask Reveal & Glyph Contrast Shadow */}
           <div className="space-y-0.5 sm:space-y-1">
             <div className="overflow-hidden">
               <motion.h1
@@ -82,7 +72,7 @@ export default function Hero() {
                 variants={lineVariants}
                 initial="hidden"
                 animate="visible"
-                className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-[1.08] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]"
+                className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-[1.08] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95),_0_4px_24px_rgba(0,0,0,0.85)]"
               >
                 Steel, prepared for
               </motion.h1>
@@ -93,21 +83,21 @@ export default function Hero() {
                 variants={lineVariants}
                 initial="hidden"
                 animate="visible"
-                className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-[1.08] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]"
+                className="font-heading text-4xl sm:text-5xl lg:text-[3.4rem] xl:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-[1.08] [text-shadow:_0_2px_12px_rgba(0,0,0,0.95),_0_4px_24px_rgba(0,0,0,0.85)]"
               >
                 what <span className="text-copper">you build.</span>
               </motion.h1>
             </div>
           </div>
 
-          {/* Supporting Copy with Text Mask Reveal */}
+          {/* Supporting Copy with Text Mask Reveal & Text Shadow */}
           <div className="overflow-hidden">
             <motion.p
               custom={3}
               variants={lineVariants}
               initial="hidden"
               animate="visible"
-              className="text-sm sm:text-base text-[#CBD5E1] max-w-[580px] font-body leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)]"
+              className="text-sm sm:text-base text-white/95 max-w-[580px] font-body leading-relaxed font-normal [text-shadow:_0_1px_8px_rgba(0,0,0,0.95),_0_2px_16px_rgba(0,0,0,0.7)]"
             >
               From structural steel supply to precision material processing, Ferrite delivers dependable
               steel solutions for construction, infrastructure, fabrication and industrial projects.
