@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Metadata } from "next";
 import {
   Settings,
@@ -8,8 +7,6 @@ import {
   ShieldCheck,
   Zap,
   Check,
-  Home as HomeIcon,
-  ChevronRight,
 } from "lucide-react";
 import { SERVICES_PAGE_DATA, SERVICE_FEATURE_PILLS } from "@/data/services";
 import { BreadcrumbSchema } from "@/components/shared/JsonLd";
@@ -65,24 +62,8 @@ export default function ServicesPage() {
         <section className="relative pt-28 sm:pt-36 lg:pt-40 pb-10 sm:pb-14 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Breadcrumb, Heading, Subtitle & Orange Bar */}
+              {/* Left Column: Heading, Subtitle & Orange Bar */}
               <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
-                {/* Breadcrumbs */}
-                <nav
-                  aria-label="Breadcrumb"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#9CA3AF] font-medium"
-                >
-                  <Link
-                    href="/"
-                    className="inline-flex items-center gap-1 text-white/80 hover:text-[#FF7A1A] transition-colors"
-                  >
-                    <HomeIcon className="w-3.5 h-3.5 text-[#FF7A1A]" />
-                    <span>Home</span>
-                  </Link>
-                  <ChevronRight className="w-3.5 h-3.5 text-white/30" />
-                  <span className="text-[#FF7A1A] font-semibold">Services</span>
-                </nav>
-
                 {/* Main Headline */}
                 <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-[3.75rem] text-white tracking-[-0.03em] leading-[1.08]">
                   Our{" "}
@@ -235,3 +216,4 @@ export default function ServicesPage() {
     </>
   );
 }
+
