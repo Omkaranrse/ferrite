@@ -163,14 +163,6 @@ export default function Footer() {
                       zIndex={30}
                     />
 
-                    {/* Photo 4: Fabrication */}
-                    <PolaroidCard
-                      image="/images/services/welded-assemblies.jpg"
-                      caption="Fabrication"
-                      rotate={5}
-                      zIndex={20}
-                    />
-
                     {/* Photo 5: Site Erection */}
                     <PolaroidCard
                       image="/images/services/structural-steelwork.jpg"
@@ -236,7 +228,7 @@ export default function Footer() {
                 {[
                   { name: "Home", href: "/" },
                   { name: "About Us", href: "/about" },
-                  { name: "Services", href: "/capabilities" },
+                  { name: "Services", href: "/services" },
                   { name: "Blogs", href: "/#insights" },
                   { name: "FAQs", href: "/contact" },
                   { name: "Contact Us", href: "/contact" },

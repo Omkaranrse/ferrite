@@ -60,7 +60,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Mar 18, 2025",
     readTime: "5 min read",
     image: "/images/blogs/coastal-construction.jpg",
-    href: "/capabilities",
+    href: "/services",
   },
   {
     id: "marine-chemical",
@@ -68,7 +68,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Apr 18, 2025",
     readTime: "6 min read",
     image: "/images/blogs/marine-chemical.jpg",
-    href: "/capabilities",
+    href: "/services",
     featured: true,
   },
   {
@@ -77,7 +77,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Feb 25, 2025",
     readTime: "4 min read",
     image: "/images/blogs/galvanized-angles.jpg",
-    href: "/capabilities",
+    href: "/services",
   },
 ];
 
@@ -222,7 +222,7 @@ export default function BlogSection() {
         {/* Bottom Left "View All Blogs →" Button */}
         <div className="mt-10 sm:mt-12">
           <Link
-            href="/capabilities"
+            href="/#insights"
             className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#0A0E11]/90 hover:bg-[#FF7A1A]/10 border border-[#FF7A1A] text-xs sm:text-sm font-bold text-white transition-all duration-300 group shadow-[0_0_15px_rgba(255,122,26,0.18)] hover:shadow-[0_0_25px_rgba(255,122,26,0.4)] hover:scale-105 active:scale-95"
           >
             <span>View All Blogs</span>
