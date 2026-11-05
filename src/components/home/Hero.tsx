@@ -4,9 +4,10 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Award, Users, ShieldCheck, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
+import Aperture3DCard from "./Aperture3DCard";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -144,92 +145,15 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Featured Facility Card & Floating Stats */}
-          <div className="lg:col-span-5 relative mt-4 lg:mt-0">
-            {/* Featured Facility Card with Animated Molten Fire Border */}
+          {/* Right Column: Featured Facility Card & Floating Stats Combined with Aperture 3D Card */}
+          <div className="lg:col-span-5 relative mt-6 lg:mt-0 flex items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative aspect-[16/11] sm:aspect-[16/10] w-full rounded-2xl sm:rounded-3xl group"
+              className="w-full max-w-[540px]"
             >
-              {/* Animated Fire / Molten Border Wrapper */}
-              <div className="absolute -inset-[2px] rounded-2xl sm:rounded-3xl fire-border-glow overflow-hidden">
-                <div className="fire-border-rotate absolute inset-0" />
-              </div>
-
-              {/* Inner Card Container */}
-              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#12181D] z-[1]">
-                <Image
-                  src="/images/ferrite-building.jpg"
-                  alt="Ferrite Structural Steels commercial headquarters and facility"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Ambient Glow Behind Card */}
-              <div className="absolute -inset-4 rounded-3xl bg-copper/[0.08] blur-2xl pointer-events-none animate-ember z-0" />
-            </motion.div>
-
-            {/* Floating Credibility / Stats Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="relative -mt-7 sm:-mt-9 z-20 mx-auto w-[94%] sm:w-[96%] bg-[#0D1115]/95 border border-white/[0.08] rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.9),_0_0_24px_rgba(200,121,64,0.12)]"
-            >
-              {/* Subtle Top Accent Line */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-copper/50 to-transparent" />
-
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between divide-y sm:divide-y-0 sm:divide-x divide-white/[0.06] gap-3 sm:gap-2">
-                {/* Stat 1: 59+ Years of Experience */}
-                <div className="flex items-center gap-3 sm:pr-2 pt-1 sm:pt-0">
-                  <div className="w-9 h-9 rounded-xl bg-copper/10 border border-copper/25 flex items-center justify-center text-copper shrink-0">
-                    <Award className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="font-heading text-lg sm:text-xl font-extrabold text-white tracking-tighter leading-none mb-0.5">
-                      59+
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-[#9CA3AF] font-medium leading-tight">
-                      Years of Experience
-                    </div>
-                  </div>
-                </div>
-
-                {/* Stat 2: 1000+ Happy Clients */}
-                <div className="flex items-center gap-3 sm:px-3 pt-2 sm:pt-0">
-                  <div className="w-9 h-9 rounded-xl bg-copper/10 border border-copper/25 flex items-center justify-center text-copper shrink-0">
-                    <Users className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="font-heading text-lg sm:text-xl font-extrabold text-white tracking-tighter leading-none mb-0.5">
-                      1000+
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-[#9CA3AF] font-medium leading-tight">
-                      Happy Clients
-                    </div>
-                  </div>
-                </div>
-
-                {/* Stat 3: Quality Standards */}
-                <div className="flex items-center gap-3 sm:pl-3 pt-2 sm:pt-0">
-                  <div className="w-9 h-9 rounded-xl bg-copper/10 border border-copper/25 flex items-center justify-center text-copper shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="font-heading text-lg sm:text-xl font-extrabold text-white tracking-tighter leading-none mb-0.5">
-                      Quality
-                    </div>
-                    <div className="text-[10px] sm:text-[11px] text-[#9CA3AF] font-medium leading-tight">
-                      IS, ASTM &amp; EN Standards
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Aperture3DCard />
             </motion.div>
           </div>
         </div>
