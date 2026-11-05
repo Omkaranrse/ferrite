@@ -30,15 +30,15 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full min-h-[100vh] min-h-[100svh] lg:h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0E11] select-none"
     >
-      {/* Background Cinematic Visual — Real Ferrite Stockyard Photograph (Full Coverage, Natural & Unmasked) */}
+      {/* Background Cinematic Visual — Industrial Steel Fabrication & Welder Visual */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/ferrite-stockyard-hero.png"
-          alt="Ferrite Structural Steels stockyard facility and processing complex at Kalamboli"
+          src="/images/hero-welder.jpg"
+          alt="Skilled industrial steel fabricator precision welding a massive structural steel I-beam with golden sparks"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_55%] md:object-[60%_55%] brightness-[0.92] contrast-[1.04]"
+          className="object-cover object-[center_55%] md:object-[65%_50%] brightness-[0.95] contrast-[1.05]"
         />
 
         {/* Ambient Top Vignette for Floating Navbar Legibility */}

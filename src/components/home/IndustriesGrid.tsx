@@ -1,150 +1,99 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Building2, HardHat, Factory, Wrench, Layers, ArrowUpRight } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { Building2, Factory, Wrench, Construction } from "lucide-react";
+
+// Bridge outline icon SVG for Infrastructure & Engineering
+function BridgeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M3 18h18" />
+      <path d="M5 18V9" />
+      <path d="M19 18V9" />
+      <path d="M5 9c4-4 10-4 14 0" />
+      <path d="M9 11v7" />
+      <path d="M15 11v7" />
+      <path d="M2 18h20" />
+    </svg>
+  );
+}
 
 const INDUSTRIES = [
   {
-    id: "construction-real-estate",
-    number: "01",
-    name: "Construction & Real Estate",
-    tagline: "Commercial towers, residential high-rises & PEB warehouses",
-    description: "Certified beams, columns, and ductile rebars engineered for high seismic integrity and strict erection schedules.",
+    id: "construction",
+    title: "Construction & Real Estate",
     icon: Building2,
-    materials: "Universal Beams, Heavy Columns, Fe 500D Rebars",
   },
   {
-    id: "infrastructure-engineering",
-    number: "02",
-    name: "Infrastructure & Engineering",
-    tagline: "Highway flyovers, railway bridges & metro viaducts",
-    description: "Heavy structural plates with ultrasonic testing (UT) and Charpy impact compliance for national transport corridors.",
-    icon: HardHat,
-    materials: "IS 2062 E350 Plates, Parallel Flange Beams",
+    id: "infrastructure",
+    title: "Infrastructure & Engineering",
+    icon: BridgeIcon,
   },
   {
-    id: "industrial-projects",
-    number: "03",
-    name: "Industrial Projects",
-    tagline: "Refineries, power complexes & chemical processing plants",
-    description: "Tough structural channels, heavy plates, and seamless conduit pipes built for corrosive operating environments.",
+    id: "industrial",
+    title: "Industrial Projects",
     icon: Factory,
-    materials: "Boiler Quality Plates, ISMC Channels, SHS/RHS",
   },
   {
-    id: "fabrication-manufacturing",
-    number: "04",
-    name: "Fabrication & Manufacturing",
-    tagline: "Steel fabricators, PEB plants & industrial machinery OEMs",
-    description: "Custom cut-to-length beams, compound miter-sawed sections, and CNC plasma-cut base plates ready for assembly.",
+    id: "fabrication",
+    title: "Fabrication & Manufacturing",
     icon: Wrench,
-    materials: "Cut Bandsaw Sections, Profiled Gussets, Flats",
   },
   {
     id: "heavy-industries",
-    number: "05",
-    name: "Heavy Industries",
-    tagline: "Material handling gantries, mining conveyors & ports",
-    description: "High-tonnage load-bearing profiles and wear-resistant steel members for continuous 24/7 industrial duty.",
-    icon: Layers,
-    materials: "Heavy Column Joists, Chequered Deck Plates",
+    title: "Heavy Industries",
+    icon: Construction,
   },
 ];
 
 export default function IndustriesGrid() {
   return (
-    <section id="industries" className="bg-offwhite text-graphite py-20 sm:py-28 relative overflow-hidden border-t border-offwhite-border">
+    <section id="industries" className="py-6 sm:py-10 bg-[#0A0E11]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16 pb-8 border-b border-offwhite-border">
-          <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-offwhite-border text-[11px] font-mono text-copper uppercase tracking-wider font-semibold shadow-xs">
-              <span>INDUSTRIES WE SERVE</span>
+        <div className="bg-[#F2EDE4] text-[#111827] rounded-xl sm:rounded-2xl p-6 sm:p-10 shadow-lg">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left Header */}
+            <div className="lg:col-span-5 space-y-2">
+              <div className="text-xs font-mono font-semibold text-copper tracking-wider uppercase">
+                — INDUSTRIES WE SERVE
+              </div>
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-[2rem] font-bold text-[#111827] leading-tight tracking-tight">
+                Trusted by Key Infrastructure & Industrial Sectors
+              </h2>
             </div>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-graphite leading-[1.1]">
-              Trusted by Key Infrastructure & <br className="hidden sm:inline" />
-              <span className="text-copper">Industrial Sectors</span>
-            </h2>
-            <p className="text-sm sm:text-base text-steel-dark max-w-xl font-body leading-relaxed">
-              We align rolling stock, cutting schedules, and quality documentation around the
-              specialized engineering requirements of each sector.
-            </p>
-          </div>
 
-          <div>
-            <Button
-              href="/industries"
-              variant="outline"
-              withArrow
-              className="border-graphite text-graphite hover:bg-graphite hover:text-white"
-            >
-              Explore All Sectors
-            </Button>
-          </div>
-        </div>
-
-        {/* 5 Industry Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-          {INDUSTRIES.map((ind, idx) => {
-            const Icon = ind.icon;
-            return (
-              <motion.div
-                key={ind.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4 }}
-                className="group bg-white border border-offwhite-border hover:border-copper p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md"
-              >
-                <div className="space-y-4">
-                  {/* Top Bar: Icon + Number */}
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 bg-offwhite border border-offwhite-border flex items-center justify-center text-copper group-hover:bg-copper group-hover:text-white group-hover:border-copper transition-all duration-300">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[11px] font-mono font-bold text-steel-dark group-hover:text-copper transition-colors">
-                      {ind.number}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <div className="space-y-1">
-                    <h3 className="font-heading text-lg font-bold text-graphite group-hover:text-copper transition-colors leading-snug">
-                      {ind.name}
-                    </h3>
-                    <p className="text-[11px] font-mono uppercase tracking-wider text-copper font-medium">
-                      {ind.tagline}
-                    </p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs text-steel-dark leading-relaxed font-body">
-                    {ind.description}
-                  </p>
-                </div>
-
-                {/* Footer: Key Materials & Link */}
-                <div className="pt-4 mt-4 border-t border-offwhite-border space-y-2">
-                  <div className="text-[10px] font-mono uppercase text-steel-dark">
-                    <span className="font-semibold text-graphite">Supplied: </span>
-                    <span>{ind.materials}</span>
-                  </div>
-
-                  <Link
-                    href={`/industries#${ind.id}`}
-                    className="inline-flex items-center gap-1 text-[11px] font-heading font-semibold uppercase tracking-wider text-copper group-hover:text-graphite transition-colors pt-1"
+            {/* Right 5-Column Grid */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-5 text-center">
+                {INDUSTRIES.map((ind, idx) => (
+                  <motion.div
+                    key={ind.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.45, delay: idx * 0.06 }}
+                    className="flex flex-col items-center justify-start space-y-2.5 p-2 rounded-lg hover:bg-black/[0.04] transition-colors"
                   >
-                    <span>Sector Details</span>
-                    <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </Link>
-                </div>
-              </motion.div>
-            );
-          })}
+                    <div className="w-12 h-12 flex items-center justify-center text-[#111827]">
+                      <ind.icon className="w-8 h-8 stroke-[1.5]" />
+                    </div>
+                    <span className="font-heading text-xs sm:text-xs font-bold text-[#111827] leading-snug">
+                      {ind.title}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

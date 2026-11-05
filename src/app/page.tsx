@@ -4,7 +4,6 @@ import ProductGrid from "@/components/home/ProductGrid";
 import Capabilities from "@/components/home/Capabilities";
 import IndustriesGrid from "@/components/home/IndustriesGrid";
 import CompanyIntro from "@/components/home/CompanyIntro";
-import Facilities from "@/components/home/Facilities";
 import ContactCTA from "@/components/home/ContactCTA";
 
 export const metadata: Metadata = {
@@ -25,25 +24,22 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* 1. Cinematic Hero with Genuine Ferrite Stockyard Photograph */}
+      {/* 1. Cinematic Hero with Industrial Workshop Visual & Trust Indicators */}
       <Hero />
 
-      {/* 2. Steel Products Section (Immediately after hero) */}
+      {/* 2. Steel Products Section (4-column architectural product grid) */}
       <ProductGrid />
 
       {/* 3. Capabilities Section (Cutting, Shaping, Sizing, Stockholding) */}
       <Capabilities />
 
-      {/* 4. Industries Section (Contrasting light section breaking up dark visual flow) */}
+      {/* 4. Industries Section (Contrasting warm sand banner breaking up dark visual flow) */}
       <IndustriesGrid />
 
-      {/* 5. About Ferrite Section & Company Statistics */}
+      {/* 5. About Ferrite Section & Verified Statistics */}
       <CompanyIntro />
 
-      {/* 6. Facilities & Operational Hubs (Ghatkopar HQ & Kalamboli Yard) */}
-      <Facilities />
-
-      {/* 7. Quotation CTA Section */}
+      {/* 6. Quotation CTA Section Banner */}
       <ContactCTA />
     </>
   );
