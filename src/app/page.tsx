@@ -36,7 +36,7 @@ export default function HomePage() {
       <BlogSection />
 
       {/* 5. About Ferrite Section & Verified Statistics */}
-      <CompanyIntro />
+      {/* <CompanyIntro /> */}
 
 
     </>

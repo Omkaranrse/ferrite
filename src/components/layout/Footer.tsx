@@ -4,9 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
-import { trackEvent } from "@/lib/analytics";
 
 // Social Media SVG Icons
 const FacebookIcon = () => (
@@ -39,43 +38,47 @@ const YouTubeIcon = () => (
   </svg>
 );
 
-// Interactive Snapshot Polaroid Card Component (from Framer Snapshot-Footer)
-function SnapshotCard({
+// Authentic White Polaroid Snapshot Component (from Framer Snapshot-Footer Spec)
+function SnapshotPolaroid({
   image,
   caption,
   rotate = 0,
   zIndex = 1,
+  className = "",
 }: {
   image: string;
   caption: string;
   rotate?: number;
   zIndex?: number;
+  className?: string;
 }) {
   return (
     <motion.div
       drag
-      dragConstraints={{ left: -15, right: 15, top: -15, bottom: 15 }}
+      dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
       initial={{ rotate }}
       whileHover={{
         rotate: 0,
-        scale: 1.08,
-        zIndex: 30,
-        transition: { type: "spring", stiffness: 350, damping: 25 },
+        scale: 1.12,
+        zIndex: 50,
+        transition: { type: "spring", stiffness: 350, damping: 22 },
       }}
-      whileTap={{ scale: 0.96 }}
+      whileTap={{ scale: 0.95 }}
       style={{ zIndex }}
-      className="cursor-grab active:cursor-grabbing bg-[#181E24] p-2.5 pb-3.5 rounded-lg border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.55)] select-none shrink-0 w-36 sm:w-44"
+      className={`relative cursor-grab active:cursor-grabbing bg-[#FAFAFA] p-2.5 sm:p-3 pb-8 sm:pb-9 rounded-[3px] shadow-[0_16px_36px_-6px_rgba(0,0,0,0.65),0_2px_6px_rgba(0,0,0,0.2)] select-none shrink-0 w-[170px] sm:w-[200px] lg:w-[210px] transition-shadow hover:shadow-[0_24px_48px_rgba(0,0,0,0.85)] ${className}`}
     >
-      <div className="relative aspect-square w-full rounded overflow-hidden bg-black/50 shadow-inner">
+      {/* Inner Photo Frame */}
+      <div className="relative aspect-[4/3] sm:aspect-square w-full rounded-[2px] overflow-hidden bg-zinc-900 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.12)]">
         <Image
           src={image}
           alt={caption}
           fill
-          sizes="200px"
+          sizes="220px"
           className="object-cover pointer-events-none"
         />
       </div>
-      <p className="mt-2 text-[10px] sm:text-[11px] font-mono text-center text-[#9CA3AF] truncate">
+      {/* Handwritten / Monospace Caption */}
+      <p className="mt-2.5 text-[11px] font-mono tracking-tight text-zinc-700 text-center truncate select-none px-1">
         {caption}
       </p>
     </motion.div>
@@ -84,435 +87,362 @@ function SnapshotCard({
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0E11] text-[#9CA3AF] relative border-t border-white/10 overflow-hidden">
-      {/* Top Ambient Glow Accent */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF7A1A]/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-10 w-96 h-96 bg-[#FF7A1A]/4 rounded-full blur-[140px] pointer-events-none" />
+    <footer className="bg-[#0A0E11] text-[#9CA3AF] relative py-12 sm:py-16 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/3 -left-32 w-96 h-96 bg-[#FF7A1A]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-[#FF7A1A]/4 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-12 relative z-10">
-        {/* ======================================================== */}
-        {/* 1. TOP CALL TO ACTION BLOCK (As shown in screenshot)    */}
-        {/* ======================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16 sm:mb-20">
-          {/* Left Card: GET A QUOTE */}
-          <div className="lg:col-span-7 bg-gradient-to-br from-[#161D24] via-[#11171D] to-[#0D1216] border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden flex flex-col justify-between">
-            {/* Subtle Top-Left Glow */}
-            <div className="absolute top-0 left-0 w-48 h-48 bg-[#FF7A1A]/10 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="space-y-3 relative z-10 max-w-xl">
-              <div className="text-xs font-mono font-bold text-[#FF7A1A] tracking-wider uppercase">
-                GET A QUOTE
+      {/* Main Contained Framer Snapshot-Footer Card */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-[28px] sm:rounded-[36px] bg-[#12161A] border border-white/10 overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] relative flex flex-col">
+          {/* ========================================================== */}
+          {/* TOP STAGE: Large Heading, Paragraph & Snapshot Photo Fan   */}
+          {/* ========================================================== */}
+          <div className="px-6 pt-10 sm:px-12 sm:pt-16 lg:px-14 lg:pt-20 pb-16 sm:pb-24 relative overflow-hidden bg-gradient-to-b from-[#14191F] to-[#101418]">
+            {/* Heading and Intro Row */}
+            <div className="flex flex-col lg:flex-row items-start lg:items-start justify-between gap-6 sm:gap-8 mb-12 sm:mb-16">
+              {/* Left Heading */}
+              <div className="max-w-xl">
+                <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-[2.75rem] text-white tracking-[-0.03em] leading-[1.12]">
+                  Still have a question about your{" "}
+                  <span className="text-[#FF7A1A] [text-shadow:_0_0_24px_rgba(255,122,26,0.35)]">
+                    steel requirement?
+                  </span>
+                </h2>
               </div>
-              <h2 className="font-heading text-2xl sm:text-3xl lg:text-[2rem] font-extrabold text-white tracking-tight leading-tight">
-                Still have a question about your steel requirement?
-              </h2>
-              <p className="text-xs sm:text-sm text-[#9CA3AF] leading-relaxed pt-1">
-                Share your requirement and our experts will help you with the right steel solution,
-                best price and on-time delivery.
-              </p>
+
+              {/* Right Paragraph & Quick CTA */}
+              <div className="max-w-md space-y-4">
+                <p className="text-xs sm:text-sm lg:text-[15px] text-[#9CA3AF] leading-relaxed">
+                  Share your requirement and our experts will help you with the right steel solution,
+                  best price and on-time delivery across India.
+                </p>
+                <div className="pt-1">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D9651E] to-[#FF7A1A] hover:from-[#E66E24] hover:to-[#FF882E] text-white font-heading text-xs sm:text-sm font-bold shadow-lg hover:shadow-[0_0_20px_rgba(255,122,26,0.4)] transition-all hover:scale-105 active:scale-95"
+                  >
+                    <span>Request a Quote</span>
+                    <span className="font-bold text-base">→</span>
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            <div className="pt-6 sm:pt-8 relative z-10">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#D9651E] to-[#FF7A1A] hover:from-[#E66E24] hover:to-[#FF882E] text-white font-heading text-xs sm:text-sm font-bold shadow-lg hover:shadow-[0_0_24px_rgba(255,122,26,0.45)] transition-all duration-300 hover:scale-105 active:scale-95 group"
-              >
-                <span>Request a Quote</span>
-                <span className="font-bold text-base transition-transform group-hover:translate-x-1">→</span>
-              </Link>
+            {/* ======================================================== */}
+            {/* SNAPSHOT PHOTO PILE (Framer Snapshot Footer Signature)    */}
+            {/* Straddles the boundary between top stage and bottom body */}
+            {/* ======================================================== */}
+            <div className="relative pt-6 sm:pt-10 overflow-x-auto no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0">
+              <div className="flex items-center justify-start lg:justify-center gap-3 sm:gap-4 lg:gap-5 min-w-max lg:min-w-0 pb-4">
+                {/* Photo 1: Angles */}
+                <SnapshotPolaroid
+                  image="/images/products/steel-angle.png"
+                  caption="Stockyard Angles · 9:04 AM"
+                  rotate={-6}
+                  zIndex={2}
+                />
+
+                {/* Photo 2: Beams */}
+                <SnapshotPolaroid
+                  image="/images/products/steel-beams.png"
+                  caption="Heavy Sections Mill · 11:30 AM"
+                  rotate={4}
+                  zIndex={3}
+                  className="-ml-4 sm:-ml-6"
+                />
+
+                {/* Central Sticky NoteCard */}
+                <motion.div
+                  drag
+                  dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
+                  initial={{ rotate: -2 }}
+                  whileHover={{
+                    rotate: 0,
+                    scale: 1.12,
+                    zIndex: 50,
+                    transition: { type: "spring", stiffness: 350, damping: 22 },
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ zIndex: 10 }}
+                  className="relative cursor-grab active:cursor-grabbing bg-[#1C232B] p-4 pb-5 rounded-xl border border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.7)] select-none shrink-0 w-[190px] sm:w-[220px] -ml-4 sm:-ml-6 text-left"
+                >
+                  {/* Adhesive Tape Header */}
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-white/20 backdrop-blur-sm rounded-sm border border-white/25 rotate-[-2deg]" />
+
+                  {/* Note Card Content */}
+                  <div className="pt-1.5 space-y-1.5 font-mono">
+                    <div className="text-[10px] font-bold text-[#FF7A1A] tracking-wider uppercase">
+                      FERRITE HQ
+                    </div>
+                    <div className="text-xs font-bold text-white leading-snug">
+                      Excel Plaza, 803/B wing
+                      <br />
+                      Ghatkopar, Mumbai 400075
+                    </div>
+                    <div className="pt-2 border-t border-white/10 text-[10px] text-[#9CA3AF] space-y-0.5">
+                      <div>Mon – Sat: 08:30 AM – 07:30 PM</div>
+                      <div className="text-white font-semibold pt-0.5">{FERRITE_CONTACT.phone}</div>
+                      <div className="text-[#9CA3AF] truncate">{FERRITE_CONTACT.email}</div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Photo 3: Pipes */}
+                <SnapshotPolaroid
+                  image="/images/products/steel-pipes.png"
+                  caption="Kalamboli Yard · 2:15 PM"
+                  rotate={5}
+                  zIndex={4}
+                  className="-ml-4 sm:-ml-6"
+                />
+
+                {/* Photo 4: Fabrication */}
+                <SnapshotPolaroid
+                  image="/images/services/welded-assemblies.jpg"
+                  caption="Fabrication Shop · 4:45 PM"
+                  rotate={-5}
+                  zIndex={3}
+                  className="-ml-4 sm:-ml-6"
+                />
+
+                {/* Photo 5: Erection */}
+                <SnapshotPolaroid
+                  image="/images/services/structural-steelwork.jpg"
+                  caption="Site Erection · 6:10 PM"
+                  rotate={7}
+                  zIndex={2}
+                  className="-ml-4 sm:-ml-6"
+                />
+              </div>
             </div>
           </div>
 
-          {/* Right Card: TALK TO OUR SALES TEAM */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-3">
-            <div className="text-xs font-mono font-bold text-[#9CA3AF] tracking-wider uppercase pl-1">
-              TALK TO OUR SALES TEAM
-            </div>
+          {/* ========================================================== */}
+          {/* BOTTOM BODY: Navigation Columns, Content & Help Card       */}
+          {/* ========================================================== */}
+          <div className="bg-[#0A0D10] px-6 sm:px-12 lg:px-14 py-12 sm:py-16 border-t border-white/[0.08]">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-8">
+              {/* Left Column: Brand Wordmark & Lineage Statement */}
+              <div className="md:col-span-12 lg:col-span-3 space-y-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF7A1A] shadow-[0_0_8px_#FF7A1A]" />
+                    <span className="font-heading font-extrabold text-xl text-white tracking-wider">
+                      FERRITE
+                    </span>
+                  </div>
+                  <div className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug space-y-0.5">
+                    <div>Built for projects.</div>
+                    <div>Stocked in Mumbai.</div>
+                    <div className="text-[#FF7A1A]">Lineage since 1965.</div>
+                  </div>
+                </div>
 
-            {/* 3 Interactive Communication Rows */}
-            <div className="space-y-2.5 flex-1 flex flex-col justify-between">
-              {/* Call us */}
-              <a
-                href={FERRITE_CONTACT.getTelUrl()}
-                className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-[#12181D]/90 hover:bg-[#161F26] border border-white/10 hover:border-[#FF7A1A]/50 transition-all duration-300 group shadow-md"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#FF7A1A] group-hover:border-[#FF7A1A] transition-all">
+                {/* Quick Call Desk */}
+                <div className="pt-4 border-t border-white/10 text-xs text-[#9CA3AF] space-y-1">
+                  <div className="text-[11px] uppercase tracking-wider text-white/60 font-semibold">
+                    Direct Sales Desk
+                  </div>
+                  <a
+                    href={FERRITE_CONTACT.getTelUrl()}
+                    className="text-white hover:text-[#FF7A1A] transition-colors font-bold text-sm block"
+                  >
+                    {FERRITE_CONTACT.phone}
+                  </a>
+                  <a
+                    href={`mailto:${FERRITE_CONTACT.email}`}
+                    className="hover:text-white transition-colors block text-xs"
+                  >
+                    {FERRITE_CONTACT.email}
+                  </a>
+                </div>
+              </div>
+
+              {/* Col 1: QUICK LINKS */}
+              <div className="sm:col-span-6 md:col-span-3 lg:col-span-2 space-y-3.5">
+                <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
+                  QUICK LINKS
+                </h3>
+                <ul className="space-y-2 text-xs">
+                  {[
+                    { name: "Home", href: "/" },
+                    { name: "About Us", href: "/about" },
+                    { name: "Services", href: "/capabilities" },
+                    { name: "Blogs", href: "/#insights" },
+                    { name: "FAQs", href: "/contact" },
+                    { name: "Contact Us", href: "/contact" },
+                  ].map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                      >
+                        <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
+                          ›
+                        </span>
+                        <span>{link.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Col 2: STEEL PRODUCTS */}
+              <div className="sm:col-span-6 md:col-span-3 lg:col-span-2 space-y-3.5">
+                <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
+                  STEEL PRODUCTS
+                </h3>
+                <ul className="space-y-2 text-xs">
+                  {[
+                    { name: "Steel Angle", href: "/products#steel-angles" },
+                    { name: "Steel Beams", href: "/products#structural-beams" },
+                    { name: "Steel Channels", href: "/products#steel-channels" },
+                    { name: "Steel Bars", href: "/products#tmt-merchant-bars" },
+                    { name: "Steel Pipes", href: "/products#hollow-sections-pipes" },
+                    { name: "Steel Sheets", href: "/products#plates-and-sheets" },
+                    { name: "Steel Plates", href: "/products#plates-and-sheets" },
+                  ].map((prod) => (
+                    <li key={prod.name}>
+                      <Link
+                        href={prod.href}
+                        className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
+                      >
+                        <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
+                          ›
+                        </span>
+                        <span>{prod.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Col 3: ADDRESSES (Head Office & Factory) */}
+              <div className="sm:col-span-6 md:col-span-6 lg:col-span-2 space-y-5">
+                {/* HEAD OFFICE */}
+                <div className="space-y-2">
+                  <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
+                    HEAD OFFICE / SALES
+                  </h3>
+                  <div className="flex items-start gap-1.5 text-xs text-[#9CA3AF]">
+                    <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 mt-0.5" />
+                    <span className="leading-relaxed text-[11px]">
+                      Excel Plaza, 803/B wing, 90 Feet Rd, Pant Nagar, Ghatkopar East, Mumbai - 400075
+                    </span>
+                  </div>
+                </div>
+
+                {/* FACTORY ADDRESS */}
+                <div className="space-y-2 pt-2 border-t border-white/[0.06]">
+                  <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
+                    FACTORY ADDRESS
+                  </h3>
+                  <div className="flex items-start gap-1.5 text-xs text-[#9CA3AF]">
+                    <MapPin className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0 mt-0.5" />
+                    <span className="leading-relaxed text-[11px]">
+                      Plot 18, KWC Kalamboli, Dist. - Raigad, Navi Mumbai - 410218
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Col 4: NEED HELP? CALL NOW! CARD (From Screenshot) */}
+              <div className="sm:col-span-6 md:col-span-6 lg:col-span-3">
+                <div className="rounded-2xl bg-[#11171D] border border-white/10 p-5 sm:p-6 text-center space-y-3.5 shadow-xl relative overflow-hidden">
+                  {/* Orange Top Accent Line */}
+                  <div className="absolute top-0 inset-x-0 h-1 bg-[#FF7A1A] shadow-[0_0_10px_#FF7A1A]" />
+
+                  {/* Phone Icon */}
+                  <div className="w-11 h-11 mx-auto rounded-full bg-[#FF7A1A]/15 border border-[#FF7A1A]/30 flex items-center justify-center text-[#FF7A1A]">
                     <Phone className="w-4 h-4" />
                   </div>
-                  <div>
-                    <div className="text-[11px] text-[#9CA3AF] font-medium leading-none mb-1">
-                      Call us
-                    </div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#FF7A1A] transition-colors">
-                      {FERRITE_CONTACT.phone}
-                    </div>
-                  </div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[#FF7A1A] transition-transform group-hover:translate-x-1" />
-              </a>
 
-              {/* Email us */}
-              <a
-                href={FERRITE_CONTACT.getEmailUrl()}
-                className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-[#12181D]/90 hover:bg-[#161F26] border border-white/10 hover:border-[#FF7A1A]/50 transition-all duration-300 group shadow-md"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#FF7A1A] group-hover:border-[#FF7A1A] transition-all">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-[#9CA3AF] font-medium leading-none mb-1">
-                      Email us
+                  {/* Title & Call Now */}
+                  <div className="space-y-0.5">
+                    <div className="text-[11px] font-bold text-[#9CA3AF] tracking-wider uppercase">
+                      NEED HELP?
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#FF7A1A] transition-colors">
-                      {FERRITE_CONTACT.email}
+                    <div className="font-heading text-lg font-extrabold text-white tracking-tight">
+                      CALL NOW!
                     </div>
                   </div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[#FF7A1A] transition-transform group-hover:translate-x-1" />
-              </a>
 
-              {/* WhatsApp */}
-              <a
-                href={FERRITE_CONTACT.getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  trackEvent({
-                    name: "whatsapp_click",
-                    params: { location: "footer_cta", message_type: "general_inquiry" },
-                  })
-                }
-                className="flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-[#12181D]/90 hover:bg-[#161F26] border border-white/10 hover:border-[#25D366]/50 transition-all duration-300 group shadow-md"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#25D366]/15 border border-[#25D366]/30 flex items-center justify-center text-[#25D366]">
-                    <WhatsAppIcon />
-                  </div>
-                  <div>
-                    <div className="text-[11px] text-[#9CA3AF] font-medium leading-none mb-1">
-                      WhatsApp
+                  {/* Call Button */}
+                  <a
+                    href={FERRITE_CONTACT.getTelUrl()}
+                    className="block w-full py-2.5 rounded-full bg-[#D9651E] hover:bg-[#FF7A1A] text-white font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-[0_0_20px_rgba(255,122,26,0.4)] transition-all active:scale-95"
+                  >
+                    {FERRITE_CONTACT.phone}
+                  </a>
+
+                  {/* Stay Connected & Socials */}
+                  <div className="pt-2 border-t border-white/10 space-y-2">
+                    <div className="text-[10px] font-bold text-[#9CA3AF] tracking-widest uppercase">
+                      STAY CONNECTED
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#25D366] transition-colors">
-                      Chat with our team
+                    <div className="flex items-center justify-center gap-2">
+                      <a
+                        href="https://facebook.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/40 text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-all flex items-center justify-center"
+                        aria-label="Facebook"
+                      >
+                        <FacebookIcon />
+                      </a>
+                      <a
+                        href={FERRITE_CONTACT.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all flex items-center justify-center"
+                        aria-label="LinkedIn"
+                      >
+                        <LinkedInIcon />
+                      </a>
+                      <a
+                        href="https://instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#E4405F]/20 border border-[#E4405F]/40 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all flex items-center justify-center"
+                        aria-label="Instagram"
+                      >
+                        <InstagramIcon />
+                      </a>
+                      <a
+                        href={FERRITE_CONTACT.getWhatsAppUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center"
+                        aria-label="WhatsApp"
+                      >
+                        <WhatsAppIcon />
+                      </a>
+                      <a
+                        href="https://youtube.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-7 h-7 rounded-full bg-[#FF0000]/20 border border-[#FF0000]/40 text-[#FF0000] hover:bg-[#FF0000] hover:text-white transition-all flex items-center justify-center"
+                        aria-label="YouTube"
+                      >
+                        <YouTubeIcon />
+                      </a>
                     </div>
                   </div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[#FF7A1A] transition-transform group-hover:translate-x-1" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ======================================================== */}
-        {/* 2. SNAPSHOT POLAROID PILE (Framer Snapshot Footer Spec)  */}
-        {/* ======================================================== */}
-        <div className="mb-16 sm:mb-20 overflow-x-auto no-scrollbar py-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div className="flex items-center justify-start lg:justify-center gap-4 sm:gap-6 min-w-max lg:min-w-0">
-            {/* Snapshot 1: Angles */}
-            <SnapshotCard
-              image="/images/products/steel-angle.png"
-              caption="Stockyard Angles · 9:04 AM"
-              rotate={-5}
-              zIndex={1}
-            />
-
-            {/* Snapshot 2: Beams */}
-            <SnapshotCard
-              image="/images/products/steel-beams.png"
-              caption="Heavy Beams Mill · 11:30 AM"
-              rotate={4}
-              zIndex={2}
-            />
-
-            {/* Central Sticky NoteCard */}
-            <motion.div
-              drag
-              dragConstraints={{ left: -15, right: 15, top: -15, bottom: 15 }}
-              initial={{ rotate: -2 }}
-              whileHover={{
-                rotate: 0,
-                scale: 1.08,
-                zIndex: 30,
-                transition: { type: "spring", stiffness: 350, damping: 25 },
-              }}
-              whileTap={{ scale: 0.96 }}
-              style={{ zIndex: 3 }}
-              className="relative cursor-grab active:cursor-grabbing bg-[#1C242C] p-3.5 pb-4 rounded-xl border border-white/15 shadow-[0_6px_24px_rgba(0,0,0,0.6)] select-none shrink-0 w-44 sm:w-52"
-            >
-              {/* Tape Accent */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-5 bg-white/20 backdrop-blur-sm rounded-sm border border-white/20 rotate-[-2deg]" />
-              <div className="pt-1 space-y-1 text-center">
-                <span className="text-[10px] font-mono font-bold text-[#FF7A1A] tracking-wider uppercase">
-                  FERRITE HQ
-                </span>
-                <p className="text-xs font-bold text-white leading-tight">
-                  Mumbai &amp; Kalamboli
-                </p>
-                <div className="pt-1.5 border-t border-white/10 text-[10px] text-[#9CA3AF] leading-tight space-y-0.5">
-                  <div>Mon – Sat: 08:30 AM – 07:30 PM</div>
-                  <div className="text-[#FF7A1A] font-semibold">{FERRITE_CONTACT.phone}</div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Snapshot 3: Pipes */}
-            <SnapshotCard
-              image="/images/products/steel-pipes.png"
-              caption="Kalamboli Yard · 2:15 PM"
-              rotate={-6}
-              zIndex={2}
-            />
-
-            {/* Snapshot 4: Welded Assemblies */}
-            <SnapshotCard
-              image="/images/services/welded-assemblies.jpg"
-              caption="Fabrication Shop · 4:45 PM"
-              rotate={5}
-              zIndex={1}
-            />
-          </div>
-        </div>
-
-        {/* ======================================================== */}
-        {/* 3. MAIN FOOTER COLUMNS & HELP CARD (Exact Screenshot)    */}
-        {/* ======================================================== */}
-        <div className="pt-12 sm:pt-16 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-8 lg:gap-6">
-          {/* Col 1: QUICK LINKS */}
-          <div className="lg:col-span-2 space-y-3.5">
-            <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-              QUICK LINKS
-            </h3>
-            <ul className="space-y-2 text-xs">
-              {[
-                { name: "Home", href: "/" },
-                { name: "About Us", href: "/about" },
-                { name: "Services", href: "/capabilities" },
-                { name: "Blogs", href: "/#insights" },
-                { name: "FAQs", href: "/contact" },
-                { name: "Contact Us", href: "/contact" },
-              ].map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
-                  >
-                    <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
-                      ›
-                    </span>
-                    <span>{link.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 2: STEEL PRODUCTS */}
-          <div className="lg:col-span-2 space-y-3.5">
-            <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-              STEEL PRODUCTS
-            </h3>
-            <ul className="space-y-2 text-xs">
-              {[
-                { name: "Steel Angle", href: "/products#steel-angles" },
-                { name: "Steel Beams", href: "/products#structural-beams" },
-                { name: "Steel Channels", href: "/products#steel-channels" },
-                { name: "Steel Bars", href: "/products#tmt-merchant-bars" },
-                { name: "Steel Pipes", href: "/products#hollow-sections-pipes" },
-                { name: "Steel Sheets", href: "/products#plates-and-sheets" },
-                { name: "Steel Plates", href: "/products#plates-and-sheets" },
-              ].map((prod) => (
-                <li key={prod.name}>
-                  <Link
-                    href={prod.href}
-                    className="flex items-center gap-1.5 text-[#9CA3AF] hover:text-white transition-colors group"
-                  >
-                    <span className="text-[#FF7A1A] group-hover:translate-x-0.5 transition-transform">
-                      ›
-                    </span>
-                    <span>{prod.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3: HEAD OFFICE / SALES */}
-          <div className="lg:col-span-3 space-y-3.5">
-            <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-              HEAD OFFICE / SALES
-            </h3>
-            <div className="space-y-2.5 text-xs text-[#9CA3AF]">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#FF7A1A] shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  Excel Plaza, 803/B wing, 90 Feet Rd, Pant Nagar, Ghatkopar East, Mumbai, Maharashtra, India - 400075
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0" />
-                <a
-                  href={FERRITE_CONTACT.getTelUrl()}
-                  className="hover:text-white transition-colors"
-                >
-                  {FERRITE_CONTACT.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0" />
-                <a
-                  href={`mailto:${FERRITE_CONTACT.email}`}
-                  className="hover:text-white transition-colors"
-                >
-                  {FERRITE_CONTACT.email}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Col 4: FACTORY ADDRESS */}
-          <div className="lg:col-span-2 space-y-3.5">
-            <h3 className="font-heading text-xs font-bold text-white tracking-wider uppercase">
-              FACTORY ADDRESS
-            </h3>
-            <div className="space-y-2.5 text-xs text-[#9CA3AF]">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#FF7A1A] shrink-0 mt-0.5" />
-                <span className="leading-relaxed">
-                  Plot 18, KWC Kalamboli, Dist. - Raigad, Navi Mumbai, India - 410218
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0" />
-                <a
-                  href={FERRITE_CONTACT.getTelUrl(FERRITE_CONTACT.phoneSecondaryRaw)}
-                  className="hover:text-white transition-colors"
-                >
-                  {FERRITE_CONTACT.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#FF7A1A] shrink-0" />
-                <a
-                  href={`mailto:${FERRITE_CONTACT.email}`}
-                  className="hover:text-white transition-colors"
-                >
-                  {FERRITE_CONTACT.email}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Col 5: NEED HELP? CALL NOW! CARD */}
-          <div className="lg:col-span-3">
-            <div className="relative rounded-2xl bg-[#11171D] border border-white/10 p-5 sm:p-6 text-center space-y-3.5 shadow-xl overflow-hidden">
-              {/* Orange Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-[#FF7A1A] shadow-[0_0_10px_#FF7A1A]" />
-
-              {/* Phone Icon */}
-              <div className="w-12 h-12 mx-auto rounded-full bg-[#FF7A1A]/15 border border-[#FF7A1A]/30 flex items-center justify-center text-[#FF7A1A]">
-                <Phone className="w-5 h-5" />
-              </div>
-
-              {/* Title & Call Now */}
-              <div className="space-y-0.5">
-                <div className="text-[11px] font-bold text-[#9CA3AF] tracking-wider uppercase">
-                  NEED HELP?
-                </div>
-                <div className="font-heading text-lg font-extrabold text-white tracking-tight">
-                  CALL NOW!
-                </div>
-              </div>
-
-              {/* Call Button */}
-              <a
-                href={FERRITE_CONTACT.getTelUrl()}
-                className="block w-full py-2.5 rounded-full bg-[#D9651E] hover:bg-[#FF7A1A] text-white font-bold text-xs sm:text-sm tracking-wide shadow-md hover:shadow-[0_0_20px_rgba(255,122,26,0.4)] transition-all active:scale-95"
-              >
-                {FERRITE_CONTACT.phone}
-              </a>
-
-              {/* Stay Connected */}
-              <div className="pt-2 border-t border-white/10 space-y-2.5">
-                <div className="text-[10px] font-bold text-[#9CA3AF] tracking-widest uppercase">
-                  STAY CONNECTED
-                </div>
-                <div className="flex items-center justify-center gap-2.5">
-                  {/* Facebook */}
-                  <a
-                    href="https://facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#1877F2]/20 border border-[#1877F2]/40 text-[#1877F2] hover:bg-[#1877F2] hover:text-white transition-all flex items-center justify-center"
-                    aria-label="Facebook"
-                  >
-                    <FacebookIcon />
-                  </a>
-
-                  {/* LinkedIn */}
-                  <a
-                    href={FERRITE_CONTACT.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#0A66C2]/20 border border-[#0A66C2]/40 text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all flex items-center justify-center"
-                    aria-label="LinkedIn"
-                  >
-                    <LinkedInIcon />
-                  </a>
-
-                  {/* Instagram */}
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#E4405F]/20 border border-[#E4405F]/40 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all flex items-center justify-center"
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon />
-                  </a>
-
-                  {/* WhatsApp */}
-                  <a
-                    href={FERRITE_CONTACT.getWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all flex items-center justify-center"
-                    aria-label="WhatsApp"
-                  >
-                    <WhatsAppIcon />
-                  </a>
-
-                  {/* YouTube */}
-                  <a
-                    href="https://youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#FF0000]/20 border border-[#FF0000]/40 text-[#FF0000] hover:bg-[#FF0000] hover:text-white transition-all flex items-center justify-center"
-                    aria-label="YouTube"
-                  >
-                    <YouTubeIcon />
-                  </a>
                 </div>
               </div>
             </div>
+
+            {/* Bottom Credits Line */}
+            <div className="pt-10 sm:pt-14 mt-10 sm:mt-14 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280]">
+              <div>
+                © {new Date().getFullYear()} Ferrite Structural Steels Pvt Ltd. All rights reserved.
+              </div>
+              <div>
+                Designed by <span className="text-white/80 font-medium">Vebiotic Web Solutions</span> Marketing by <span className="text-white/80 font-medium">Adinads</span>
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* ======================================================== */}
-        {/* 4. GIANT FERRITE WORDMARK (Snapshot-Footer signature)    */}
-        {/* ======================================================== */}
-        <div className="relative mt-12 sm:mt-16 overflow-hidden pointer-events-none select-none text-center">
-          <span className="font-heading font-black text-[14vw] tracking-tighter text-white/[0.03] uppercase leading-none block">
-            FERRITE
-          </span>
-        </div>
-
-        {/* ======================================================== */}
-        {/* 5. BOTTOM BAR (Exact Screenshot)                         */}
-        {/* ======================================================== */}
-        <div className="pt-8 border-t border-white/5 text-center text-xs text-[#6B7280]">
-          © {new Date().getFullYear()} Ferrite Structural Steels Pvt Ltd. All rights reserved. &nbsp;|&nbsp; Designed by <span className="text-white/80 font-medium">Vebiotic Web Solutions</span> Marketing by <span className="text-white/80 font-medium">Adinads</span>
         </div>
       </div>
     </footer>
