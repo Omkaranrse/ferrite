@@ -4,130 +4,167 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ArrowRight, Layers, Box, Maximize2, Shield } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import Button from "@/components/ui/Button";
+import { useRFQ } from "@/context/RFQContext";
 
 interface ProductCard {
   id: string;
+  categoryNumber: string;
   title: string;
   description: string;
+  items: string[];
   image: string;
   href: string;
-  icon: React.ComponentType<{ className?: string }>;
 }
 
-const PRODUCT_CARDS: ProductCard[] = [
+const PRIMARY_PRODUCT_CARDS: ProductCard[] = [
   {
     id: "structural-sections",
+    categoryNumber: "01",
     title: "Structural Sections",
-    description: "Beams, Columns, Channels, Joists & more.",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Primary load-bearing structural members for commercial buildings, civil infrastructure, and heavy industrial gantry framing.",
+    items: ["Beams", "Columns", "Channels", "Joists"],
+    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=85",
     href: "/products#structural-beams",
-    icon: Layers,
   },
   {
     id: "angles-flats",
+    categoryNumber: "02",
     title: "Angles & Flats",
-    description: "MS Angles, Equal & Unequal Angles, Flat Bars.",
-    image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Rigid 90-degree structural sections and solid flat bars for trusses, cross-bracing, and power transmission structures.",
+    items: ["MS Angles", "Equal & Unequal Angles", "Flat Bars"],
+    image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=1200&q=85",
     href: "/products#steel-angles",
-    icon: Box,
   },
   {
     id: "plates-sheets",
+    categoryNumber: "03",
     title: "Plates & Sheets",
-    description: "MS Plates, HR Sheets, Chequered Plates.",
-    image: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
+    description:
+      "Prime hot-rolled structural plates and chequered floor sheets with custom CNC profiling, flame cutting, and edge beveling.",
+    items: ["MS Plates", "HR Sheets", "Chequered Plates"],
+    image: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=85",
     href: "/products#plates-and-sheets",
-    icon: Shield,
   },
   {
     id: "pipes-tubes",
+    categoryNumber: "04",
     title: "Pipes & Tubes",
-    description: "Round, Square & Rectangular Hollow Sections.",
-    image: "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=800&q=80",
+    description:
+      "High torsional resistance hollow sections (SHS, RHS, CHS) and heavy-wall ERW pipes for architectural forms and engineering.",
+    items: ["Round Sections", "Square Sections", "Rectangular Hollow Sections"],
+    image: "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?auto=format&fit=crop&w=1200&q=85",
     href: "/products#hollow-sections-pipes",
-    icon: Maximize2,
   },
 ];
 
 export default function ProductGrid() {
+  const { openRFQ } = useRFQ();
+
   return (
-    <section id="products" className="bg-[#111619] py-12 sm:py-14 relative text-offwhite border-t border-white/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="products" className="bg-industrial-dark py-20 sm:py-28 relative text-offwhite border-t border-charcoal-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-white/10">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-copper block font-semibold mb-1">
-              OUR STEEL PRODUCTS
-            </span>
-            <h2 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              A Complete Range of Structural Steels
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-12 border-b border-charcoal-border">
+          <div className="max-w-2xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-charcoal border border-charcoal-border text-[11px] font-mono text-copper uppercase tracking-wider">
+              <span>OUR STEEL PRODUCTS</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.1]">
+              A Complete Range of <br className="hidden sm:inline" />
+              <span className="text-copper">Structural Steels</span>
             </h2>
+            <p className="text-sm sm:text-base text-steel max-w-xl font-body leading-relaxed">
+              Explore primary structural profiles, merchant stock, and processed plate products
+              maintained in rolling buffer inventory at our Kalamboli yard.
+            </p>
           </div>
 
-          <Link
-            href="/products"
-            className="text-xs font-heading font-semibold uppercase tracking-wider text-copper hover:text-white transition-colors inline-flex items-center gap-1.5 shrink-0 group self-start sm:self-auto"
-          >
-            <span>VIEW ALL PRODUCTS</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button href="/products" variant="outline" withArrow>
+              View Full Specifications
+            </Button>
+            <Button onClick={() => openRFQ()} variant="primary" withExternalArrow>
+              Instant Quote
+            </Button>
+          </div>
         </div>
 
-        {/* 4 Compact Product Cards in One Row on Desktop (~220-240px height) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-          {PRODUCT_CARDS.map((card, idx) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={card.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -4 }}
-                className="group relative h-[230px] rounded-xl overflow-hidden border border-white/10 hover:border-copper/70 bg-[#161A1D] transition-all duration-300 shadow-md flex flex-col justify-end p-4 select-none cursor-pointer"
-              >
-                <Link href={card.href} className="absolute inset-0 z-20" aria-label={card.title} />
+        {/* 4 Architectural Visual Product Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-10">
+          {PRIMARY_PRODUCT_CARDS.map((card, idx) => (
+            <motion.div
+              key={card.id}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6 }}
+              className="group relative bg-charcoal border border-charcoal-border hover:border-copper transition-all duration-400 overflow-hidden flex flex-col justify-between shadow-xl"
+            >
+              {/* Product Visual with Consistent Ratio & Subtle Zoom on Hover */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-graphite-950">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108 brightness-90 group-hover:brightness-100"
+                />
+                {/* Dark Gradient Overlay at Bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent" />
 
-                {/* Background Photography — takes up ~65% of the card */}
-                <div className="absolute inset-0 z-0 bg-[#0A0E11] overflow-hidden">
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-108 brightness-90 group-hover:brightness-100"
-                  />
-                  {/* Dark gradient overlay at bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111619] via-[#111619]/65 to-transparent" />
+                {/* Top Pillar Tag */}
+                <div className="absolute top-3.5 left-3.5 px-2.5 py-1 bg-industrial-dark/90 border border-charcoal-border text-[10px] font-mono tracking-widest text-copper font-semibold backdrop-blur-sm">
+                  CATEGORY {card.categoryNumber}
+                </div>
+              </div>
+
+              {/* Card Content */}
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="space-y-2.5">
+                  <h3 className="font-heading text-xl font-bold text-white group-hover:text-copper transition-colors">
+                    {card.title}
+                  </h3>
+
+                  <p className="text-xs text-steel leading-relaxed line-clamp-3">
+                    {card.description}
+                  </p>
                 </div>
 
-                {/* Card Content at Bottom */}
-                <div className="relative z-10 flex items-end justify-between gap-3">
-                  <div className="space-y-1">
-                    {/* Small Orange Outlined Icon */}
-                    <div className="w-6 h-6 rounded-md bg-black/40 border border-copper/50 flex items-center justify-center text-copper mb-1">
-                      <Icon className="w-3.5 h-3.5" />
-                    </div>
-
-                    <h3 className="font-heading text-base font-bold text-white group-hover:text-copper transition-colors leading-tight">
-                      {card.title}
-                    </h3>
-
-                    <p className="text-xs text-[#A9AFB2] line-clamp-1 font-body">
-                      {card.description}
-                    </p>
+                {/* Subcategories Bullet List */}
+                <div className="pt-2 border-t border-charcoal-border/70 space-y-2">
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-copper block font-medium">
+                    PROFILES INCLUDED:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {card.items.map((item) => (
+                      <span
+                        key={item}
+                        className="text-[11px] font-heading px-2 py-0.5 bg-industrial-dark border border-charcoal-border text-steel-light"
+                      >
+                        {item}
+                      </span>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Circular Arrow Button */}
-                  <div className="w-7 h-7 rounded-full bg-white/10 border border-white/15 group-hover:bg-copper group-hover:border-copper flex items-center justify-center text-white transition-colors shrink-0 shadow-sm">
+                {/* Navigation Link with Orange Arrow */}
+                <div className="pt-3 border-t border-charcoal-border/50">
+                  <Link
+                    href={card.href}
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-semibold uppercase tracking-wider text-copper group-hover:text-white transition-colors"
+                  >
+                    <span>View Specifications</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </div>
+                  </Link>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

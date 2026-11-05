@@ -3,101 +3,144 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Scissors, Flame, Maximize2, Warehouse, ArrowRight } from "lucide-react";
+import { Scissors, Flame, Maximize2, Warehouse, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import Button from "@/components/ui/Button";
+import { useRFQ } from "@/context/RFQContext";
 
 const CAPABILITIES = [
   {
     id: "cutting",
+    number: "01",
     title: "Cutting",
-    description: "Precision bandsawing and cold miter cutting to size with ±1.0 mm linear accuracy.",
+    tagline: "Precision cutting to size",
+    description:
+      "Semi-automatic bandsawing and cold sawing capable of ±1.0 mm linear tolerance, square 90° cuts, and compound miter sawing up to 60° to eliminate on-site cutting scrap.",
     icon: Scissors,
+    highlights: ["±1.0 mm linear accuracy", "Miter cuts up to 60°", "Burr-free cold saw finish"],
   },
   {
     id: "shaping",
+    number: "02",
     title: "Shaping",
-    description: "Multi-torch CNC gas & plasma profiling, weld beveling and plate forming straight from CAD.",
+    tagline: "Bending, forming and profiling",
+    description:
+      "Multi-torch computerized CNC flame cutting and high-definition plasma profiling to shape plates into custom base plates, stiffeners, gussets, and pre-weld bevels.",
     icon: Flame,
+    highlights: ["Plates up to 120 mm thickness", "V, X, and K weld bevels", "CAD/DXF direct nesting"],
   },
   {
     id: "sizing",
+    number: "03",
     title: "Sizing",
-    description: "Custom lengths, hydraulic plate roller leveling and surface shot blasting to SA 2.5.",
+    tagline: "Custom sizes and lengths",
+    description:
+      "Custom length sizing, hydraulic roller leveling to remove residual mill waviness, and surface blast cleaning to Swedish SA 2.5 with protective primer coating.",
     icon: Maximize2,
+    highlights: ["Hydraulic plate leveling", "Shot blasting to SA 2.5", "Protective shop primer"],
   },
   {
     id: "stockholding",
+    number: "04",
     title: "Stockholding",
-    description: "Multi-acre Kalamboli buffer inventory with 20-ton crane handling and 100% MTC documentation.",
+    tagline: "Wide range and ready availability",
+    description:
+      "Multi-acre stockholding at Kalamboli Warehousing Complex with rolling buffer inventory across beams, channels, angles, plates, and pipes backed by 20-ton overhead cranes.",
     icon: Warehouse,
+    highlights: ["Buffer stock in Kalamboli", "20-ton crane handling", "100% MTC heat traceability"],
   },
 ];
 
 export default function Capabilities() {
+  const { openRFQ } = useRFQ();
+
   return (
-    <section id="capabilities" className="bg-[#14181B] py-16 sm:py-20 relative text-offwhite border-t border-white/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Two-Part Layout: Header on Top/Left */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/10">
-          <div className="max-w-2xl space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-copper block font-semibold">
-              OUR CAPABILITIES
-            </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight text-white leading-[1.12]">
+    <section id="capabilities" className="bg-charcoal py-20 sm:py-28 relative text-offwhite border-t border-charcoal-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14 pb-10 border-b border-charcoal-border">
+          <div className="max-w-2xl space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-industrial-dark border border-charcoal-border text-[11px] font-mono text-copper uppercase tracking-wider">
+              <span>OUR CAPABILITIES</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.1]">
               More Than Supply. <br className="hidden sm:inline" />
               <span className="text-copper">Built for Projects.</span>
             </h2>
-            <p className="text-sm sm:text-base text-[#A9AFB2] font-body leading-relaxed pt-1">
-              Value-added processing and material preparation to meet your project requirements.
+            <p className="text-sm sm:text-base text-steel max-w-xl font-body leading-relaxed">
+              We combine stockholding with cutting, shaping, and sizing so steel arrives prepared for
+              its structural purpose — eliminating site bottlenecks and fabrication scrap.
             </p>
           </div>
 
-          <Link
-            href="/capabilities"
-            className="text-xs font-heading font-semibold uppercase tracking-wider text-copper hover:text-white transition-colors inline-flex items-center gap-1.5 shrink-0 group self-start lg:self-auto"
-          >
-            <span>DISCUSS PROCESSING</span>
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button href="/capabilities" variant="outline" withArrow>
+              Explore Full Capabilities
+            </Button>
+            <Button onClick={() => openRFQ()} variant="primary" withExternalArrow>
+              Discuss Processing
+            </Button>
+          </div>
         </div>
 
-        {/* Right/Bottom Side: Four Compact Bordered Cards in Horizontal 4-Column Arrangement */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+        {/* 4 Minimal Bordered Capability Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {CAPABILITIES.map((cap, idx) => {
             const Icon = cap.icon;
             return (
               <motion.div
                 key={cap.id}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                whileHover={{ y: -4 }}
-                className="group border border-white/10 hover:border-copper/70 rounded-xl bg-[#161A1D] p-6 text-center transition-all duration-300 shadow-md flex flex-col items-center justify-between"
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.55, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -5 }}
+                className="group relative bg-industrial-dark border border-charcoal-border hover:border-copper p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-lg"
               >
-                <div className="space-y-3 w-full flex flex-col items-center">
-                  {/* Centered Orange Outlined Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-black/40 border border-copper/50 flex items-center justify-center text-copper group-hover:bg-copper group-hover:text-white transition-all duration-300 shadow-sm">
-                    <Icon className="w-6 h-6" />
+                <div className="space-y-5">
+                  {/* Top Bar: Icon + Pillar Number */}
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 bg-charcoal border border-charcoal-border flex items-center justify-center text-copper group-hover:border-copper group-hover:bg-copper group-hover:text-white transition-all duration-300">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-steel group-hover:text-copper transition-colors">
+                      {cap.number}
+                    </span>
                   </div>
 
-                  {/* Heading */}
-                  <h3 className="font-heading font-bold text-lg text-white group-hover:text-copper transition-colors">
-                    {cap.title}
-                  </h3>
+                  {/* Title & Tagline */}
+                  <div className="space-y-1">
+                    <h3 className="font-heading text-xl font-bold text-white group-hover:text-copper transition-colors">
+                      {cap.title}
+                    </h3>
+                    <p className="text-xs font-mono uppercase tracking-wider text-copper font-medium">
+                      {cap.tagline}
+                    </p>
+                  </div>
 
-                  {/* Short Description */}
-                  <p className="text-xs text-[#A9AFB2] leading-relaxed font-body">
+                  {/* Description */}
+                  <p className="text-xs text-steel-light leading-relaxed font-body">
                     {cap.description}
                   </p>
+
+                  {/* Technical Highlights */}
+                  <ul className="pt-3 border-t border-charcoal-border/70 space-y-2">
+                    {cap.highlights.map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-[11px] text-steel">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-copper shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-white/10 w-full">
+                {/* Bottom Card Action */}
+                <div className="pt-6 mt-6 border-t border-charcoal-border/50">
                   <Link
                     href={`/capabilities#${cap.id}`}
-                    className="text-[11px] font-heading font-medium uppercase tracking-wider text-copper hover:text-white transition-colors inline-flex items-center gap-1"
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-semibold uppercase tracking-wider text-copper group-hover:text-white transition-colors"
                   >
-                    <span>View Specifications</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <span>View Technical Scope</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </Link>
                 </div>
               </motion.div>

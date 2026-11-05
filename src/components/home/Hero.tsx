@@ -16,15 +16,15 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[620px] lg:h-[680px] xl:h-[700px] flex flex-col justify-between overflow-hidden bg-[#0A0E11] pt-24 sm:pt-28 select-none"
+      className="relative w-full min-h-[100vh] min-h-[100svh] lg:h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0A0E11] select-none"
     >
-      {/* Background Cinematic Visual — Real Ferrite Stockyard Photograph */}
+      {/* Background Cinematic Visual — Real Ferrite Stockyard Photograph (Full Coverage) */}
       <motion.div
         style={{ y: backgroundY }}
         className="absolute inset-0 z-0 pointer-events-none will-change-transform"
@@ -35,10 +35,10 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center md:object-[60%_center] brightness-[0.82] contrast-[1.06]"
+          className="object-cover object-[center_55%] md:object-[60%_55%] brightness-[0.80] contrast-[1.06]"
         />
 
-        {/* Controlled Gradient Overlay — Allows stockyard and facility to remain recognizable */}
+        {/* Controlled Directional Gradient Overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -47,19 +47,22 @@ export default function Hero() {
           }}
         />
 
-        {/* Ambient Top Vignette for Navbar Integration */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0A0E11]/80 to-transparent pointer-events-none" />
+        {/* Top Vignette for Floating Navbar Integration */}
+        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#0A0E11]/80 to-transparent pointer-events-none" />
+
+        {/* Bottom Subtle Depth Vignette */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0A0E11]/90 to-transparent pointer-events-none" />
       </motion.div>
 
-      {/* Main Hero Content Area */}
+      {/* Main Hero Content Area (Positioned with ~24-28% top clearance on desktop) */}
       <motion.div
         style={{ y: contentY }}
-        className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center py-4 sm:py-6"
+        className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center pt-28 sm:pt-32 lg:pt-[16vh] pb-10 sm:pb-12"
       >
         <div className="max-w-[620px] space-y-4 sm:space-y-5">
           {/* Eyebrow Label */}
           <div className="inline-flex items-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0A0E11]/80 border border-copper/50 rounded-sm text-xs font-mono font-semibold tracking-wider text-copper uppercase backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0A0E11]/80 border border-copper/50 rounded-sm text-xs font-mono font-semibold tracking-wider text-copper uppercase backdrop-blur-sm shadow-sm">
               <span className="w-1.5 h-1.5 bg-copper inline-block rounded-none animate-pulse" />
               <span>— STRUCTURAL STEEL SUPPLIER | EST. 1965</span>
             </div>
@@ -117,9 +120,9 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Hero Trust Indicators — Single Horizontal Row with Subtle Dark Background & Thin Separators */}
+      {/* Hero Trust Indicators — Anchored at Bottom Across Desktop */}
       <div className="relative z-10 w-full border-t border-white/10 bg-[#0A0E11]/85 backdrop-blur-sm">
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4.5">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
             {/* Item 1: Since 1965 */}
             <div className="flex items-center justify-between">
