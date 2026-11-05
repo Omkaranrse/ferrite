@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { BreadcrumbSchema } from "@/components/shared/JsonLd";
 import { FERRITE_CONTACT } from "@/lib/contact";
+import RailwayJourney from "@/components/about/RailwayJourney";
 
 export const metadata: Metadata = {
   title: "About Us | Five Decades of Structural Steel Excellence | Ferrite",
@@ -33,45 +34,6 @@ export const metadata: Metadata = {
     url: "https://ferrite.in/about",
   },
 };
-
-const TIMELINE_MILESTONES = [
-  {
-    year: "1965",
-    title: "Foundation of Lineage",
-    subtitle: "Trading begins in Mumbai's historic iron & steel hubs",
-    description:
-      "Our business roots began over 59 years ago under Payal Enterprises. The firm established an enduring reputation for integrity, timely delivery, and dependable sourcing of primary iron and steel products.",
-  },
-  {
-    year: "1988",
-    title: "Expansion into Heavy Structural Sections",
-    subtitle: "Strategic focus on construction & industrial steel",
-    description:
-      "As India entered modern infrastructural development, we expanded inventory from basic merchant bars to heavy Indian Standard Medium Beams (ISMB), structural angles, and channels.",
-  },
-  {
-    year: "2004",
-    title: "Establishment of Kalamboli Facility",
-    subtitle: "Consolidating operations in Navi Mumbai's premier steel hub",
-    description:
-      "To meet rapid urbanization and large-span factory demands, we established our warehousing base in the Kalamboli Warehousing Complex (KWC), outfitting it with overhead gantry cranes.",
-  },
-  {
-    year: "2014",
-    title: "Rebranding to Ferrite Structural Steels Pvt. Ltd.",
-    subtitle: "Transition to integrated stockholding & value-added processing",
-    description:
-      "The corporate identity was officially restructured to Ferrite Structural Steels Pvt. Ltd., reflecting our expanded engineering scope: combining stockholding with precision cutting, shaping, and sizing.",
-  },
-  {
-    year: "Present",
-    title: "Pan-India Project Partner",
-    subtitle: "Advanced CNC profiling, bandsaws & multi-sector supply",
-    description:
-      "Today, Ferrite supplies steel for high-rise buildings, highway bridges, metro transit viaducts, and pre-engineered buildings nationwide, backed by 100% Mill Test Certificate traceability.",
-    isCurrent: true,
-  },
-];
 
 const PRODUCT_RANGE = [
   { name: "Steel Angles", image: "/images/products/steel-angle.png", href: "/products#steel-angles" },
@@ -312,72 +274,9 @@ export default function AboutPage() {
         </section>
 
         {/* ========================================================== */}
-        {/* 4. OUR JOURNEY SECTION: Interactive Timeline               */}
+        {/* 4. OUR JOURNEY SECTION: Railway Track Station Platform     */}
         {/* ========================================================== */}
-        <section id="journey" className="py-14 sm:py-20 border-t border-white/[0.08] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 mb-10 sm:mb-12">
-              <span className="w-5 h-[2.5px] bg-[#FF7A1A] rounded-full inline-block shadow-[0_0_8px_#FF7A1A]" />
-              <span className="text-xs font-mono font-bold tracking-[0.2em] text-white/90 uppercase">
-                OUR JOURNEY
-              </span>
-            </div>
-
-            {/* Horizontal Timeline Track */}
-            <div className="relative">
-              {/* Connecting Horizontal Line (desktop) */}
-              <div className="hidden lg:block absolute top-[11px] left-3 right-6 h-[2px] bg-white/15 -z-0">
-                <div className="h-full bg-gradient-to-r from-white/20 via-white/40 to-[#FF7A1A]" />
-              </div>
-
-              {/* 5 Milestone Columns */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative z-10">
-                {TIMELINE_MILESTONES.map((m, idx) => {
-                  const isCurrent = m.isCurrent;
-
-                  return (
-                    <div key={idx} className="space-y-3 relative">
-                      {/* Node Circle */}
-                      <div className="flex items-center gap-2.5">
-                        <div
-                          className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                            isCurrent
-                              ? "bg-[#FF7A1A] ring-4 ring-[#FF7A1A]/30 shadow-[0_0_15px_#FF7A1A]"
-                              : "bg-white/90 ring-4 ring-white/10"
-                          }`}
-                        >
-                          <div
-                            className={`w-2 h-2 rounded-full ${
-                              isCurrent ? "bg-white" : "bg-[#070A0D]"
-                            }`}
-                          />
-                        </div>
-                        <span
-                          className={`font-heading font-extrabold text-lg sm:text-xl tracking-tight ${
-                            isCurrent ? "text-[#FF7A1A]" : "text-white"
-                          }`}
-                        >
-                          {m.year}
-                        </span>
-                      </div>
-
-                      {/* Milestone Title */}
-                      <h3 className="font-heading font-extrabold text-sm sm:text-base text-white tracking-tight leading-snug">
-                        {m.title}
-                      </h3>
-
-                      {/* Milestone Description */}
-                      <p className="text-xs text-[#9CA3AF] leading-relaxed font-normal">
-                        {m.subtitle}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
+        <RailwayJourney />
 
         {/* ========================================================== */}
         {/* 5. GUIDING PRINCIPLES SECTION: 3 Core Value Cards          */}
