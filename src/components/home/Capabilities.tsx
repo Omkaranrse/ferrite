@@ -110,7 +110,7 @@ const SERVICES: ServiceCard[] = [
     description: "Seamless communication, innovative design and fast response.",
     bullets: ["Concept & Design", "Structural Analysis"],
     image: "/images/services/engineering-solutions.jpg",
-    href: "/capabilities",
+    href: "/services",
     icon: DraftingCompassIcon,
     featured: true,
   },
@@ -120,7 +120,7 @@ const SERVICES: ServiceCard[] = [
     description: "Custom and heavy steel fabrications built with precision.",
     bullets: ["Custom Fabrication", "Heavy Steel Assemblies"],
     image: "/images/services/welded-assemblies.jpg",
-    href: "/capabilities",
+    href: "/services",
     icon: WeldedAssembliesIcon,
   },
   {
@@ -129,7 +129,7 @@ const SERVICES: ServiceCard[] = [
     description: "Built for safety and long-term performance.",
     bullets: ["Bridge Walkways", "Support Structures"],
     image: "/images/services/bridge-walkways.jpg",
-    href: "/capabilities",
+    href: "/services",
     icon: BridgeTrussIcon,
   },
   {
@@ -138,7 +138,7 @@ const SERVICES: ServiceCard[] = [
     description: "Complete steelwork from design to erection.",
     bullets: ["Structural Steel Design", "Steel Fabrication"],
     image: "/images/services/structural-steelwork.jpg",
-    href: "/capabilities",
+    href: "/services",
     icon: StructuralFrameIcon,
   },
 ];
@@ -184,8 +184,8 @@ export default function Capabilities() {
 
           {/* Top Right "View Our Services →" Pill CTA */}
           <Link
-            href="/capabilities"
-            className={`inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full transition-all duration-300 group shrink-0 self-start md:self-auto text-xs sm:text-sm font-semibold ${isLight ? "bg-white hover:bg-slate-50 border border-slate-300 hover:border-[#FF7A1A]/80 text-slate-800 shadow-sm hover:shadow-md" : "bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-white shadow-lg hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"}`}
+            href="/services"
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#141A1F]/80 hover:bg-[#1A2228] border border-white/10 hover:border-[#FF7A1A]/60 backdrop-blur-md text-xs sm:text-sm font-semibold text-white transition-all duration-300 group shadow-lg shrink-0 self-start md:self-auto hover:shadow-[0_0_20px_rgba(255,122,26,0.2)]"
           >
             <span>View Our Services</span>
             <span className="text-[#FF7A1A] font-bold text-sm sm:text-base transition-transform duration-300 group-hover:translate-x-1">

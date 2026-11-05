@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Phone, MapPin, ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
@@ -79,6 +80,9 @@ function PolaroidCard({ image, caption, rotate, zIndex, className = "" }: Polaro
 export default function Footer() {
   const { theme, isMounted } = useTheme();
   const isLight = isMounted && theme === "light";
+  const pathname = usePathname();
+  const isContactPage = pathname === "/contact";
+
   return (
     <footer className={`relative pt-8 sm:pt-12 pb-8 overflow-hidden transition-colors duration-300 ${isLight ? "bg-[#F1F5F9] text-slate-600 border-t border-slate-200" : "bg-[#070A0D] text-[#9CA3AF]"}`}>
       {/* Ambient Deep Glows */}
@@ -89,9 +93,10 @@ export default function Footer() {
         {/* ========================================================== */}
         {/* TOP FLOATING CARD BANNER (Exact Match to Mockup)          */}
         {/* ========================================================== */}
-        <div className="relative">
-          {/* Underglow Reflection */}
-          <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
+        {!isContactPage && (
+          <div className="relative">
+            {/* Underglow Reflection */}
+            <div className="absolute -bottom-6 left-12 right-12 h-16 bg-[#FF7A1A]/20 blur-2xl rounded-full pointer-events-none" />
 
           <div className={`rounded-[28px] sm:rounded-[32px] md:rounded-[36px] p-6 sm:p-9 md:p-11 lg:p-12 xl:p-14 relative overflow-hidden transition-all duration-300 ${isLight ? "bg-white border border-slate-200 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" : "bg-gradient-to-r from-[#10151A] via-[#12171D] to-[#10151A] border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)]"}`}>
             {/* Orange Backlight for the Polaroid Reel */}
@@ -122,70 +127,63 @@ export default function Footer() {
                   best price and on-time delivery across India.
                 </p>
 
-                {/* Orange Pill Button */}
-                <div className="pt-2">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_25px_rgba(255,122,26,0.45)] hover:shadow-[0_4px_35px_rgba(255,122,26,0.65)] hover:scale-105 active:scale-95 transition-all group"
-                  >
-                    <span>Request a Quote</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  {/* Orange Pill Button */}
+                  <div className="pt-2">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-[0_4px_25px_rgba(255,122,26,0.45)] hover:shadow-[0_4px_35px_rgba(255,122,26,0.65)] hover:scale-105 active:scale-95 transition-all group"
+                    >
+                      <span>Request a Quote</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 </div>
-              </div>
 
-              {/* Right Column: 5 Fanned-Out White Polaroids */}
-              <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible pt-4 pb-4 sm:py-2">
-                <div className="relative flex items-center justify-center -space-x-4 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
-                  {/* Photo 1: Steel Angles */}
-                  <PolaroidCard
-                    image="/images/products/steel-angle.png"
-                    caption="Steel Angles"
-                    rotate={-9}
-                    zIndex={10}
-                  />
+                {/* Right Column: 5 Fanned-Out White Polaroids */}
+                <div className="lg:col-span-7 xl:col-span-7 relative flex items-center justify-center lg:justify-end overflow-visible pt-4 pb-4 sm:py-2">
+                  <div className="relative flex items-center justify-center -space-x-4 sm:-space-x-6 md:-space-x-7 lg:-space-x-8 xl:-space-x-9">
+                    {/* Photo 1: Steel Angles */}
+                    <PolaroidCard
+                      image="/images/products/steel-angle.png"
+                      caption="Steel Angles"
+                      rotate={-9}
+                      zIndex={10}
+                    />
 
-                  {/* Photo 2: Heavy Sections */}
-                  <PolaroidCard
-                    image="/images/products/steel-beams.png"
-                    caption="Heavy Sections"
-                    rotate={-3}
-                    zIndex={20}
-                  />
+                    {/* Photo 2: Heavy Sections */}
+                    <PolaroidCard
+                      image="/images/products/steel-beams.png"
+                      caption="Heavy Sections"
+                      rotate={-3}
+                      zIndex={20}
+                    />
 
-                  {/* Photo 3: Steel Pipes */}
-                  <PolaroidCard
-                    image="/images/products/steel-pipes.png"
-                    caption="Steel Pipes"
-                    rotate={2}
-                    zIndex={30}
-                  />
+                    {/* Photo 3: Steel Pipes */}
+                    <PolaroidCard
+                      image="/images/products/steel-pipes.png"
+                      caption="Steel Pipes"
+                      rotate={2}
+                      zIndex={30}
+                    />
 
-                  {/* Photo 4: Fabrication */}
-                  <PolaroidCard
-                    image="/images/services/welded-assemblies.jpg"
-                    caption="Fabrication"
-                    rotate={5}
-                    zIndex={20}
-                  />
-
-                  {/* Photo 5: Site Erection */}
-                  <PolaroidCard
-                    image="/images/services/structural-steelwork.jpg"
-                    caption="Site Erection"
-                    rotate={9}
-                    zIndex={10}
-                  />
+                    {/* Photo 5: Site Erection */}
+                    <PolaroidCard
+                      image="/images/services/structural-steelwork.jpg"
+                      caption="Site Erection"
+                      rotate={9}
+                      zIndex={10}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ========================================================== */}
         {/* LOWER FOOTER: 5-Column Navigation & Contact Block         */}
         {/* ========================================================== */}
-        <div className="pt-14 sm:pt-16 lg:pt-20 pb-8 sm:pb-12 relative">
+        <div className={`${isContactPage ? "pt-6 sm:pt-10 border-t border-white/[0.08]" : "pt-14 sm:pt-16 lg:pt-20"} pb-8 sm:pb-12 relative`}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
             {/* Column 1: Brand Wordmark, Lineage & Description (3.5 cols) */}
             <div className="lg:col-span-4 xl:col-span-3 space-y-4">
@@ -233,7 +231,7 @@ export default function Footer() {
                 {[
                   { name: "Home", href: "/" },
                   { name: "About Us", href: "/about" },
-                  { name: "Services", href: "/capabilities" },
+                  { name: "Services", href: "/services" },
                   { name: "Blogs", href: "/#insights" },
                   { name: "FAQs", href: "/contact" },
                   { name: "Contact Us", href: "/contact" },

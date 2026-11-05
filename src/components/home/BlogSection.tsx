@@ -61,7 +61,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Mar 18, 2025",
     readTime: "5 min read",
     image: "/images/blogs/coastal-construction.jpg",
-    href: "/capabilities",
+    href: "/services",
   },
   {
     id: "marine-chemical",
@@ -69,7 +69,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Apr 18, 2025",
     readTime: "6 min read",
     image: "/images/blogs/marine-chemical.jpg",
-    href: "/capabilities",
+    href: "/services",
     featured: true,
   },
   {
@@ -78,7 +78,7 @@ const BLOG_POSTS: BlogPost[] = [
     date: "Feb 25, 2025",
     readTime: "4 min read",
     image: "/images/blogs/galvanized-angles.jpg",
-    href: "/capabilities",
+    href: "/services",
   },
 ];
 
