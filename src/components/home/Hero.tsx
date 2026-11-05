@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { Award, Users, Shield, ArrowRight } from "lucide-react";
 import { FERRITE_CONTACT } from "@/lib/contact";
 import { trackEvent } from "@/lib/analytics";
 import Aperture3DCard from "./Aperture3DCard";
@@ -58,7 +58,7 @@ export default function Hero() {
             >
               <div className="inline-flex items-center text-[10px] sm:text-xs font-mono tracking-[0.22em] text-white/85 uppercase font-medium">
                 <span className="w-1 h-4 bg-copper rounded-sm inline-block mr-2.5" />
-                <span>ABOUT FERRITE STRUCTURAL STEELS</span>
+                <span>FERRITE STRUCTURAL STEELS PVT LTD</span>
               </div>
             </motion.div>
 
@@ -79,18 +79,63 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            {/* Supporting Copy */}
-            <motion.p
+            {/* Credibility & Scale Stats Strip (59+ Years, 1000+ Clients, Quality) */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[13px] sm:text-[14px] lg:text-[15px] text-[#B0B8C1] font-body leading-[1.75] max-w-lg [text-shadow:_0_1px_8px_rgba(0,0,0,0.9)]"
+              className="bg-[#1C2023]/95 border border-white/10 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-2xl my-2 max-w-xl"
             >
-              Ferrite Structural Steels Pvt. Ltd. is a steel stockist, manufacturer and supplier in Mumbai,
-              with business roots dating to 1965. We supply angles, beams, channels, bars, pipes, sheets
-              and plates, with cutting, shaping and sizing to your requirements. Our Ghatkopar office and
-              Kalamboli facility support contractors, fabricators and industrial buyers across India.
-            </motion.p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 items-center">
+                {/* 59+ Experience */}
+                <div className="flex items-center gap-3">
+                  <Award className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                  <div>
+                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                      59+
+                    </div>
+                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                      Years of Experience
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                      Since 1965
+                    </div>
+                  </div>
+                </div>
+
+                {/* 1000+ Clients */}
+                <div className="flex items-center gap-3">
+                  <Users className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                  <div>
+                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                      1000+
+                    </div>
+                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                      Happy Clients
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                      Across India
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quality */}
+                <div className="flex items-center gap-3">
+                  <Shield className="w-8 h-8 text-[#F4F3EF] shrink-0 stroke-[1.6]" />
+                  <div>
+                    <div className="font-heading text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                      Quality
+                    </div>
+                    <div className="text-xs sm:text-[13px] text-[#C4C9CE] font-medium leading-tight">
+                      Products as per IS,
+                    </div>
+                    <div className="text-[11px] sm:text-xs text-[#8E959B] leading-tight">
+                      ASTM &amp; EN Standards
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Dual Conversion CTA Row */}
             <motion.div
