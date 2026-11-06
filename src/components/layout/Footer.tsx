@@ -232,7 +232,7 @@ export default function Footer() {
                   { name: "Home", href: "/" },
                   { name: "About Us", href: "/about" },
                   { name: "Services", href: "/services" },
-                  { name: "Blogs", href: "/#insights" },
+                  { name: "Blog", href: "/blog" },
                   { name: "FAQs", href: "/contact" },
                   { name: "Contact Us", href: "/contact" },
                 ].map((link) => (

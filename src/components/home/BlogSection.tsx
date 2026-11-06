@@ -58,27 +58,27 @@ const BLOG_POSTS: BlogPost[] = [
   {
     id: "coastal-construction",
     title: "Why Choose Stainless Steel Channels for Coastal Construction?",
-    date: "Mar 18, 2025",
+    date: "July 25, 2026",
     readTime: "5 min read",
     image: "/images/blogs/coastal-construction.jpg",
-    href: "/services",
+    href: "/blog/stainless-steel-channels-coastal-construction",
   },
   {
     id: "marine-chemical",
     title: "Why Stainless Steel Channels Are Crucial for Marine and Chemical Industries",
-    date: "Apr 18, 2025",
+    date: "July 28, 2026",
     readTime: "6 min read",
     image: "/images/blogs/marine-chemical.jpg",
-    href: "/services",
+    href: "/blog/stainless-steel-channels-marine-chemical-industries",
     featured: true,
   },
   {
     id: "galvanized-angles",
     title: "What Makes Galvanized Steel Angles Ideal for Outdoor Construction",
-    date: "Feb 25, 2025",
+    date: "July 22, 2026",
     readTime: "4 min read",
     image: "/images/blogs/galvanized-angles.jpg",
-    href: "/services",
+    href: "/blog/galvanized-steel-angles-outdoor-construction",
   },
 ];
 
@@ -225,7 +225,7 @@ export default function BlogSection() {
         {/* Bottom Left "View All Blogs →" Button */}
         <div className="mt-10 sm:mt-12">
           <Link
-            href="/capabilities"
+            href="/blog"
             className={`inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full border border-[#FF7A1A] text-xs sm:text-sm font-bold transition-all duration-300 group hover:scale-105 active:scale-95 ${isLight ? "bg-white hover:bg-orange-50 text-slate-900 shadow-sm hover:shadow-[0_0_20px_rgba(255,122,26,0.3)]" : "bg-[#0A0E11]/90 hover:bg-[#FF7A1A]/10 text-white shadow-[0_0_15px_rgba(255,122,26,0.18)] hover:shadow-[0_0_25px_rgba(255,122,26,0.4)]"}`}
           >
             <span>View All Blogs</span>

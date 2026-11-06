@@ -19,7 +19,7 @@ const NAV_LINKS = [
   { name: "About", href: "/about" },
   { name: "Products", href: "/products" },
   { name: "Services", href: "/services" },
-  { name: "Industries", href: "/industries" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
