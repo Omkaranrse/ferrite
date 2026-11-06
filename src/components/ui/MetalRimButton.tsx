@@ -59,7 +59,8 @@ export default function MetalRimButton({
 
   const innerContent = (
     <motion.div
-      className="relative rounded-full p-[2.5px] cursor-pointer select-none transition-transform"
+      data-metal-rim="true"
+      className="metal-rim-btn relative rounded-full p-[2.5px] cursor-pointer select-none transition-transform"
       style={{
         background: isHovered
           ? "linear-gradient(135deg, #34D399 0%, #25D366 25%, #059669 50%, #10B981 75%, #047857 100%)"
@@ -146,10 +147,11 @@ export default function MetalRimButton({
           </motion.div>
         </div>
 
-        {/* Button Label */}
+        {/* Button Label - Always Crisp White in Light & Dark Modes */}
         <span
-          className={`font-heading font-semibold ${textClass} tracking-tight text-[#F2F2F4] whitespace-nowrap z-10`}
+          className={`metal-rim-label font-heading font-semibold ${textClass} tracking-tight whitespace-nowrap z-10`}
           style={{
+            color: "#FFFFFF",
             textShadow: "0 1px 3px rgba(0, 0, 0, 0.7)",
           }}
         >

@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight, BookOpen, Layers, Award } from "lucide-react";
+import { BookOpen, Layers, Award } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function BlogHero() {
@@ -33,38 +32,18 @@ export default function BlogHero() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Breadcrumb */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className={`flex items-center gap-2 text-xs font-mono mb-6 ${
-            isLight ? "text-slate-500" : "text-steel"
-          }`}
-        >
-          <Link href="/" className="hover:text-copper transition-colors">
-            FERRITE
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-[#FF7A1A] font-medium tracking-wider">
-            INSIGHTS & PERSPECTIVES
-          </span>
-        </motion.div>
-
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
-          className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border mb-6 text-xs font-mono font-semibold uppercase tracking-wider transition-colors"
+          className="inline-flex items-center px-3.5 py-1.5 rounded-full border mb-6 text-xs font-mono font-semibold uppercase tracking-wider transition-colors"
           style={{
             borderColor: isLight ? "rgba(200, 121, 64, 0.3)" : "rgba(255, 122, 26, 0.25)",
             backgroundColor: isLight ? "rgba(255, 122, 26, 0.08)" : "rgba(255, 122, 26, 0.08)",
             color: "#FF7A1A",
           }}
         >
-          <span className="w-2 h-2 rounded-full bg-[#FF7A1A] animate-pulse" />
-          <span>EDITORIAL KNOWLEDGE BASE</span>
         </motion.div>
 
         {/* Editorial Heading */}
@@ -188,4 +167,3 @@ export default function BlogHero() {
     </section>
   );
 }
-

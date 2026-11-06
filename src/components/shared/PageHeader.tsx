@@ -8,7 +8,7 @@ import Badge from "@/components/ui/Badge";
 import { useTheme } from "@/context/ThemeContext";
 
 interface PageHeaderProps {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   highlightedTitle?: string;
   subtitle: string;
@@ -50,14 +50,16 @@ export default function PageHeader({
         )}
 
         {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
-          className="mb-4"
-        >
-          <Badge variant="copper">{eyebrow}</Badge>
-        </motion.div>
+        {eyebrow && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
+            className="mb-4"
+          >
+            <Badge variant="copper">{eyebrow}</Badge>
+          </motion.div>
+        )}
 
         {/* Title with Masked Entrance */}
         <div className="overflow-hidden">

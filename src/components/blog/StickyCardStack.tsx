@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Clock, ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { Calendar, Clock, ArrowUpRight, ArrowRight } from "lucide-react";
 import { BlogPost } from "@/types/blog";
 import { useTheme } from "@/context/ThemeContext";
-import ArticleCard from "@/components/blog/ArticleCard";
 
 interface StickyCardStackProps {
   articles: BlogPost[];
@@ -18,10 +16,8 @@ const INITIAL_COUNT = 6;
 export default function StickyCardStack({ articles }: StickyCardStackProps) {
   const { theme, isMounted } = useTheme();
   const isLight = isMounted && theme === "light";
-  const [showAll, setShowAll] = useState(false);
 
   const initialArticles = articles.slice(0, INITIAL_COUNT);
-  const remainingArticles = articles.slice(INITIAL_COUNT);
 
   return (
     <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6">
@@ -164,73 +160,15 @@ export default function StickyCardStack({ articles }: StickyCardStackProps) {
         <div className="h-[45vh]" aria-hidden="true" />
       </div>
 
-      {/* ── View All / Expandable Archive Section ── */}
-      <div className="pt-4 pb-12">
-        <div className="flex flex-col items-center gap-3">
-          <p
-            className={`text-xs font-mono uppercase tracking-widest ${
-              isLight ? "text-slate-400" : "text-[#9CA3AF]"
-            }`}
-          >
-            Showing {showAll ? articles.length : INITIAL_COUNT} of {articles.length} articles
-          </p>
-
-          <button
-            type="button"
-            onClick={() => setShowAll((prev) => !prev)}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-heading font-bold text-sm uppercase tracking-wider border-2 border-[#FF7A1A] text-[#FF7A1A] hover:bg-[#FF7A1A] hover:text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7A1A] focus-visible:ring-offset-2 shadow-sm hover:shadow-lg hover:shadow-[#FF7A1A]/20"
-          >
-            <span>
-              {showAll
-                ? "Show Less"
-                : `View All ${articles.length} Articles`}
-            </span>
-            {showAll ? (
-              <ChevronUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
-            ) : (
-              <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-            )}
-          </button>
-        </div>
-
-        {/* Remaining Articles Grid */}
-        <AnimatePresence>
-          {showAll && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-14"
-            >
-              {/* Archive Header */}
-              <div className="flex items-center gap-4 mb-10">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#FF7A1A]/30 to-transparent" />
-                <span
-                  className={`text-xs font-mono font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full border ${
-                    isLight
-                      ? "text-slate-600 border-slate-200 bg-white"
-                      : "text-[#9CA3AF] border-white/10 bg-[#10151A]"
-                  }`}
-                >
-                  All {remainingArticles.length} Remaining Technical Guides
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#FF7A1A]/30 to-transparent" />
-              </div>
-
-              {/* 3-Column Responsive Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 -mx-4 sm:-mx-8 lg:-mx-16">
-                {remainingArticles.map((article, idx) => (
-                  <ArticleCard
-                    key={article.slug}
-                    article={article}
-                    index={idx}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* ── View All Articles Link Button (Navigates to /blog/all) ── */}
+      <div className="pt-4 pb-16 flex justify-center">
+        <Link
+          href="/blog/all"
+          className="group inline-flex items-center gap-3 px-9 py-4 rounded-full font-heading font-bold text-sm uppercase tracking-wider border-2 border-[#FF7A1A] text-[#FF7A1A] hover:bg-[#FF7A1A] hover:text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7A1A] focus-visible:ring-offset-2 shadow-sm hover:shadow-lg hover:shadow-[#FF7A1A]/20"
+        >
+          <span>View All Articles</span>
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
       </div>
     </div>
   );

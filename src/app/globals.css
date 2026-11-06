@@ -581,7 +581,12 @@ html.light [class*="from-[#FF7A1A]"] span,
 html.light [class*="from-[#FF7A1A]"] svg,
 html.light [class*="bg-[#25D366]"],
 html.light [class*="bg-[#25D366]"] *,
-html.light .bg-\[\#25D366\] {
+html.light .bg-\[\#25D366\],
+html.light [data-metal-rim="true"],
+html.light [data-metal-rim="true"] *,
+html.light .metal-rim-btn,
+html.light .metal-rim-btn *,
+html.light .metal-rim-label {
   color: #FFFFFF !important;
 }
 
@@ -638,12 +643,11 @@ html.light [data-hero="true"] h1 {
   text-shadow: 0 0 24px #000000, 0 0 48px #000000, 0 2px 8px #000000, 0 4px 16px rgba(0,0,0,0.95) !important;
 }
 
-/* Sub-labels in stats card — slightly muted white */
-html.light [data-hero="true"] .text-\[\#C4C9CE\] {
-  color: rgba(255,255,255,0.80) !important;
-}
-html.light [data-hero="true"] .text-\[\#8E959B\] {
-  color: rgba(255,255,255,0.60) !important;
+/* Stats card text — full white */
+html.light [data-hero="true"] .text-\[\#C4C9CE\],
+html.light [data-hero="true"] .text-\[\#8E959B\],
+html.light [data-hero="true"] .text-white {
+  color: #FFFFFF !important;
 }
 
 /* Glass card border stays translucent white */

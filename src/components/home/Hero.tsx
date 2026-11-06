@@ -93,15 +93,15 @@ export default function Hero() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 items-center">
               {/* 59+ Experience */}
               <div className="flex items-center gap-3">
-                <Award className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
+                <Award className="w-8 h-8 shrink-0 text-white stroke-[1.6]" />
                 <div>
                   <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     59+
                   </div>
-                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-white">
                     Years of Experience
                   </div>
-                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
+                  <div className="text-[11px] sm:text-xs leading-tight text-white">
                     Since 1965
                   </div>
                 </div>
@@ -109,15 +109,15 @@ export default function Hero() {
 
               {/* 1000+ Clients */}
               <div className="flex items-center gap-3">
-                <Users className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
+                <Users className="w-8 h-8 shrink-0 text-white stroke-[1.6]" />
                 <div>
                   <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     1000+
                   </div>
-                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-white">
                     Happy Clients
                   </div>
-                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
+                  <div className="text-[11px] sm:text-xs leading-tight text-white">
                     Across India
                   </div>
                 </div>
@@ -125,15 +125,15 @@ export default function Hero() {
 
               {/* Quality */}
               <div className="flex items-center gap-3">
-                <Shield className="w-8 h-8 shrink-0 text-[#F4F3EF] stroke-[1.6]" />
+                <Shield className="w-8 h-8 shrink-0 text-white stroke-[1.6]" />
                 <div>
                   <div className="font-heading text-xl sm:text-2xl font-extrabold leading-tight text-white">
                     Quality
                   </div>
-                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-[#C4C9CE]">
+                  <div className="text-xs sm:text-[13px] font-medium leading-tight text-white">
                     Products as per IS,
                   </div>
-                  <div className="text-[11px] sm:text-xs leading-tight text-[#8E959B]">
+                  <div className="text-[11px] sm:text-xs leading-tight text-white">
                     ASTM &amp; EN Standards
                   </div>
                 </div>

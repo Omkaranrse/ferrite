@@ -34,7 +34,6 @@ export default function ProductsCatalogClient() {
   return (
     <>
       <PageHeader
-        eyebrow="FERRITE STRUCTURAL STEELS PVT LTD"
         title="Steel"
         highlightedTitle="Products."
         subtitle="At Ferrite Structural Steels Pvt Ltd, we offer an extensive range of high-quality steel products designed to meet the diverse needs of our clients. Our product portfolio includes Steel Angles, Steel Beams, Steel Channels, Steel Bars, Steel Pipes, Steel Sheets, and Steel Plates, all manufactured to the highest industry standards."
