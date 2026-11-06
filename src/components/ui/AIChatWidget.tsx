@@ -5,14 +5,15 @@ import { X, Send, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
+import WeldButton from "./WeldButton";
 
 /* ── Ferrite Logo Icon (inline SVG for the FAB) ────────────── */
-const FerriteLogo = ({ className = "w-7 h-7" }: { className?: string }) => (
+const FerriteLogo = ({ className = "w-9 h-9" }: { className?: string }) => (
   <Image
     src="/ferrite-icon.svg"
     alt="Ferrite"
-    width={28}
-    height={28}
+    width={44}
+    height={44}
     className={className}
     priority
   />
@@ -336,21 +337,18 @@ export default function AIChatWidget() {
       </AnimatePresence>
 
       {/* ════════════════════════════════════════════════════════ */}
-      {/* FAB (Floating Action Button) - NAVBAR BLACK BACKGROUND   */}
+      {/* FAB (WELD BUTTON) - INDUSTRIAL CANVAS PHYSICS SPARKS     */}
       {/* ════════════════════════════════════════════════════════ */}
-      <button
+      <WeldButton
+        size={58}
+        isOpen={isOpen}
         onClick={isOpen ? handleClose : handleOpen}
         aria-expanded={isOpen}
-        className={`relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none ${
-          isOpen
-            ? "bg-[#111315]/95 backdrop-blur-2xl border border-white/25 shadow-2xl shadow-black/90"
-            : "bg-[#111315]/95 hover:bg-[#16181B] backdrop-blur-2xl border border-white/20 hover:border-[#FF7A1A]/60 shadow-2xl shadow-black/90 hover:shadow-[0_0_25px_rgba(255,122,26,0.25)]"
-        }`}
-        aria-label={isOpen ? "Close chat" : "Open chat"}
+        aria-label={isOpen ? "Close chat" : "Open Ferrite AI Chat"}
       >
         {/* Notification dot */}
         {!isOpen && !hasInteracted && (
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#111315]" />
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#111315] z-20 pointer-events-none" />
         )}
 
         <AnimatePresence mode="wait">
@@ -362,7 +360,7 @@ export default function AIChatWidget() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-6 h-6 text-white" />
             </motion.div>
           ) : (
             <motion.div
@@ -372,11 +370,11 @@ export default function AIChatWidget() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <FerriteLogo className="w-7 h-7 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" />
+              <FerriteLogo className="w-10 h-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" />
             </motion.div>
           )}
         </AnimatePresence>
-      </button>
+      </WeldButton>
     </aside>
   );
 }
