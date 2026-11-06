@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 /* ── Ferrite Logo Icon (inline SVG for the FAB) ────────────── */
 const FerriteLogo = ({ className = "w-7 h-7" }: { className?: string }) => (
   <Image
-    src="/images/ferrite-icon.svg"
+    src="/ferrite-icon.svg"
     alt="Ferrite"
     width={28}
     height={28}
@@ -187,7 +187,7 @@ export default function AIChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.92 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-[72px] right-0 w-64 rounded-2xl bg-[#111820] border border-white/10 p-3.5 shadow-2xl select-none"
+            className="absolute bottom-[72px] right-0 w-64 rounded-2xl bg-[#111315]/95 backdrop-blur-xl border border-white/15 p-3.5 shadow-2xl shadow-black/80 select-none"
           >
             <button
               onClick={() => setShowPopup(false)}
@@ -219,14 +219,14 @@ export default function AIChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.94 }}
             transition={{ type: "spring", damping: 28, stiffness: 320 }}
-            className="absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[370px] h-[500px] max-h-[80vh] rounded-2xl bg-[#0C1017] border border-white/10 shadow-[0_16px_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden"
+            className="absolute bottom-[72px] right-0 w-[calc(100vw-32px)] sm:w-[370px] h-[500px] max-h-[80vh] rounded-2xl bg-[#111315]/95 backdrop-blur-2xl border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden"
             onWheel={stopPropagation}
             onTouchMove={stopPropagation}
           >
             {/* ── Header ─────────────────────────────────────── */}
-            <div className="px-4 py-3 bg-[#111820] border-b border-white/[0.08] flex items-center justify-between shrink-0">
+            <div className="px-4 py-3 bg-[#16181B] border-b border-white/[0.08] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-[#FF7A1A]/15 border border-[#FF7A1A]/25 flex items-center justify-center overflow-hidden">
+                <div className="w-8 h-8 rounded-xl bg-[#111315] border border-white/15 flex items-center justify-center overflow-hidden">
                   <FerriteLogo className="w-5 h-5" />
                 </div>
                 <div>
@@ -261,7 +261,7 @@ export default function AIChatWidget() {
             {/* ── Messages ───────────────────────────────────── */}
             <div
               ref={chatBodyRef}
-              className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3"
+              className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-3 bg-[#0D0E10]"
             >
               {messages.map((msg) => (
                 <div
@@ -271,8 +271,8 @@ export default function AIChatWidget() {
                   <div
                     className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-[#FF7A1A] text-white rounded-br-md"
-                        : "bg-[#161D26] text-[#D1D5DB] rounded-bl-md border border-white/[0.06] whitespace-pre-wrap"
+                        ? "bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] text-white rounded-br-md shadow-[0_2px_10px_rgba(255,122,26,0.25)]"
+                        : "bg-[#16181B] text-[#D1D5DB] rounded-bl-md border border-white/[0.08] whitespace-pre-wrap"
                     }`}
                   >
                     {msg.content}
@@ -283,7 +283,7 @@ export default function AIChatWidget() {
               {/* Typing dots */}
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-[#161D26] border border-white/[0.06] rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-1">
+                  <div className="bg-[#16181B] border border-white/[0.08] rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-bounce [animation-delay:-0.3s]" />
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-bounce [animation-delay:-0.15s]" />
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-bounce" />
@@ -296,12 +296,12 @@ export default function AIChatWidget() {
 
             {/* ── Quick replies ───────────────────────────────── */}
             {messages.length <= 2 && (
-              <div className="px-3 py-2 border-t border-white/[0.05] flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+              <div className="px-3 py-2 bg-[#111315] border-t border-white/[0.06] flex items-center gap-1.5 overflow-x-auto scrollbar-none">
                 {QUICK_REPLIES.map((qr, idx) => (
                   <button
                     key={idx}
                     onClick={() => sendMessage(qr.query)}
-                    className="px-3 py-1.5 rounded-full bg-[#161D26] hover:bg-[#1C2530] border border-white/[0.08] hover:border-[#FF7A1A]/30 text-white/70 hover:text-white text-[11px] whitespace-nowrap transition-all shrink-0"
+                    className="px-3 py-1.5 rounded-full bg-[#16181B] hover:bg-[#202328] border border-white/10 hover:border-[#FF7A1A]/40 text-white/80 hover:text-white text-[11px] whitespace-nowrap transition-all shrink-0"
                   >
                     {qr.label}
                   </button>
@@ -310,7 +310,7 @@ export default function AIChatWidget() {
             )}
 
             {/* ── Input ──────────────────────────────────────── */}
-            <div className="p-3 bg-[#111820] border-t border-white/[0.08]">
+            <div className="p-3 bg-[#16181B] border-t border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <input
                   ref={inputRef}
@@ -319,12 +319,12 @@ export default function AIChatWidget() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
-                  className="flex-1 bg-[#0A0D12] border border-white/10 focus:border-[#FF7A1A]/60 rounded-xl px-3.5 py-2.5 text-[13px] text-white placeholder-white/30 focus:outline-none transition-colors"
+                  className="flex-1 bg-[#0D0E10] border border-white/10 focus:border-[#FF7A1A]/60 rounded-xl px-3.5 py-2.5 text-[13px] text-white placeholder-white/35 focus:outline-none transition-colors"
                 />
                 <button
                   onClick={() => sendMessage(inputValue)}
                   disabled={!inputValue.trim() || isTyping}
-                  className="p-2.5 rounded-xl bg-[#FF7A1A] hover:bg-[#FF882E] disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors shrink-0"
+                  className="p-2.5 rounded-xl bg-gradient-to-r from-[#FF7A1A] to-[#FF882E] hover:from-[#FF882E] hover:to-[#FFA04D] disabled:opacity-30 disabled:cursor-not-allowed text-white shadow-[0_2px_10px_rgba(255,122,26,0.3)] transition-all shrink-0"
                   aria-label="Send"
                 >
                   <Send className="w-4 h-4" />
@@ -336,21 +336,21 @@ export default function AIChatWidget() {
       </AnimatePresence>
 
       {/* ════════════════════════════════════════════════════════ */}
-      {/* FAB (Floating Action Button)                            */}
+      {/* FAB (Floating Action Button) - NAVBAR BLACK BACKGROUND   */}
       {/* ════════════════════════════════════════════════════════ */}
       <button
         onClick={isOpen ? handleClose : handleOpen}
         aria-expanded={isOpen}
         className={`relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none ${
           isOpen
-            ? "bg-[#161D26] border border-white/15 shadow-lg"
-            : "bg-gradient-to-br from-[#FF7A1A] to-[#E65500] shadow-[0_6px_24px_rgba(255,122,26,0.5)]"
+            ? "bg-[#111315]/95 backdrop-blur-2xl border border-white/25 shadow-2xl shadow-black/90"
+            : "bg-[#111315]/95 hover:bg-[#16181B] backdrop-blur-2xl border border-white/20 hover:border-[#FF7A1A]/60 shadow-2xl shadow-black/90 hover:shadow-[0_0_25px_rgba(255,122,26,0.25)]"
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {/* Notification dot */}
         {!isOpen && !hasInteracted && (
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#070A0D]" />
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#111315]" />
         )}
 
         <AnimatePresence mode="wait">
@@ -372,7 +372,7 @@ export default function AIChatWidget() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <FerriteLogo className="w-7 h-7" />
+              <FerriteLogo className="w-7 h-7 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" />
             </motion.div>
           )}
         </AnimatePresence>
