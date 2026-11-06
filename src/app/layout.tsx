@@ -11,7 +11,7 @@ const manrope = Manrope({
 });
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
+import AIChatWidget from "@/components/ui/AIChatWidget";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import { RFQProvider } from "@/context/RFQContext";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -155,7 +155,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
-            <FloatingWhatsApp />
+            <AIChatWidget />
           </RFQProvider>
           </ThemeProvider>
         </SmoothScroll>

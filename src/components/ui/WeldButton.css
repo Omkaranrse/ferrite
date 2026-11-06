@@ -1,0 +1,98 @@
+.weld-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+}
+
+.weld-fx {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--size) * 3.8);
+  height: calc(var(--size) * 3.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.weld-btn {
+  position: relative;
+  z-index: 2;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0;
+  cursor: pointer;
+  color: #f2f3f5;
+  background: #111315;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.weld-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 122, 26, 0.6);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.9), 0 0 24px rgba(255, 122, 26, 0.35);
+}
+
+.weld-btn:active {
+  transform: scale(0.96);
+}
+
+.weld-btn:focus-visible {
+  outline: 2px solid #ff7a1a;
+  outline-offset: 4px;
+}
+
+.weld-btn::before,
+.weld-btn::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  z-index: -1;
+  background: conic-gradient(from 0deg, #ff5a00, #ffd27a, #fff6d8, #ffd27a, #ff5a00, #7a1500, #ff5a00);
+  animation: weld-spin 3.6s linear infinite;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+}
+
+.weld-btn::before {
+  inset: -7px;
+  filter: blur(8px);
+  transition: filter 0.3s;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 3px));
+}
+
+.weld-btn:hover::before {
+  filter: blur(12px);
+}
+
+/* When chat is open, pause the weld ring and keep it clean */
+.weld-btn.is-open::before,
+.weld-btn.is-open::after {
+  display: none;
+}
+
+@keyframes weld-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .weld-btn::before,
+  .weld-btn::after {
+    animation-duration: 14s;
+  }
+}
